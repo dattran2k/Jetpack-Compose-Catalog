@@ -26,11 +26,11 @@ jobs:
       - name: Run Lint
         run: ./gradlew lintDevelopmentDebug
 
-      - name: Build all build type and flavor permutations
-        run: ./gradlew assemble
-
       - name: Run local tests
         run: ./gradlew testDevelopmentDebugUnitTest testProductionDebugUnitTest
+
+      - name: Build all build type and flavor permutations
+        run: ./gradlew assemble
 
       - name: Upload build outputs (APKs)
         uses: actions/upload-artifact@v3
