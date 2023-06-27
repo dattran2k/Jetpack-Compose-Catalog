@@ -12,10 +12,10 @@ plugins {
 }
 
 android {
-    namespace = "com.dat.base_compose"
+    namespace = "com.dat.jetpackcomposecatalog"
 
     defaultConfig {
-        applicationId = "com.dat.base_compose"
+        applicationId = "com.dat.jetpackcomposecatalog"
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -94,6 +94,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui.ui)
     implementation(libs.compose.ui.tooling.preview)
+    // for pull refresh XD
     implementation(libs.compose.material.material)
     implementation(libs.compose.material.material3)
 
