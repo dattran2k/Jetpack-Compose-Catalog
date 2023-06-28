@@ -3,6 +3,7 @@ package com.dat.jetpackcomposecatalog.presenstation.widget
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -43,6 +44,7 @@ fun ModifierConfigCompose(
     config.forEach {
         modifier = modifier.updateModifier(it)
     }
+    modifier.absoluteOffset()
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -58,6 +60,7 @@ fun ModifierConfigCompose(
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
                 )
+
                 ValueSlider(title = "")
             }
         },
@@ -73,7 +76,7 @@ fun ModifierConfigCompose(
                     )
                 })
             },
-            contentColor = LocalCustomColorTheme.current.backGround,
+            contentColor = LocalCustomColorTheme.current.background,
         ) { contentPadding ->
             Column(
                 modifier = Modifier

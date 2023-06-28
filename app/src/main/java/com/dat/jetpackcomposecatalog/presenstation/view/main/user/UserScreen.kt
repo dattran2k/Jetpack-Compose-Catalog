@@ -44,7 +44,7 @@ internal fun UserRoute(viewModel: UserViewModel = hiltViewModel()) {
 @Composable
 fun UserScreen(
     userUIState: UserUIState,
-    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
+    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit = {},
 ) {
     Column(
         Modifier
@@ -52,7 +52,7 @@ fun UserScreen(
             .verticalScroll(rememberScrollState())
             .statusBarsPadding()
             .background(
-                LocalCustomColorTheme.current.backGround
+                LocalCustomColorTheme.current.background
             )
     ) {
         when (userUIState) {
@@ -134,10 +134,7 @@ fun SettingsDialogThemeChooserRow(
 private fun PreviewUser() {
     JetpackComposeCatalogTheme(
         content = {
-            UserScreen(userUIState = UserUIState.Success(
-                DarkThemeConfig.LIGHT
-            ), onChangeDarkThemeConfig = {
-            })
+            UserScreen(userUIState = UserUIState.Success(DarkThemeConfig.LIGHT))
         },
     )
 }

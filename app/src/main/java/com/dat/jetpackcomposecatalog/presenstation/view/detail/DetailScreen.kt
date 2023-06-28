@@ -22,7 +22,7 @@ fun DetailScreen(onClickNavigate: () -> Unit, detailScreenArg: DetailScreenRoute
     Column(
         Modifier
             .fillMaxSize()
-            .background(LocalCustomColorTheme.current.backGround),
+            .background(LocalCustomColorTheme.current.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     )

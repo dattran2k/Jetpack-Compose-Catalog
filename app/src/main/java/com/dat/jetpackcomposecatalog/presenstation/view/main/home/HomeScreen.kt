@@ -45,7 +45,6 @@ import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTh
 import com.dat.jetpackcomposecatalog.presenstation.theme.LocalCustomColorTheme
 
 
-
 @Composable
 fun HomeRoute(
     onNavigateDetail: (todo: TodoItem) -> Unit,
@@ -70,6 +69,7 @@ fun HomeRoute(
 }
 
 
+@ExperimentalMaterialApi
 @Composable
 fun HomeScreen(
     homeUIState: HomeUIState,
@@ -140,9 +140,7 @@ fun ItemTodo(item: TodoItem, modifier: Modifier = Modifier) {
             )
             .padding(16.dp),
     ) {
-        Text(
-            text = "${item.id}", style = MaterialTheme.typography.bodySmall
-        )
+        Text(text = "${item.id}", style = MaterialTheme.typography.bodySmall)
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "${item.title}", style = MaterialTheme.typography.bodySmall
@@ -155,11 +153,7 @@ fun ItemTodo(item: TodoItem, modifier: Modifier = Modifier) {
 private fun ItemTodoPreview() {
     JetpackComposeCatalogTheme(
         content = {
-            ItemTodo(
-                item = TodoItem(
-                    false, 10, "Fake title", 10
-                ),
-            )
+            ItemTodo(item = TodoItem(false, 10, "Fake title", 10))
         },
     )
 

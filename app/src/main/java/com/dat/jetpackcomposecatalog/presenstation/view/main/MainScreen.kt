@@ -57,7 +57,7 @@ fun MainScreen(
     onNavigateDetail: (todo: TodoItem) -> Unit
 ) {
     Scaffold(
-        backgroundColor = LocalCustomColorTheme.current.backGround,
+        backgroundColor = LocalCustomColorTheme.current.background,
         bottomBar = {
             BottomNavigation {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -83,7 +83,7 @@ fun MainScreen(
                         },
                         selectedContentColor = PrimaryColor,
                         unselectedContentColor = LocalCustomColorTheme.current.textTitle,
-                        modifier = Modifier.background(LocalCustomColorTheme.current.backGround)
+                        modifier = Modifier.background(LocalCustomColorTheme.current.background)
                     )
 
                 }

@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,9 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.dat.jetpackcomposecatalog.data.model.local.DarkThemeConfig
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presenstation.theme.shouldUseDarkTheme
-import com.dat.jetpackcomposecatalog.presenstation.view.catalog_compose.BoxComposeRoute
 import com.dat.jetpackcomposecatalog.presenstation.view.detail.detailScreen
 import com.dat.jetpackcomposecatalog.presenstation.view.detail.navigateDetail
 import com.dat.jetpackcomposecatalog.presenstation.view.main.MainScreenRoute
@@ -59,9 +60,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val darkTheme = shouldUseDarkTheme(uiState)
             val navController = rememberNavController()
-            JetpackComposeCatalogTheme(
-                darkTheme,
-            ) {
+            JetpackComposeCatalogTheme(darkTheme) {
                 Surface(modifier = Modifier.fillMaxSize()) {
 //                    BoxComposeRoute()
                     NavHost(
@@ -75,5 +74,16 @@ class MainActivity : ComponentActivity() {
             }
 
         }
+    }
+}
+@Composable
+fun shouldUseDarkTheme(
+    uiState: MainActivityUiState,
+): Boolean = when (uiState) {
+    MainActivityUiState.Loading -> isSystemInDarkTheme()
+    is MainActivityUiState.Success -> when (uiState.userData.darkThemeConfig) {
+        DarkThemeConfig.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        DarkThemeConfig.LIGHT -> false
+        DarkThemeConfig.DARK -> true
     }
 }
