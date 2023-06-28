@@ -18,94 +18,86 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dat.jetpackcomposecatalog.R
 import com.dat.jetpackcomposecatalog.data.model.TodoItem
-import com.dat.jetpackcomposecatalog.presenstation.navigation.CatalogScreenRote
-import com.dat.jetpackcomposecatalog.presenstation.navigation.HomeScreenRote
 import com.dat.jetpackcomposecatalog.presenstation.navigation.ScreenRoute
-import com.dat.jetpackcomposecatalog.presenstation.navigation.UserScreenRoute
 import com.dat.jetpackcomposecatalog.presenstation.theme.LocalCustomColorTheme
 import com.dat.jetpackcomposecatalog.presenstation.theme.PrimaryColor
-import com.dat.jetpackcomposecatalog.presenstation.view.main.catalog.CatalogRoute
-import com.dat.jetpackcomposecatalog.presenstation.view.main.home.HomeRoute
-import com.dat.jetpackcomposecatalog.presenstation.view.main.user.UserRoute
+import com.dat.jetpackcomposecatalog.presenstation.view.main.catalog.navigation.CatalogOverviewScreenRoute
+import com.dat.jetpackcomposecatalog.presenstation.view.main.catalog.navigation.catalogScreen
+import com.dat.jetpackcomposecatalog.presenstation.view.main.home.navigation.HomeScreenRoute
+import com.dat.jetpackcomposecatalog.presenstation.view.main.home.navigation.homeScreen
+import com.dat.jetpackcomposecatalog.presenstation.view.main.user.navigation.UserScreenRoute
+import com.dat.jetpackcomposecatalog.presenstation.view.main.user.navigation.userScreen
 
-class MainItem(
+class MainTabItem(
     @DrawableRes val icon: Int,
     @StringRes val title: Int,
     val screenRoute: ScreenRoute
 )
 
 val tabItems = listOf(
-    MainItem(R.drawable.ic_tab_home, R.string.tab_catalog, CatalogScreenRote),
-    MainItem(R.drawable.ic_tab_home, R.string.tab_home, HomeScreenRote),
-    MainItem(R.drawable.ic_tab_user, R.string.tab_user, UserScreenRoute)
-)
+    MainTabItem(R.drawable.ic_tab_discover, R.string.tab_catalog, CatalogOverviewScreenRoute),
+    MainTabItem(R.drawable.ic_tab_home, R.string.tab_home, HomeScreenRoute),
+    MainTabItem(R.drawable.ic_tab_user, R.string.tab_user, UserScreenRoute))
 
-@Composable
-fun MainRoute(onNavigateDetail: (todo: TodoItem) -> Unit) {
-    val navController = rememberNavController()
-    MainScreen(navController, onNavigateDetail)
-}
+    @Composable
+    fun MainRoute(onNavigateDetail: (todo: TodoItem) -> Unit) {
+        val navController = rememberNavController()
+        MainScreen(navController, onNavigateDetail)
+    }
 
-@Composable
-fun MainScreen(
-    navController: NavHostController,
-    onNavigateDetail: (todo: TodoItem) -> Unit
-) {
-    Scaffold(
-        backgroundColor = LocalCustomColorTheme.current.background,
-        bottomBar = {
-            BottomNavigation {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
-                tabItems.forEach { screen ->
-                    BottomNavigationItem(
-                        icon = {
-                            Icon(
-                                painter = painterResource(id = screen.icon),
-                                contentDescription = null,
-                            )
-                        },
-                        label = { Text(stringResource(screen.title)) },
-                        selected = currentDestination?.hierarchy?.any { it.route == screen.screenRoute.route } == true,
-                        onClick = {
-                            navController.navigate(screen.screenRoute.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+    @Composable
+    fun MainScreen(
+        navController: NavHostController,
+        onNavigateDetail: (todo: TodoItem) -> Unit
+    ) {
+        Scaffold(
+            backgroundColor = LocalCustomColorTheme.current.background,
+            bottomBar = {
+                BottomNavigation {
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination
+                    tabItems.forEach { screen ->
+                        BottomNavigationItem(
+                            icon = {
+                                Icon(
+                                    painter = painterResource(id = screen.icon),
+                                    contentDescription = null,
+                                )
+                            },
+                            label = { Text(stringResource(screen.title)) },
+                            selected = currentDestination?.hierarchy?.any {
+                                it.route == screen.screenRoute.route
+                            } == true,
+                            onClick = {
+                                navController.navigate(screen.screenRoute.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        selectedContentColor = PrimaryColor,
-                        unselectedContentColor = LocalCustomColorTheme.current.textTitle,
-                        modifier = Modifier.background(LocalCustomColorTheme.current.background)
-                    )
+                            },
+                            selectedContentColor = PrimaryColor,
+                            unselectedContentColor = LocalCustomColorTheme.current.textTitle,
+                            modifier = Modifier.background(LocalCustomColorTheme.current.background)
+                        )
 
-                }
-            }
-        }
-    ) { innerPadding ->
-        NavHost(
-            navController,
-            startDestination = HomeScreenRote.route,
-            Modifier.padding(innerPadding)
-        ) {
-            tabItems.forEachIndexed { index, mainItem ->
-                composable(
-                    route = mainItem.screenRoute.route
-                ) {
-                    when (index) {
-                        0 -> HomeRoute(onNavigateDetail)
-                        1 -> CatalogRoute()
-                        2 -> UserRoute()
                     }
                 }
             }
+        ) { innerPadding ->
+            NavHost(
+                navController,
+                startDestination = CatalogOverviewScreenRoute.route,
+                Modifier.padding(innerPadding)
+            ) {
+                catalogScreen()
+                homeScreen(onNavigateDetail)
+                userScreen()
+            }
         }
     }
-}

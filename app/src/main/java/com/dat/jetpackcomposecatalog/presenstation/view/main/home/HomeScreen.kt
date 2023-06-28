@@ -71,7 +71,7 @@ fun HomeRoute(
 
 @ExperimentalMaterialApi
 @Composable
-fun HomeScreen(
+ fun HomeScreen(
     homeUIState: HomeUIState,
     currentPage: Int = 1,
     isPullRefreshRefreshing: Boolean = false,
@@ -129,7 +129,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun ItemTodo(item: TodoItem, modifier: Modifier = Modifier) {
+private fun ItemTodo(item: TodoItem, modifier: Modifier = Modifier) {
     Column(
         modifier
             .padding(top = 16.dp)

@@ -4,6 +4,6 @@ import androidx.compose.runtime.Composable
 
 
 @Composable
-fun CatalogRoute() {
-
+fun CatalogOverviewRoute() {
+    // TODO make catalog screen to open detail
 }

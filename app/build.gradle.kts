@@ -100,16 +100,15 @@ dependencies {
 
     implementation(libs.compose.ui.tooling)
 
-
     // testing
-    testImplementation (platform(libs.compose.bom))
-    testImplementation ("org.mockito:mockito-core:3.12.4")
-    testImplementation (libs.compose.ui.test)
+    testImplementation(platform(libs.compose.bom))
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation(libs.compose.ui.test)
 
-    androidTestImplementation (platform(libs.compose.bom))
-    androidTestImplementation (libs.compose.ui.test)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.test)
 
-    debugImplementation (libs.compose.ui.test.manifest)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     // retrofit
     implementation(libs.retrofit)
@@ -139,6 +138,8 @@ dependencies {
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation(libs.leakCanary)
+
+
 }
 // Allow references to generated code
 kapt {

@@ -4,5 +4,6 @@
     <string name="tab_home">Home</string>
     <string name="tab_user">User</string>
     <string name="loading">Loading</string>
+    <string name="add_properties">Add Properties</string>
 
 </resources>

@@ -1,31 +1,33 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.dat.jetpackcomposecatalog.presenstation.view.catalog_compose
+package com.dat.jetpackcomposecatalog.presenstation.view.catalog_compose.box
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presenstation.widget.ModifierConfigCompose
+import com.dat.jetpackcomposecatalog.presenstation.view.catalog_compose.ModifierConfigCompose
+
 // TODO I think it is not right time to do it
 @Composable
 fun BoxComposeRoute() {
     BoxComposeScreen()
-
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BoxComposeScreen() {
+private fun BoxComposeScreen() {
     ModifierConfigCompose("Box") { modifier ->
-        Box(modifier) {
-            Text(text = "Box", style = MaterialTheme.typography.bodyLarge)
+        Box(modifier.background(Color.Red)) {
+            Text(text = "Hello", style = MaterialTheme.typography.bodyLarge)
         }
     }
 }
+
 @Preview
 @Composable
 fun PreviewBox() {

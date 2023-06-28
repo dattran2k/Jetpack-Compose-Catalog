@@ -42,7 +42,7 @@ internal fun UserRoute(viewModel: UserViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun UserScreen(
+private fun UserScreen(
     userUIState: UserUIState,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit = {},
 ) {
@@ -71,7 +71,7 @@ fun UserScreen(
 }
 
 @Composable
-fun SettingsPanel(
+private fun SettingsPanel(
     darkMode: DarkThemeConfig,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit = {},
 ) {
@@ -100,7 +100,7 @@ fun SettingsPanel(
 }
 
 @Composable
-fun SettingsDialogThemeChooserRow(
+private fun SettingsDialogThemeChooserRow(
     text: String,
     selected: Boolean,
     onClick: () -> Unit,

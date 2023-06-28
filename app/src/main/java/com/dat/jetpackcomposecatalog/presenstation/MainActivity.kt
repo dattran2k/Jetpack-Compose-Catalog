@@ -16,14 +16,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.dat.jetpackcomposecatalog.data.model.local.DarkThemeConfig
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presenstation.view.detail.detailScreen
-import com.dat.jetpackcomposecatalog.presenstation.view.detail.navigateDetail
-import com.dat.jetpackcomposecatalog.presenstation.view.main.MainScreenRoute
-import com.dat.jetpackcomposecatalog.presenstation.view.main.mainScreen
+import com.dat.jetpackcomposecatalog.presenstation.view.catalog_compose.box.BoxComposeRoute
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -62,14 +58,16 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             JetpackComposeCatalogTheme(darkTheme) {
                 Surface(modifier = Modifier.fillMaxSize()) {
+                    BoxComposeRoute()
+                    // TODO open later
 //                    BoxComposeRoute()
-                    NavHost(
-                        navController = navController,
-                        startDestination = MainScreenRoute.route
-                    ) {
-                        mainScreen(navController::navigateDetail)
-                        detailScreen(navController::popBackStack)
-                    }
+//                    NavHost(
+//                        navController = navController,
+//                        startDestination = MainScreenRoute.route
+//                    ) {
+//                        mainScreen(navController::navigateDetail)
+//                        detailScreen(navController::popBackStack)
+//                    }
                 }
             }
 
