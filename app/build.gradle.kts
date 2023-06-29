@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.work.runtime)
     //data store
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.kotlin.lite)
@@ -88,6 +89,7 @@ dependencies {
     // hilt
     implementation(libs.androidx.hilt.navigationcompose)
     implementation(libs.androidx.hilt.work)
+
     implementation(libs.dagger.hilt.library)
     kapt(libs.dagger.hilt.compiler)
 
@@ -139,7 +141,7 @@ dependencies {
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation(libs.leakCanary)
 
-
+    implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 }
 // Allow references to generated code
 kapt {

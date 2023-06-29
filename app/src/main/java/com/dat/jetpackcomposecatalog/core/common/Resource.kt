@@ -29,7 +29,7 @@ suspend fun <T : Any> safeApiCall(
             if (!InternetUtil.isNetworkAvailable()) {
                 return@withContext Resource.Error("No Internet", 0)
             }
-            val response = request.invoke()
+            val response = request()
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
@@ -55,7 +55,7 @@ fun <T : Any> flowSafeApiCall(
             emit(Resource.Error("No Internet", 0))
             return@flow
         }
-        val response = request.invoke()
+        val response = request()
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {

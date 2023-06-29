@@ -7,5 +7,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Base Jetpack Compose"
+rootProject.name = "JetpackCompose Catalog"
 include(":app",)

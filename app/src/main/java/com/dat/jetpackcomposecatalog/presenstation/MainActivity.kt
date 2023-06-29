@@ -74,6 +74,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun shouldUseDarkTheme(
     uiState: MainActivityUiState,

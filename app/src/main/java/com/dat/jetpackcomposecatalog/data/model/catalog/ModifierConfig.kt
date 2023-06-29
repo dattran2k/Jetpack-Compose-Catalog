@@ -6,10 +6,12 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import java.util.UUID
 
 sealed class ModifierConfig(
     val composeName: String,
     val listShowCode: List<ShowCode>,
+    val key : UUID = UUID.randomUUID()
 )
 @Stable
 fun Modifier.updateModifier(modifierConfig: ModifierConfig) = this.then(
