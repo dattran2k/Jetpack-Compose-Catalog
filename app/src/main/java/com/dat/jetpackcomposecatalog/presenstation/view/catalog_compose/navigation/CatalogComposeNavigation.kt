@@ -3,22 +3,19 @@ package com.dat.jetpackcomposecatalog.presenstation.view.catalog_compose.navigat
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
-import com.dat.jetpackcomposecatalog.presenstation.navigation.ScreenRoute
+import com.dat.jetpackcomposecatalog.presenstation.navigation.CatalogScreen
 import com.dat.jetpackcomposecatalog.presenstation.view.catalog_compose.box.BoxComposeRoute
-import com.dat.jetpackcomposecatalog.presenstation.view.main.MainScreenRoute
 
-sealed class CatalogScreenRoute(route: String) : ScreenRoute(route)
-object BoxScreenRoute : CatalogScreenRoute("Box")
 
-fun NavGraphBuilder.catalogScreen(catalogScreenRoute: CatalogScreenRoute) {
+fun NavGraphBuilder.catalogScreen(catalogScreen: CatalogScreen) {
     composable(
-        route = catalogScreenRoute.route,
+        route = catalogScreen.route,
         deepLinks = listOf(
-            navDeepLink { uriPattern = MainScreenRoute.deepLink },
+            navDeepLink { uriPattern = catalogScreen.deepLink },
         ),
     ) {
-        when (catalogScreenRoute) {
-            BoxScreenRoute -> BoxComposeRoute()
+        when (catalogScreen) {
+            CatalogScreen.BoxScreen -> BoxComposeRoute()
         }
     }
 }

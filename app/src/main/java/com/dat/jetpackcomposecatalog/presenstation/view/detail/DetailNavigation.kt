@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.data.model.TodoItem
-import com.dat.jetpackcomposecatalog.presenstation.navigation.ScreenRoute
+import com.dat.jetpackcomposecatalog.presenstation.navigation.Screen
 
 const val DETAIL_NAME = "Detail"
 
@@ -15,10 +15,7 @@ const val DETAIL_ARG_ID = "DETAIL_ID"
 const val DETAIL_ARG_TITLE = "DETAIL_TITLE"
 
 
-object DetailScreenRoute : ScreenRoute("$DETAIL_NAME/{$DETAIL_ARG_ID}/{$DETAIL_ARG_TITLE}") {
-    data class DetailScreenArg(val id: Int, val title: String)
 
-}
 fun NavController.navigateDetail(todoItem: TodoItem) {
     this.navigate("$DETAIL_NAME/${todoItem.id}/${todoItem.title}")
 }
@@ -27,9 +24,9 @@ fun NavGraphBuilder.detailScreen(
     onClickNavigate: () -> Unit
 ) {
     composable(
-        route = DetailScreenRoute.route,
+        route = Screen.DetailScreen.route,
         deepLinks = listOf(
-            navDeepLink { uriPattern = DetailScreenRoute.deepLink },
+            navDeepLink { uriPattern = Screen.DetailScreen.deepLink },
         ),
         arguments = listOf(
             navArgument(DETAIL_ARG_ID) {
@@ -43,6 +40,6 @@ fun NavGraphBuilder.detailScreen(
         val id = it.arguments?.getInt(DETAIL_ARG_ID) ?: -1
         val name = it.arguments?.getString(DETAIL_ARG_TITLE) ?: ""
 
-        DetailRoute(onClickNavigate, DetailScreenRoute.DetailScreenArg(id, name))
+        DetailRoute(onClickNavigate, Screen.DetailScreen.DetailScreenArg(id, name))
     }
 }

@@ -9,15 +9,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.dat.jetpackcomposecatalog.presenstation.navigation.Screen
 import com.dat.jetpackcomposecatalog.presenstation.theme.LocalCustomColorTheme
 
 @Composable
-internal fun DetailRoute(onClickNavigate: () -> Unit, detailScreenArg: DetailScreenRoute.DetailScreenArg) {
+internal fun DetailRoute(onClickNavigate: () -> Unit, detailScreenArg: Screen.DetailScreen.DetailScreenArg) {
     DetailScreen(onClickNavigate, detailScreenArg)
 }
 
 @Composable
-fun DetailScreen(onClickNavigate: () -> Unit, detailScreenArg: DetailScreenRoute.DetailScreenArg) {
+fun DetailScreen(onClickNavigate: () -> Unit, detailScreenArg: Screen.DetailScreen.DetailScreenArg) {
     Column(
         Modifier
             .fillMaxSize()
