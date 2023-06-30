@@ -77,7 +77,7 @@ private fun CatalogGroupItem(
             .fillMaxWidth()
             .padding(8.dp),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 0.dp
+            defaultElevation = 2.dp
         ),
         shape = MaterialTheme.shapes.extraSmall,
         border = BorderStroke(0.5.dp, color = Color.LightGray)
@@ -91,7 +91,7 @@ private fun CatalogGroupItem(
                         isExpanded = catalogGroup.isExpand
                     },
                 text = catalogGroup.group.name,
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.titleMedium
             )
             AnimatedVisibility(visible = isExpanded) {
                 Column {

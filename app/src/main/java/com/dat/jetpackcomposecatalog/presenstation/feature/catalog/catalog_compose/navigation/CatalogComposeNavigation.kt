@@ -56,7 +56,6 @@ fun NavGraphBuilder.catalogScreen() {
                 when (CatalogComposeEnum.valueOf(id)) {
                     CatalogComposeEnum.Box -> BoxComposeRoute()
                     CatalogComposeEnum.Column -> ColumnComposeScreen()
-                    CatalogComposeEnum.Row -> ColumnComposeScreen()
                     else -> {
 
                     }

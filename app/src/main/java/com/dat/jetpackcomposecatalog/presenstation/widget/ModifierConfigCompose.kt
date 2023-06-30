@@ -167,7 +167,7 @@ private fun ModifierConfigDrawer(
                             .background(color.value)
                             .padding(vertical = 4.dp)
                     ) {
-                        PropertiesLineCompose(modifierConfig = modifierConfig, index == propertiesSelected) {
+                        ShowCodeCompose(modifierConfig = modifierConfig, index == propertiesSelected) {
                             propertiesSelected = if (propertiesSelected == index) -1 else index
                         }
                     }
@@ -193,7 +193,7 @@ private fun ModifierConfigDrawer(
 }
 
 @Composable
-fun PropertiesLineCompose(
+fun ShowCodeCompose(
     modifierConfig: ModifierConfig,
     isSelected: Boolean,
     selectCallback: () -> Unit,
