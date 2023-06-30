@@ -1,5 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
@@ -33,7 +35,6 @@ android {
             proguardFiles("proguard-rules.pro")
         }
     }
-
     buildFeatures {
         buildConfig = true
         compose = true

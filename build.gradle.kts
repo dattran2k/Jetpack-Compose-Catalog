@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.js.translate.context.Namer.kotlin
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -37,6 +39,7 @@ fun Project.configureAndroidProject() {
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
+
         }
         composeOptions {
             kotlinCompilerExtensionVersion = libs.versions.composecompiler.get()

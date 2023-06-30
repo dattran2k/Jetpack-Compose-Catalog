@@ -13,7 +13,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         InternetUtil.init(this)
-        if (BuildConfig.FLAVOR == Constants.FLAVOR_DEVELOP) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(LogsUtil())
         }
     }

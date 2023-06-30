@@ -28,20 +28,9 @@ fun JetpackComposeCatalogTheme(
         LightTheme
     }
     CompositionLocalProvider(LocalCustomColorTheme provides colorsCustom) {
-        val typography = Typography.copy(
-            bodySmall = Typography.bodySmall.copy(
-                color = LocalCustomColorTheme.current.textTitle
-            ),
-            bodyMedium = Typography.bodyMedium.copy(
-                color = LocalCustomColorTheme.current.textTitle
-            ),
-            bodyLarge = Typography.bodyLarge.copy(
-                color = LocalCustomColorTheme.current.textTitle
-            ),
-        )
         MaterialTheme(
             colorScheme = colors,
-            typography = typography,
+            typography = Typography,
             content = content,
         )
     }
