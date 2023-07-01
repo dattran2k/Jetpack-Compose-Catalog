@@ -5,8 +5,8 @@ package com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_comp
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,28 +23,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dat.jetpackcomposecatalog.core.common.DataConst.listHorizontalAlignment
-import com.dat.jetpackcomposecatalog.core.common.DataConst.listVerticalArrangement
+import com.dat.jetpackcomposecatalog.core.common.DataConst.listHorizontalArrangement
+import com.dat.jetpackcomposecatalog.core.common.DataConst.listVerticalAlignment
 import com.dat.jetpackcomposecatalog.core.designsystem.component.EmptyBox
 import com.dat.jetpackcomposecatalog.core.designsystem.component.SettingComponent
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
 
-@Composable
-fun ColumnComposeScreen() {
 
-    var verticalArrangement: Pair<String, Arrangement.Vertical> by remember {
-        mutableStateOf(listVerticalArrangement.first())
+@Composable
+fun RowComposeScreen() {
+
+    var horizontalArrangement: Pair<String, Arrangement.Horizontal> by remember {
+        mutableStateOf(listHorizontalArrangement.first())
     }
-    var horizontalAlignment: Pair<String, Alignment.Horizontal> by remember {
-        mutableStateOf(listHorizontalAlignment.first())
+    var verticalAlignment: Pair<String, Alignment.Vertical> by remember {
+        mutableStateOf(listVerticalAlignment.first())
     }
-    Column(
+    Row(
         Modifier
             .fillMaxWidth()
             .height(400.dp)
             .background(color = MaterialTheme.colors.secondary),
-        verticalArrangement = verticalArrangement.second,
-        horizontalAlignment = horizontalAlignment.second
+        verticalAlignment = verticalAlignment.second,
+        horizontalArrangement = horizontalArrangement.second
     ) {
         EmptyBox()
         EmptyBox()
@@ -52,24 +53,24 @@ fun ColumnComposeScreen() {
     }
     SettingComponent(
         name = "verticalArrangement",
-        settingSelected = verticalArrangement.first,
-        listSetting = listVerticalArrangement.map { it.first },
+        settingSelected = horizontalArrangement.first,
+        listSetting = listHorizontalArrangement.map { it.first },
     ) { selected ->
-        listVerticalArrangement.find {
+        listHorizontalArrangement.find {
             selected == it.first
         }?.let {
-            verticalArrangement = it
+            horizontalArrangement = it
         }
     }
     SettingComponent(
         name = "horizontalAlignment",
-        settingSelected = horizontalAlignment.first,
-        listSetting = listHorizontalAlignment.map { it.first },
+        settingSelected = verticalAlignment.first,
+        listSetting = listVerticalAlignment.map { it.first },
     ) { selected ->
-        listHorizontalAlignment.find {
+        listVerticalAlignment.find {
             selected == it.first
         }?.let {
-            horizontalAlignment = it
+            verticalAlignment = it
         }
     }
 
@@ -77,16 +78,16 @@ fun ColumnComposeScreen() {
 
 @Preview
 @Composable
-fun ColumnComposeScreenPreview() {
+fun RowComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
         Box(Modifier.fillMaxSize()) {
-            Column(
+            Row(
                 Modifier
                     .fillMaxSize()
                     .statusBarsPadding()
                     .verticalScroll(rememberScrollState())
             ) {
-                ColumnComposeScreen()
+                RowComposeScreen()
             }
         }
     }

@@ -2,7 +2,6 @@ package com.dat.jetpackcomposecatalog.presenstation
 
 import android.app.Application
 import com.dat.jetpackcomposecatalog.BuildConfig
-import com.dat.jetpackcomposecatalog.core.common.Constants
 import com.dat.jetpackcomposecatalog.core.util.InternetUtil
 import com.dat.jetpackcomposecatalog.core.util.LogsUtil
 import dagger.hilt.android.HiltAndroidApp

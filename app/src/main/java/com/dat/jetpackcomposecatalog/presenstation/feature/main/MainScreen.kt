@@ -22,7 +22,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.dat.jetpackcomposecatalog.core.designsystem.icon.Icon
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeEnum
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.navigation.navigateCatalogScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_overview.navigation.catalogOverviewScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_overview.navigation.navigateCatalogOverview
 import com.dat.jetpackcomposecatalog.presenstation.feature.menu.navigation.navigateUser

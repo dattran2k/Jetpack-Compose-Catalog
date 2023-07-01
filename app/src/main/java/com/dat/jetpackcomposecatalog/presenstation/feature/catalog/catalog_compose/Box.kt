@@ -14,12 +14,7 @@ import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTh
 import com.dat.jetpackcomposecatalog.presenstation.widget.ModifierConfigCompose
 
 @Composable
-fun BoxComposeRoute() {
-    BoxComposeScreen()
-}
-
-@Composable
-private fun BoxComposeScreen() {
+fun BoxComposeScreen() {
     ModifierConfigCompose("Box") { modifier ->
         Box(modifier.background(Color.Red)) {
             Text(text = "Hello", style = MaterialTheme.typography.bodyLarge)

@@ -1,7 +1,6 @@
 package com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,8 +16,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeEnum
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.BoxComposeRoute
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.BoxComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.ColumnComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.RowComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.navigation.Screen
 
 const val CATALOG_ROUTE_NAME = "CatalogCompose"
@@ -54,8 +54,9 @@ fun NavGraphBuilder.catalogScreen() {
                     .verticalScroll(rememberScrollState())
             ) {
                 when (CatalogComposeEnum.valueOf(id)) {
-                    CatalogComposeEnum.Box -> BoxComposeRoute()
+                    CatalogComposeEnum.Box -> BoxComposeScreen()
                     CatalogComposeEnum.Column -> ColumnComposeScreen()
+                    CatalogComposeEnum.Row -> RowComposeScreen()
                     else -> {
 
                     }

@@ -19,12 +19,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.dat.jetpackcomposecatalog.data.model.local.DarkThemeConfig
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.BoxComposeRoute
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.navigation.catalogScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.navigation.navigateCatalogScreen
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_overview.navigation.navigateCatalogOverview
 import com.dat.jetpackcomposecatalog.presenstation.feature.detail.detailScreen
-import com.dat.jetpackcomposecatalog.presenstation.feature.detail.navigateDetail
 import com.dat.jetpackcomposecatalog.presenstation.feature.main.mainScreen
 import com.dat.jetpackcomposecatalog.presenstation.navigation.Screen
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme

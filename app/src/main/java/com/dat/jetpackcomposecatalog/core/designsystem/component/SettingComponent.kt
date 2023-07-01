@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,14 +27,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImagePainter.State.Empty.painter
-import com.dat.jetpackcomposecatalog.presenstation.theme.BlackColor
 import com.dat.jetpackcomposecatalog.presenstation.theme.BlueCodeColor
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presenstation.theme.YellowCodeColor
@@ -58,6 +52,7 @@ fun SettingComponent(
     }
     Row(
         modifier = modifier
+            .padding(top = 1.dp)
             .fillMaxWidth()
             .background(Color.Black)
             .padding(horizontal = 8.dp, vertical = 16.dp)
@@ -111,7 +106,7 @@ fun SettingComponent(
 @Preview
 @Composable
 fun SettingComponentPreview() {
-    JetpackComposeCatalogTheme() {
+    JetpackComposeCatalogTheme {
         SettingComponent(
             Modifier,
             "1231233123 21m3;l21m3;l21m;lk213 2m13l;321lm;2l1;3ml2;1",

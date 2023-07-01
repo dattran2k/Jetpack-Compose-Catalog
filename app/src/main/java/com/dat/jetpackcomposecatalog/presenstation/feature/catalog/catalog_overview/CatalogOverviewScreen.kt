@@ -17,40 +17,36 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeEnum
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogGroup
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
 
 data class CatalogOverViewGroup(
-    val group: CatalogGroup,
+    val catalogGroup: CatalogGroup,
     val listItem: List<CatalogComposeEnum>,
     var isExpand: Boolean = false,
 )
 
 @Composable
-fun CatalogOverviewRoute(navigateCatalogDetail: (CatalogComposeEnum) -> Unit) {
-    val groupMap = CatalogComposeEnum.values().groupBy { it.group }
-    val catalogOverViewGroupList = groupMap.map { (group, itemList) ->
-        CatalogOverViewGroup(group, itemList)
-    }
-    val catalogList by remember {
-        mutableStateOf(catalogOverViewGroupList)
-    }
-    CatalogOverviewScreen(catalogList, navigateCatalogDetail)
-
+fun CatalogOverviewRoute(
+    navigateCatalogDetail: (CatalogComposeEnum) -> Unit,
+    viewModel: CatalogOverviewViewModel = hiltViewModel()
+) {
+    val catalogList by viewModel.catalogOverViewGroupList.collectAsStateWithLifecycle()
+    CatalogOverviewScreen(catalogList, navigateCatalogDetail, viewModel::updateExpand)
 }
 
 @Composable
 fun CatalogOverviewScreen(
     catalogOverViewGroupList: List<CatalogOverViewGroup>,
     navigateCatalogDetail: (CatalogComposeEnum) -> Unit,
+    updateExpand: (CatalogOverViewGroup) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -58,7 +54,12 @@ fun CatalogOverviewScreen(
             .verticalScroll(rememberScrollState()),
     ) {
         catalogOverViewGroupList.forEach { catalogGroup ->
-            CatalogGroupItem(Modifier.padding(8.dp), catalogGroup, navigateCatalogDetail)
+            CatalogGroupItem(
+                Modifier.padding(8.dp),
+                catalogGroup,
+                navigateCatalogDetail,
+                updateExpand
+            )
         }
     }
 }
@@ -68,10 +69,8 @@ private fun CatalogGroupItem(
     modifier: Modifier,
     catalogGroup: CatalogOverViewGroup,
     navigateCatalogDetail: (CatalogComposeEnum) -> Unit,
+    updateExpand: (CatalogOverViewGroup) -> Unit,
 ) {
-    var isExpanded: Boolean by remember {
-        mutableStateOf(catalogGroup.isExpand)
-    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,13 +86,12 @@ private fun CatalogGroupItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
-                        catalogGroup.isExpand = !catalogGroup.isExpand
-                        isExpanded = catalogGroup.isExpand
+                        updateExpand(catalogGroup)
                     },
-                text = catalogGroup.group.name,
+                text = catalogGroup.catalogGroup.name,
                 style = MaterialTheme.typography.titleMedium
             )
-            AnimatedVisibility(visible = isExpanded) {
+            AnimatedVisibility(visible = catalogGroup.isExpand) {
                 Column {
                     Divider(
                         modifier = Modifier
@@ -126,8 +124,6 @@ fun CatalogOverviewScreenPreview() {
         CatalogOverViewGroup(group, itemList)
     }
     JetpackComposeCatalogTheme {
-        CatalogOverviewScreen(catalogOverViewGroupList) {
-
-        }
+        CatalogOverviewScreen(catalogOverViewGroupList, {}, {})
     }
 }
