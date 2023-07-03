@@ -11,5 +11,6 @@ enum class CatalogComposeEnum(val group: CatalogGroup) {
     Column(CatalogGroup.Layout),
     LazyColumn(CatalogGroup.Layout),
     Row(CatalogGroup.Layout),
+    LazyRow(CatalogGroup.Layout),
 
 }
