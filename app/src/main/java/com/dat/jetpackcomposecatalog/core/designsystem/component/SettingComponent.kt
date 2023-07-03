@@ -2,7 +2,9 @@
 
 package com.dat.jetpackcomposecatalog.core.designsystem.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,8 +24,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,27 +47,28 @@ fun SettingComponent(
     listSetting: List<String>,
     onSettingSelected: (String) -> Unit
 ) {
-    val openDialog = remember { mutableStateOf(false) }
-    if (openDialog.value) StringPickerDialog(
-        onDismiss = { openDialog.value = false },
-        listSetting
-    ) {
-        onSettingSelected(it)
-    }
+    var openDialog by remember { mutableStateOf(false) }
+    if (openDialog)
+        StringPickerDialog(
+            name,
+            listSetting,
+            onDismiss = { openDialog = false },
+            onSelectItem = { onSettingSelected(it) }
+        )
     Row(
         modifier = modifier
-            .padding(top = 1.dp)
             .fillMaxWidth()
             .background(Color.Black)
-            .padding(horizontal = 8.dp, vertical = 16.dp)
+            .border(border = BorderStroke(1.dp, color = Color.LightGray))
+            .padding(horizontal = 8.dp, vertical = 8.dp)
             .clickable {
-                openDialog.value = true
+                openDialog = true
             },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "$name = ", style = MaterialTheme.typography.titleSmall.copy(
+            text = "$name = ", style = MaterialTheme.typography.bodyMedium.copy(
                 color = BlueCodeColor, fontStyle = FontStyle.Italic
             ), modifier = Modifier.weight(1f)
         )

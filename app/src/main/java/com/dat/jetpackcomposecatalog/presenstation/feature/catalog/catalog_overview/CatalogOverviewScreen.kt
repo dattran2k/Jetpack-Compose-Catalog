@@ -96,15 +96,16 @@ private fun CatalogGroupItem(
                     Divider(
                         modifier = Modifier
                             .padding(top = 8.dp)
-                            .background(MaterialTheme.colorScheme.tertiary)
+                            .background(Color.LightGray)
                     )
                     catalogGroup.listItem.forEachIndexed { index, catalogComposeEnum ->
                         Text(
                             modifier = Modifier
-                                .padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
+                                .fillMaxWidth()
                                 .clickable {
                                     navigateCatalogDetail(catalogComposeEnum)
-                                },
+                                }
+                                .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
                             text = "${index + 1}. ${catalogComposeEnum.name}",
                             style = MaterialTheme.typography.bodyMedium
                         )

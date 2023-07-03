@@ -1,10 +1,17 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
-package com.dat.jetpackcomposecatalog.presenstation.widget
+package com.dat.jetpackcomposecatalog.core.designsystem.component
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
@@ -13,7 +20,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -22,7 +31,8 @@ import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTh
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ValueSlider(
-    title: String = "TITLE",
+    modifier: Modifier = Modifier,
+    title: String = "Title",
     value: Float = 0f,
     from: Float = 0f,
     to: Float = 100f,
@@ -30,23 +40,31 @@ fun ValueSlider(
     onValueChange: (Float) -> Unit = {}
 ) {
     val interactionSource = MutableInteractionSource()
-    Column(Modifier.fillMaxWidth(1f)) {
-        Text(text = title, style = MaterialTheme.typography.bodyMedium)
-        Text(text = value.toInt().toString(), style = MaterialTheme.typography.bodySmall)
+    Row(
+        modifier
+            .fillMaxWidth(1f)
+            .border(border = BorderStroke(1.dp, color = Color.LightGray))
+            .padding(horizontal = 8.dp),
+        Arrangement.Center,
+        verticalAlignment = CenterVertically,
+    ) {
+        Text(text = "$title : ${value.toInt()}", style = MaterialTheme.typography.bodyMedium)
+        Spacer(modifier = Modifier.width(8.dp))
         Slider(
-            modifier = Modifier.fillMaxWidth(1f),
+            modifier = Modifier
+                .weight(1f)
+                .height(28.dp),
             value = value,
             onValueChange = onValueChange,
             valueRange = from..to,
             steps = step,
             interactionSource = interactionSource,
             onValueChangeFinished = {
-                // launch some business logic update with the state you hold
             },
             thumb = {
                 SliderDefaults.Thumb(
                     interactionSource = interactionSource,
-                    thumbSize = DpSize(12.dp, 12.dp)
+                    thumbSize = DpSize(18.dp, 18.dp),
                 )
             },
         )
@@ -57,7 +75,7 @@ fun ValueSlider(
 @Preview
 @Composable
 fun PreviewValueSlider() {
-    JetpackComposeCatalogTheme() {
+    JetpackComposeCatalogTheme {
         val value = remember {
             mutableStateOf(0f)
         }

@@ -1,14 +1,24 @@
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+
 package com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.navigation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -16,9 +26,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeEnum
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.BoxComposeScreen
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.ColumnComposeScreen
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.RowComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.ColumnComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.LazyColumnComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.RowComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.widgets.BoxComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.navigation.Screen
 
 const val CATALOG_ROUTE_NAME = "CatalogCompose"
@@ -29,7 +40,8 @@ fun NavController.navigateCatalogScreen(catalogComposeEnum: CatalogComposeEnum) 
     this.navigate("$CATALOG_ROUTE_NAME/${catalogComposeEnum.name}")
 }
 
-fun NavGraphBuilder.catalogScreen() {
+
+fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
     composable(
         route = Screen.CatalogScreen.route,
         deepLinks = listOf(
@@ -42,24 +54,41 @@ fun NavGraphBuilder.catalogScreen() {
         )
     ) {
         val id = it.arguments?.getString(CATALOG_ARG_ID) ?: ""
-        Box(
-            Modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colors.background)
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = id, style = MaterialTheme.typography.titleLarge.copy(
+                                MaterialTheme.colorScheme.primary,
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = navigateBack) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    },
+                    modifier = Modifier
+                        .shadow(10.dp)
+                )
+            },
         ) {
             Column(
                 Modifier
-                    .statusBarsPadding()
+                    .padding(it)
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
             ) {
                 when (CatalogComposeEnum.valueOf(id)) {
                     CatalogComposeEnum.Box -> BoxComposeScreen()
                     CatalogComposeEnum.Column -> ColumnComposeScreen()
+                    CatalogComposeEnum.LazyColumn -> LazyColumnComposeScreen()
                     CatalogComposeEnum.Row -> RowComposeScreen()
-                    else -> {
-
-                    }
                 }
             }
         }

@@ -21,7 +21,6 @@ fun NavGraphBuilder.mainScreen(navigateCatalogDetail: (CatalogComposeEnum) -> Un
             navDeepLink { uriPattern = Screen.MainScreen.deepLink },
         ),
     ) {
-
         MainScreen(navigateCatalogDetail)
     }
 }

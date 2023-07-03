@@ -1,5 +1,5 @@
 
-package com.dat.jetpackcomposecatalog.presenstation.widget
+package com.dat.jetpackcomposecatalog.core.designsystem.component
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -37,7 +37,7 @@ fun CustomChip(color: Color = Color.Blue, selectedColor: (color: Color) -> Unit 
 @Preview
 @Composable
 fun PreviewCustomChip() {
-    JetpackComposeCatalogTheme() {
+    JetpackComposeCatalogTheme {
         ColorSelector()
     }
 }

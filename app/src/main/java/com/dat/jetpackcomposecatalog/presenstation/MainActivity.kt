@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         mainScreen(navController::navigateCatalogScreen)
                         detailScreen(navController::popBackStack)
-                        catalogScreen()
+                        catalogScreen(navController::popBackStack)
                     }
                 }
             }
