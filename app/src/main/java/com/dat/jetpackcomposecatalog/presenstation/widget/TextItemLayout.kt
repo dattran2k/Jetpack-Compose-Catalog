@@ -1,9 +1,8 @@
-package com.dat.jetpackcomposecatalog.core.designsystem.component
+package com.dat.jetpackcomposecatalog.presenstation.widget
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -23,7 +22,6 @@ fun TextItemLayout(text: String, xStart: Float = -50f, yStart: Float = -50f) {
     val offsetY = remember { Animatable(yStart) }
     Card(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(8.dp)
             .offset(offsetX.value.dp, offsetX.value.dp),
         elevation = CardDefaults.cardElevation(

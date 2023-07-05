@@ -1,4 +1,4 @@
-package com.dat.jetpackcomposecatalog.core.designsystem.component
+package com.dat.jetpackcomposecatalog.presenstation.widget
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
@@ -31,26 +31,52 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.dat.jetpackcomposecatalog.presenstation.theme.BlackCodeColor
+import com.dat.jetpackcomposecatalog.presenstation.theme.BlueCodeColor
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
+import com.dat.jetpackcomposecatalog.presenstation.theme.OrangeCodeColor
 
 @Composable
 fun MySwitchButtonCompose(
     modifier: Modifier = Modifier,
     title: String = "",
+    isProperties: Boolean = false,
     isSelected: Boolean = false,
     onSelectedCallback: (Boolean) -> Unit = {}
 ) {
     Row(
         modifier
             .fillMaxWidth()
+            .background(if (isProperties) BlackCodeColor else Color.Transparent)
             .border(border = BorderStroke(1.dp, color = Color.LightGray))
             .padding(horizontal = 8.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "$title : ", style = MaterialTheme.typography.bodyMedium)
+        val titleStyle = if (isProperties)
+            MaterialTheme.typography.bodyMedium.copy(
+                BlueCodeColor,
+                fontStyle = FontStyle.Italic
+            )
+        else
+            MaterialTheme.typography.bodyMedium
+        val valueStyle = if (isProperties)
+            MaterialTheme.typography.bodyMedium.copy(color = OrangeCodeColor)
+        else
+            MaterialTheme.typography.bodyMedium
+        Text(
+            text = title,
+            style = titleStyle
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Text(
+            text = if (isSelected) "True" else "False",
+            style = valueStyle
+        )
         Spacer(modifier = Modifier.weight(1f))
         CustomSwitch(isSelected = isSelected, onSelectedCallback = onSelectedCallback)
     }
@@ -77,7 +103,10 @@ fun CustomSwitch(
     }
     // for moving the thumb
     val alignment by animateAlignmentAsState(if (isSelected) 1f else -1f)
-    // outer rectangle with border
+
+
+
+    Spacer(modifier = Modifier.width(16.dp))
     Box(
         modifier = Modifier
             .size(width = width, height = height)
@@ -94,7 +123,6 @@ fun CustomSwitch(
             },
         contentAlignment = Alignment.Center
     ) {
-
         // this is to add padding at the each horizontal side
         Box(
             modifier = Modifier
@@ -121,9 +149,7 @@ fun CustomSwitch(
         }
     }
 
-    // gap between switch and the text
-    Spacer(modifier = Modifier.width(16.dp))
-    Text(text = if (isSelected) "ON" else "OFF", style = MaterialTheme.typography.bodyMedium)
+
 }
 
 @Composable

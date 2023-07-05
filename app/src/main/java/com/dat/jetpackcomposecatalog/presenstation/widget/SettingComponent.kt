@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalLayoutApi::class)
 
-package com.dat.jetpackcomposecatalog.core.designsystem.component
+package com.dat.jetpackcomposecatalog.presenstation.widget
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -34,9 +34,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dat.jetpackcomposecatalog.presenstation.theme.BlackCodeColor
 import com.dat.jetpackcomposecatalog.presenstation.theme.BlueCodeColor
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presenstation.theme.YellowCodeColor
+import com.dat.jetpackcomposecatalog.presenstation.theme.OrangeCodeColor
 
 
 @Composable
@@ -58,7 +59,7 @@ fun SettingComponent(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(Color.Black)
+            .background(BlackCodeColor)
             .border(border = BorderStroke(1.dp, color = Color.LightGray))
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .clickable {
@@ -86,7 +87,7 @@ fun SettingComponent(
                 ) {
                     Text(
                         text = settingSelected,
-                        style = MaterialTheme.typography.bodyMedium.copy(color = YellowCodeColor),
+                        style = MaterialTheme.typography.bodyMedium.copy(color = OrangeCodeColor),
                         modifier = Modifier.weight(1f)
                     )
                     Icon(
@@ -95,11 +96,11 @@ fun SettingComponent(
                         modifier = Modifier
                             .padding(start = 8.dp)
                             .size(16.dp),
-                        tint = YellowCodeColor
+                        tint = OrangeCodeColor
                     )
                 }
                 Divider(
-                    thickness = 1.dp, color = YellowCodeColor
+                    thickness = 1.dp, color = OrangeCodeColor
                 )
             }
         }

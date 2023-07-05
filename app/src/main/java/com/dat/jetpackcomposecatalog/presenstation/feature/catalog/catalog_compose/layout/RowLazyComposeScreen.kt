@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -29,24 +29,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dat.jetpackcomposecatalog.core.common.DataConst.listHorizontalAlignment
-import com.dat.jetpackcomposecatalog.core.common.DataConst.listVerticalArrangement
-import com.dat.jetpackcomposecatalog.core.designsystem.component.MySwitchButtonCompose
-import com.dat.jetpackcomposecatalog.core.designsystem.component.SettingComponent
-import com.dat.jetpackcomposecatalog.core.designsystem.component.TextItemLayout
-import com.dat.jetpackcomposecatalog.core.designsystem.component.ValueSlider
+import com.dat.jetpackcomposecatalog.core.common.DataConst.listHorizontalArrangement
+import com.dat.jetpackcomposecatalog.core.common.DataConst.listVerticalAlignment
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
+import com.dat.jetpackcomposecatalog.presenstation.widget.MySwitchButtonCompose
+import com.dat.jetpackcomposecatalog.presenstation.widget.SettingComponent
+import com.dat.jetpackcomposecatalog.presenstation.widget.TextItemLayout
+import com.dat.jetpackcomposecatalog.presenstation.widget.ValueSlider
 
 private const val PER_GROUP_COUNT = 10
 
 @ExperimentalFoundationApi
 @Composable
-fun ColumnScope.LazyColumnComposeScreen() {
-    var verticalArrangement: Pair<String, Arrangement.Vertical> by remember {
-        mutableStateOf(listVerticalArrangement.first())
+fun ColumnScope.LazyRowComposeScreen() {
+    var horizontalArrangement: Pair<String, Arrangement.Horizontal> by remember {
+        mutableStateOf(listHorizontalArrangement.first())
     }
-    var horizontalAlignment: Pair<String, Alignment.Horizontal> by remember {
-        mutableStateOf(listHorizontalAlignment.first())
+    var verticalAlignment: Pair<String, Alignment.Vertical> by remember {
+        mutableStateOf("Alignment.CenterHorizontally" to Alignment.CenterVertically)
     }
     var stickyHeader by remember {
         mutableStateOf(false)
@@ -57,9 +57,9 @@ fun ColumnScope.LazyColumnComposeScreen() {
     var reverseLayout by remember {
         mutableStateOf(true)
     }
-    LazyColumn(
-        verticalArrangement = verticalArrangement.second,
-        horizontalAlignment = horizontalAlignment.second,
+    LazyRow(
+        verticalAlignment = verticalAlignment.second,
+        horizontalArrangement = horizontalArrangement.second,
         modifier = Modifier
             .weight(1f)
             .fillMaxWidth(),
@@ -94,8 +94,8 @@ fun ColumnScope.LazyColumnComposeScreen() {
         stickyHeader = stickyHeader,
         reverseLayout = reverseLayout,
         itemCount = itemCount,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
+        horizontalArrangement = horizontalArrangement,
+        verticalAlignment = verticalAlignment,
         updateStickyHeader = {
             stickyHeader = it
         },
@@ -105,11 +105,11 @@ fun ColumnScope.LazyColumnComposeScreen() {
         itemCountChange = {
             itemCount = it.toInt()
         },
-        updateHorizontalAlignment = {
-            horizontalAlignment = it
+        updateHorizontalArrangement = {
+            horizontalArrangement = it
         },
-        updateVerticalArrangement = {
-            verticalArrangement = it
+        updateVerticalAlignment = {
+            verticalAlignment = it
         }
     )
 }
@@ -119,59 +119,61 @@ private fun GroupConfigChange(
     stickyHeader: Boolean,
     reverseLayout: Boolean,
     itemCount: Int,
-    verticalArrangement: Pair<String, Arrangement.Vertical>,
-    horizontalAlignment: Pair<String, Alignment.Horizontal>,
+    horizontalArrangement: Pair<String, Arrangement.Horizontal>,
+    verticalAlignment: Pair<String, Alignment.Vertical>,
     updateStickyHeader: (Boolean) -> Unit,
     updateReverseLayout: (Boolean) -> Unit,
     itemCountChange: (Float) -> Unit,
-    updateVerticalArrangement: (Pair<String, Arrangement.Vertical>) -> Unit,
-    updateHorizontalAlignment: (Pair<String, Alignment.Horizontal>) -> Unit
+    updateHorizontalArrangement: (Pair<String, Arrangement.Horizontal>) -> Unit,
+    updateVerticalAlignment: (Pair<String, Alignment.Vertical>) -> Unit
 ) {
     ValueSlider(
-        title = "Total item",
+        title = "Item count :",
         value = itemCount.toFloat(),
         from = 0f,
         to = 1000f,
         onValueChange = itemCountChange
     )
     MySwitchButtonCompose(
-        title = "Enable Sticky Header",
+        title = "Sticky Header : ",
         isSelected = stickyHeader,
         onSelectedCallback = updateStickyHeader
     )
     MySwitchButtonCompose(
-        title = "Enable Reverse Layout",
+        title = "reverseLayout =",
+        isProperties = true,
         isSelected = reverseLayout,
         onSelectedCallback = updateReverseLayout
     )
     SettingComponent(
-        name = "verticalArrangement",
-        settingSelected = verticalArrangement.first,
-        listSetting = listVerticalArrangement.map { it.first },
+        name = "horizontalArrangement",
+        settingSelected = horizontalArrangement.first,
+        listSetting = listHorizontalArrangement.map { it.first },
     ) { selected ->
-        listVerticalArrangement.find {
+        listHorizontalArrangement.find {
             selected == it.first
         }?.let {
-            updateVerticalArrangement(it)
+            updateHorizontalArrangement(it)
         }
     }
     SettingComponent(
-        name = "horizontalAlignment",
-        settingSelected = horizontalAlignment.first,
-        listSetting = listHorizontalAlignment.map { it.first },
+        name = "verticalAlignment",
+        settingSelected = verticalAlignment.first,
+        listSetting = listVerticalAlignment.map { it.first },
     ) { selected ->
-        listHorizontalAlignment.find {
+        listVerticalAlignment.find {
             selected == it.first
         }?.let {
-            updateHorizontalAlignment(it)
+            updateVerticalAlignment(it)
         }
     }
 }
 
+
 @ExperimentalFoundationApi
 @Preview
 @Composable
-fun LazyColumnComposeScreenPreview() {
+fun LazyRowComposeScreenPreview() {
     JetpackComposeCatalogTheme {
         Scaffold {
             Box(
@@ -185,7 +187,7 @@ fun LazyColumnComposeScreenPreview() {
                         .statusBarsPadding()
                         .verticalScroll(rememberScrollState())
                 ) {
-                    LazyColumnComposeScreen()
+                    LazyRowComposeScreen()
                 }
             }
         }

@@ -1,6 +1,10 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.dat.jetpackcomposecatalog.core.common
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.ui.Alignment
 
 object DataConst {
@@ -32,6 +36,11 @@ object DataConst {
         "Alignment.CenterHorizontally" to Alignment.CenterHorizontally,
     )
 
+    val listStaggeredGridCells: List<Pair<String, Class<out StaggeredGridCells>>> = listOf(
+        "StaggeredGridCells.Adaptive" to StaggeredGridCells.Adaptive::class.java,
+        "StaggeredGridCells.Fixed" to StaggeredGridCells.Fixed::class.java,
+
+        )
 }
 
 object TestTag {

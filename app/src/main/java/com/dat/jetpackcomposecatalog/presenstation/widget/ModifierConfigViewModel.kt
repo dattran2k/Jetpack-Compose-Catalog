@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.burnoutcrew.reorderable.ItemPosition
 
-class ConfigModifierViewModel : ViewModel() {
+class ModifierConfigViewModel : ViewModel() {
     val listConfigModifier = MutableStateFlow<List<ModifierConfig>>(listOf())
     val modifier = listConfigModifier.map {
         var modifier: Modifier = Modifier

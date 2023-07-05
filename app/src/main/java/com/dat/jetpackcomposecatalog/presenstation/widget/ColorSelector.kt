@@ -1,5 +1,5 @@
 
-package com.dat.jetpackcomposecatalog.core.designsystem.component
+package com.dat.jetpackcomposecatalog.presenstation.widget
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow

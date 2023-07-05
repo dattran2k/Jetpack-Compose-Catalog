@@ -25,9 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.dat.jetpackcomposecatalog.core.common.DataConst.listHorizontalArrangement
 import com.dat.jetpackcomposecatalog.core.common.DataConst.listVerticalAlignment
-import com.dat.jetpackcomposecatalog.core.designsystem.component.EmptyBox
-import com.dat.jetpackcomposecatalog.core.designsystem.component.SettingComponent
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
+import com.dat.jetpackcomposecatalog.presenstation.widget.EmptyBox
+import com.dat.jetpackcomposecatalog.presenstation.widget.SettingComponent
 
 
 @Composable

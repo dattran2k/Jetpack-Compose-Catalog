@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.dat.jetpackcomposecatalog.core.designsystem.component
+package com.dat.jetpackcomposecatalog.presenstation.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer

@@ -27,7 +27,8 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeEnum
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.ColumnComposeScreen
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.LazyColumnComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.ColumnLazyComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.GridLazyVerticalStaggeredComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.LazyRowComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.RowComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.widgets.BoxComposeScreen
@@ -60,7 +61,8 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                 TopAppBar(
                     title = {
                         Text(
-                            text = id, style = MaterialTheme.typography.titleLarge.copy(
+                            text = id,
+                            style = MaterialTheme.typography.titleMedium.copy(
                                 MaterialTheme.colorScheme.primary,
                                 fontWeight = FontWeight.Bold
                             )
@@ -88,9 +90,10 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                 when (CatalogComposeEnum.valueOf(id)) {
                     CatalogComposeEnum.Box -> BoxComposeScreen()
                     CatalogComposeEnum.Column -> ColumnComposeScreen()
-                    CatalogComposeEnum.LazyColumn -> LazyColumnComposeScreen()
+                    CatalogComposeEnum.LazyColumn -> ColumnLazyComposeScreen()
                     CatalogComposeEnum.Row -> RowComposeScreen()
                     CatalogComposeEnum.LazyRow -> LazyRowComposeScreen()
+                    CatalogComposeEnum.LazyVerticalStaggeredGrid -> GridLazyVerticalStaggeredComposeScreen()
                 }
             }
         }

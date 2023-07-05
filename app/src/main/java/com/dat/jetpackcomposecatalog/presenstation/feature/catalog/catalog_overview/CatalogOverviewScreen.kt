@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeEnum
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogGroup
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeGroup
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
 
 data class CatalogOverViewGroup(
-    val catalogGroup: CatalogGroup,
+    val catalogComposeGroup: CatalogComposeGroup,
     val listItem: List<CatalogComposeEnum>,
     var isExpand: Boolean = false,
 )
@@ -88,7 +88,7 @@ private fun CatalogGroupItem(
                     .clickable {
                         updateExpand(catalogGroup)
                     },
-                text = catalogGroup.catalogGroup.name,
+                text = catalogGroup.catalogComposeGroup.name,
                 style = MaterialTheme.typography.titleMedium
             )
             AnimatedVisibility(visible = catalogGroup.isExpand) {

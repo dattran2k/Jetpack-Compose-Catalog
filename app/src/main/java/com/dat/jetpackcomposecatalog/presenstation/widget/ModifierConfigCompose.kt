@@ -67,7 +67,7 @@ fun ModifierConfigCompose(
     title: String = "",
     content: @Composable (modifier: Modifier) -> Unit = {},
 ) {
-    val configViewModel: ConfigModifierViewModel = hiltViewModel()
+    val configViewModel: ModifierConfigViewModel = hiltViewModel()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Open)
     val modifier: Modifier by configViewModel.modifier.collectAsStateWithLifecycle()
     val listConfig by configViewModel.listConfigModifier.collectAsStateWithLifecycle()
