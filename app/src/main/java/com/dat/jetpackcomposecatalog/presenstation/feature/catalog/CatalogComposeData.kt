@@ -6,12 +6,13 @@ enum class CatalogComposeGroup {
 }
 
 enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
-    Box(CatalogComposeGroup.Widgets),
+//    Box(CatalogComposeGroup.Widgets),
 
     Column(CatalogComposeGroup.Layout),
     LazyColumn(CatalogComposeGroup.Layout),
     Row(CatalogComposeGroup.Layout),
     LazyRow(CatalogComposeGroup.Layout),
     LazyVerticalStaggeredGrid(CatalogComposeGroup.Layout),
+    LazyHorizontalStaggeredGrid(CatalogComposeGroup.Layout),
 
 }

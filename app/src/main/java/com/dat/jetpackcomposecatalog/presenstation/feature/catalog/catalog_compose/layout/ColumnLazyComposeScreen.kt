@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -8,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -81,7 +78,7 @@ fun ColumnScope.ColumnLazyComposeScreen() {
                     )
                 }
                 items(PER_GROUP_COUNT) {
-                    TextItemLayout("Item $it, group $group")
+                    TextItemLayout(text = "Item $it, group $group")
                 }
             }
         } else {
@@ -90,60 +87,31 @@ fun ColumnScope.ColumnLazyComposeScreen() {
             }
         }
     }
-    GroupConfigChange(
-        stickyHeader = stickyHeader,
-        reverseLayout = reverseLayout,
-        itemCount = itemCount,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
-        updateStickyHeader = {
-            stickyHeader = it
-        },
-        updateReverseLayout = {
-            reverseLayout = it
-        },
-        itemCountChange = {
-            itemCount = it.toInt()
-        },
-        updateHorizontalAlignment = {
-            horizontalAlignment = it
-        },
-        updateVerticalArrangement = {
-            verticalArrangement = it
-        }
-    )
-}
 
-@Composable
-private fun GroupConfigChange(
-    stickyHeader: Boolean,
-    reverseLayout: Boolean,
-    itemCount: Int,
-    verticalArrangement: Pair<String, Arrangement.Vertical>,
-    horizontalAlignment: Pair<String, Alignment.Horizontal>,
-    updateStickyHeader: (Boolean) -> Unit,
-    updateReverseLayout: (Boolean) -> Unit,
-    itemCountChange: (Float) -> Unit,
-    updateVerticalArrangement: (Pair<String, Arrangement.Vertical>) -> Unit,
-    updateHorizontalAlignment: (Pair<String, Alignment.Horizontal>) -> Unit
-) {
+    // config
     ValueSlider(
         title = "Item count :",
-        value = itemCount.toFloat(),
-        from = 0f,
-        to = 1000f,
-        onValueChange = itemCountChange
+        value = itemCount,
+        from = 2,
+        to = 1000,
+        onValueChange = {
+            itemCount = it
+        }
     )
     MySwitchButtonCompose(
         title = "Sticky Header",
         isSelected = stickyHeader,
-        onSelectedCallback = updateStickyHeader
+        onSelectedCallback = {
+            stickyHeader = it
+        }
     )
     MySwitchButtonCompose(
         title = "reverseLayout =",
         isProperties = true,
         isSelected = reverseLayout,
-        onSelectedCallback = updateReverseLayout
+        onSelectedCallback = {
+            reverseLayout = it
+        }
     )
     SettingComponent(
         name = "verticalArrangement",
@@ -153,7 +121,7 @@ private fun GroupConfigChange(
         listVerticalArrangement.find {
             selected == it.first
         }?.let {
-            updateVerticalArrangement(it)
+            verticalArrangement = it
         }
     }
     SettingComponent(
@@ -164,10 +132,11 @@ private fun GroupConfigChange(
         listHorizontalAlignment.find {
             selected == it.first
         }?.let {
-            updateHorizontalAlignment(it)
+            horizontalAlignment = it
         }
     }
 }
+
 
 @ExperimentalFoundationApi
 @Preview

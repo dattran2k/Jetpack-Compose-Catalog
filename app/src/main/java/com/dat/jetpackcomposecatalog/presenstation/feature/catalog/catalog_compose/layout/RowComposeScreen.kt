@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout
 
 import androidx.compose.foundation.background
@@ -7,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +32,7 @@ fun ColumnScope.RowComposeScreen() {
     var horizontalArrangement: Pair<String, Arrangement.Horizontal> by remember {
         mutableStateOf(listHorizontalArrangement.first())
     }
+
     var verticalAlignment: Pair<String, Alignment.Vertical> by remember {
         mutableStateOf(listVerticalAlignment.first())
     }
@@ -50,6 +48,8 @@ fun ColumnScope.RowComposeScreen() {
         EmptyBox()
         EmptyBox()
     }
+
+    // config
     SettingComponent(
         name = "verticalArrangement",
         settingSelected = horizontalArrangement.first,

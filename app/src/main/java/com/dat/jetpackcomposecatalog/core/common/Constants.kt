@@ -6,6 +6,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 
 object DataConst {
     val listVerticalArrangement: List<Pair<String, Arrangement.Vertical>> = listOf(
@@ -29,7 +30,21 @@ object DataConst {
         "Arrangement.SpaceEvenly" to Arrangement.SpaceEvenly,
         "Arrangement.SpaceAround" to Arrangement.SpaceAround,
         "Arrangement.SpaceBetween" to Arrangement.SpaceBetween,
-    )
+        "Arrangement.aligned(Alignment.CenterHorizontally)" to Arrangement.aligned(Alignment.CenterHorizontally),
+        "Arrangement.aligned(Alignment.Start)" to Arrangement.aligned(Alignment.Start),
+        "Arrangement.aligned(Alignment.End)" to Arrangement.aligned(Alignment.End),
+        "Arrangement.spacedBy(20.dp)" to Arrangement.spacedBy(20.dp),
+        "Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally)" to Arrangement.spacedBy(
+            20.dp,
+            Alignment.CenterHorizontally
+        ),
+        "Arrangement.spacedBy(20.dp, Alignment.Start)" to Arrangement.spacedBy(
+            20.dp,
+            Alignment.Start
+        ),
+        "Arrangement.spacedBy(20.dp, Alignment.End)" to Arrangement.spacedBy(20.dp, Alignment.End),
+
+        )
     val listHorizontalAlignment: List<Pair<String, Alignment.Horizontal>> = listOf(
         "Alignment.Start" to Alignment.Start,
         "Alignment.End" to Alignment.End,

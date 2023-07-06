@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -8,7 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -46,16 +44,16 @@ fun ColumnScope.LazyRowComposeScreen() {
         mutableStateOf(listHorizontalArrangement.first())
     }
     var verticalAlignment: Pair<String, Alignment.Vertical> by remember {
-        mutableStateOf("Alignment.CenterHorizontally" to Alignment.CenterVertically)
+        mutableStateOf(listVerticalAlignment.first())
     }
     var stickyHeader by remember {
         mutableStateOf(false)
     }
     var itemCount by remember {
-        mutableStateOf(100)
+        mutableStateOf(2)
     }
     var reverseLayout by remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
     LazyRow(
         verticalAlignment = verticalAlignment.second,
@@ -81,69 +79,46 @@ fun ColumnScope.LazyRowComposeScreen() {
                     )
                 }
                 items(PER_GROUP_COUNT) {
-                    TextItemLayout("Item $it, group $group")
+                    TextItemLayout(
+                        modifier = Modifier.fillMaxHeight(0.5f),
+                        text = "Item $it, group $group"
+                    )
                 }
             }
         } else {
             items(itemCount, key = { it }) {
-                TextItemLayout(text = "Item $it")
+                TextItemLayout(
+                    modifier = Modifier.fillMaxHeight(0.5f),
+                    text = "Item $it"
+                )
             }
         }
     }
-    GroupConfigChange(
-        stickyHeader = stickyHeader,
-        reverseLayout = reverseLayout,
-        itemCount = itemCount,
-        horizontalArrangement = horizontalArrangement,
-        verticalAlignment = verticalAlignment,
-        updateStickyHeader = {
-            stickyHeader = it
-        },
-        updateReverseLayout = {
-            reverseLayout = it
-        },
-        itemCountChange = {
-            itemCount = it.toInt()
-        },
-        updateHorizontalArrangement = {
-            horizontalArrangement = it
-        },
-        updateVerticalAlignment = {
-            verticalAlignment = it
-        }
-    )
-}
 
-@Composable
-private fun GroupConfigChange(
-    stickyHeader: Boolean,
-    reverseLayout: Boolean,
-    itemCount: Int,
-    horizontalArrangement: Pair<String, Arrangement.Horizontal>,
-    verticalAlignment: Pair<String, Alignment.Vertical>,
-    updateStickyHeader: (Boolean) -> Unit,
-    updateReverseLayout: (Boolean) -> Unit,
-    itemCountChange: (Float) -> Unit,
-    updateHorizontalArrangement: (Pair<String, Arrangement.Horizontal>) -> Unit,
-    updateVerticalAlignment: (Pair<String, Alignment.Vertical>) -> Unit
-) {
+    // config
     ValueSlider(
         title = "Item count :",
-        value = itemCount.toFloat(),
-        from = 0f,
-        to = 1000f,
-        onValueChange = itemCountChange
+        value = itemCount,
+        from = 2,
+        to = 1000,
+        onValueChange = {
+            itemCount = it
+        }
     )
     MySwitchButtonCompose(
         title = "Sticky Header : ",
         isSelected = stickyHeader,
-        onSelectedCallback = updateStickyHeader
+        onSelectedCallback = {
+            stickyHeader = it
+        }
     )
     MySwitchButtonCompose(
         title = "reverseLayout =",
         isProperties = true,
         isSelected = reverseLayout,
-        onSelectedCallback = updateReverseLayout
+        onSelectedCallback = {
+            reverseLayout = it
+        }
     )
     SettingComponent(
         name = "horizontalArrangement",
@@ -153,7 +128,7 @@ private fun GroupConfigChange(
         listHorizontalArrangement.find {
             selected == it.first
         }?.let {
-            updateHorizontalArrangement(it)
+            horizontalArrangement = it
         }
     }
     SettingComponent(
@@ -164,7 +139,7 @@ private fun GroupConfigChange(
         listVerticalAlignment.find {
             selected == it.first
         }?.let {
-            updateVerticalAlignment(it)
+            verticalAlignment = it
         }
     }
 }

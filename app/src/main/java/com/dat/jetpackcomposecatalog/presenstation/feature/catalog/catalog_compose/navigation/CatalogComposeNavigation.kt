@@ -28,10 +28,10 @@ import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.CatalogComposeEnum
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.ColumnComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.ColumnLazyComposeScreen
+import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.GridLazyHorizontalStaggeredComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.GridLazyVerticalStaggeredComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.LazyRowComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout.RowComposeScreen
-import com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.widgets.BoxComposeScreen
 import com.dat.jetpackcomposecatalog.presenstation.navigation.Screen
 
 const val CATALOG_ROUTE_NAME = "CatalogCompose"
@@ -88,12 +88,13 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                     .fillMaxSize()
             ) {
                 when (CatalogComposeEnum.valueOf(id)) {
-                    CatalogComposeEnum.Box -> BoxComposeScreen()
+//                    CatalogComposeEnum.Box -> BoxComposeScreen()
                     CatalogComposeEnum.Column -> ColumnComposeScreen()
                     CatalogComposeEnum.LazyColumn -> ColumnLazyComposeScreen()
                     CatalogComposeEnum.Row -> RowComposeScreen()
                     CatalogComposeEnum.LazyRow -> LazyRowComposeScreen()
                     CatalogComposeEnum.LazyVerticalStaggeredGrid -> GridLazyVerticalStaggeredComposeScreen()
+                    CatalogComposeEnum.LazyHorizontalStaggeredGrid -> GridLazyHorizontalStaggeredComposeScreen()
                 }
             }
         }

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.dat.jetpackcomposecatalog.presenstation.feature.catalog.catalog_compose.layout
 
 import androidx.compose.foundation.background
@@ -7,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -37,6 +34,7 @@ fun ColumnScope.ColumnComposeScreen() {
     var horizontalAlignment: Pair<String, Alignment.Horizontal> by remember {
         mutableStateOf(listHorizontalAlignment.first())
     }
+
     Column(
         Modifier
             .fillMaxWidth()
@@ -49,6 +47,8 @@ fun ColumnScope.ColumnComposeScreen() {
         EmptyBox()
         EmptyBox()
     }
+
+    // config
     SettingComponent(
         name = "verticalArrangement",
         settingSelected = verticalArrangement.first,

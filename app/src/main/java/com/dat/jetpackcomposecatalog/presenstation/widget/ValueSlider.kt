@@ -28,24 +28,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.dat.jetpackcomposecatalog.presenstation.theme.BlackCodeColor
+import com.dat.jetpackcomposecatalog.presenstation.theme.BlueCodeColor
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presenstation.theme.OrangeCodeColor
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ValueSlider(
     modifier: Modifier = Modifier,
     title: String = "Title",
     isProperties: Boolean = false,
-    value: Float = 0f,
-    from: Float = 0f,
-    to: Float = 100f,
+    value: Int = 0,
+    from: Int = 0,
+    to: Int = 100,
     step: Int = 20,
-    onValueChange: (Float) -> Unit = {}
+    onValueChange: (Int) -> Unit = {}
 ) {
     val interactionSource = MutableInteractionSource()
     val titleStyle = if (isProperties)
-        MaterialTheme.typography.bodyMedium.copy(color = OrangeCodeColor)
+        MaterialTheme.typography.bodyMedium.copy(color = BlueCodeColor)
     else
         MaterialTheme.typography.bodyMedium
     Row(
@@ -57,15 +56,17 @@ fun ValueSlider(
         Arrangement.Center,
         verticalAlignment = CenterVertically,
     ) {
-        Text(text = "$title = ${value.toInt()}", style = titleStyle)
+        Text(text = "$title = $value", style = titleStyle)
         Spacer(modifier = Modifier.width(8.dp))
         Slider(
             modifier = Modifier
                 .weight(1f)
                 .height(28.dp),
-            value = value,
-            onValueChange = onValueChange,
-            valueRange = from..to,
+            value = value.toFloat(),
+            onValueChange = {
+                onValueChange(it.toInt())
+            },
+            valueRange = from.toFloat()..to.toFloat(),
             steps = step,
             interactionSource = interactionSource,
             onValueChangeFinished = {
@@ -86,9 +87,9 @@ fun ValueSlider(
 fun PreviewValueSlider() {
     JetpackComposeCatalogTheme {
         val value = remember {
-            mutableStateOf(0f)
+            mutableStateOf(0)
         }
-        ValueSlider(value = value.value, from = 0f, to = 1000f) {
+        ValueSlider(value = value.value, from = 0, to = 1000) {
             value.value = it
         }
     }

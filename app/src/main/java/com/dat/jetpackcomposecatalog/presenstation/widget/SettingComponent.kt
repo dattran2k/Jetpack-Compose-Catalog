@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Divider
@@ -44,7 +45,7 @@ import com.dat.jetpackcomposecatalog.presenstation.theme.OrangeCodeColor
 fun SettingComponent(
     modifier: Modifier = Modifier,
     name: String,
-    settingSelected: String,
+    settingSelected: String?,
     listSetting: List<String>,
     onSettingSelected: (String) -> Unit
 ) {
@@ -71,7 +72,7 @@ fun SettingComponent(
         Text(
             text = "$name = ", style = MaterialTheme.typography.bodyMedium.copy(
                 color = BlueCodeColor, fontStyle = FontStyle.Italic
-            ), modifier = Modifier.weight(1f)
+            ), modifier = Modifier.widthIn(0.dp, 200.dp)
         )
         Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
             Column(
@@ -86,7 +87,7 @@ fun SettingComponent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = settingSelected,
+                        text = settingSelected ?: "",
                         style = MaterialTheme.typography.bodyMedium.copy(color = OrangeCodeColor),
                         modifier = Modifier.weight(1f)
                     )
@@ -115,7 +116,7 @@ fun SettingComponentPreview() {
     JetpackComposeCatalogTheme {
         SettingComponent(
             Modifier,
-            "1231233123 21m3;l21m3;l21m;lk213 2m13l;321lm;2l1;3ml2;1",
+            "horizontalAlignment",
             "123123123123123123",
             listOf("123123123123123123", "1", "2", "3"),
         ) {}

@@ -17,11 +17,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TextItemLayout(text: String, xStart: Float = -50f, yStart: Float = -50f) {
+fun TextItemLayout(
+    modifier: Modifier = Modifier,
+    text: String,
+    xStart: Float = -50f,
+    yStart: Float = -50f
+) {
     val offsetX = remember { Animatable(xStart) }
     val offsetY = remember { Animatable(yStart) }
     Card(
-        modifier = Modifier
+        modifier = modifier
             .padding(8.dp)
             .offset(offsetX.value.dp, offsetX.value.dp),
         elevation = CardDefaults.cardElevation(

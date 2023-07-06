@@ -3,10 +3,15 @@
 package com.dat.jetpackcomposecatalog.presenstation.widget
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dat.jetpackcomposecatalog.presenstation.theme.JetpackComposeCatalogTheme
 
+@ExperimentalMaterial3Api
 @Composable
 fun StringPickerDialog(
     title: String,
@@ -28,6 +34,7 @@ fun StringPickerDialog(
     onDismiss: () -> Unit,
     onSelectItem: (String) -> Unit
 ) {
+
     AlertDialog(onDismissRequest = onDismiss) {
         Card(
             //shape = MaterialTheme.shapes.medium,
@@ -40,7 +47,7 @@ fun StringPickerDialog(
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
@@ -50,18 +57,26 @@ fun StringPickerDialog(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             )
-            listSelect.forEachIndexed { index, string ->
-                Text(text = string, modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        onSelectItem(string)
-                        onDismiss()
-                    }
-                    .padding(8.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                if (index < listSelect.size - 1)
-                    Divider(modifier = Modifier.padding(horizontal = 16.dp))
+            Column(
+                modifier = Modifier
+                    .height(IntrinsicSize.Min)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                listSelect.forEachIndexed { index, string ->
+                    Text(
+                        text = string,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onSelectItem(string)
+                                onDismiss()
+                            }
+                            .padding(8.dp),
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                    if (index < listSelect.size - 1)
+                        Divider(modifier = Modifier.padding(horizontal = 16.dp))
+                }
             }
         }
     }
