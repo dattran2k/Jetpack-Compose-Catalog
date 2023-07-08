@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
@@ -54,23 +52,6 @@ android {
             "META-INF/*.properties",
         )
     }
-    flavorDimensions += "environment"
-    productFlavors {
-        create("development") {
-            dimension = "environment"
-            manifestPlaceholders["appLabel"] = "Base Debug"
-            versionNameSuffix = "-development"
-
-            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
-
-        }
-        create("production") {
-            dimension = "environment"
-            manifestPlaceholders["appLabel"] = "Base"
-            versionNameSuffix = "-production"
-            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
-        }
-    }
 }
 
 dependencies {
@@ -86,62 +67,34 @@ dependencies {
     //data store
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.kotlin.lite)
-
     // hilt
     implementation(libs.androidx.hilt.navigationcompose)
     implementation(libs.androidx.hilt.work)
-
     implementation(libs.dagger.hilt.library)
     kapt(libs.dagger.hilt.compiler)
-
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui.ui)
     implementation(libs.compose.ui.tooling.preview)
-    // for pull refresh XD
     implementation(libs.compose.material.material)
     implementation(libs.compose.material.material3)
-
     implementation(libs.compose.ui.tooling)
 
     // testing
     testImplementation(platform(libs.compose.bom))
     testImplementation("org.mockito:mockito-core:3.12.4")
     testImplementation(libs.compose.ui.test)
-
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test)
-
     debugImplementation(libs.compose.ui.test.manifest)
-
-    // retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.json)
-    implementation(libs.retrofit.converter.scalars)
-    implementation(libs.okhttp3)
-    implementation(libs.okhttp3.logging.interceptor)
-
-    // chucker
-    debugImplementation(libs.chucker)
-    releaseImplementation(libs.chucker.release)
-
-    // Timber
-    implementation(libs.timber)
-
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.coroutines.android)
-
     // Coroutine Lifecycle Scopes
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.accompanist.coil)
-
-    // debugImplementation because LeakCanary should only run in debug builds.
-    debugImplementation(libs.leakCanary)
-
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 }
 // Allow references to generated code

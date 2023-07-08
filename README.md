@@ -1,2 +1,8 @@
-- Working - 5% 
- 
+- Column
+- Row
+
+- LazyColumn
+- LazyRow
+
+- LazyHorizontalStaggeredGrid
+- LazyVerticalStaggeredGrid
