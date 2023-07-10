@@ -38,8 +38,8 @@ enum class MyHorizontalArrangement(val value: Arrangement.Horizontal, val typeNa
         "Arrangement.aligned(Alignment.Start)"
     ),
     AlignedEnd(
-        Arrangement.aligned(Alignment.Start),
-        "Arrangement.aligned(Alignment.Start)"
+        Arrangement.aligned(Alignment.End),
+        "Arrangement.aligned(Alignment.End)"
     ),
     SpacedBy(
         Arrangement.spacedBy(20.dp),

@@ -24,10 +24,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run Lint
-        run: ./gradlew lintDevelopmentDebug
+        run: ./gradlew lintDebug
 
       - name: Run local tests
-        run: ./gradlew testDevelopmentDebugUnitTest testProductionDebugUnitTest
+        run: ./gradlew testDebugUnitTest testDebugUnitTest
 
       - name: Build all build type and flavor permutations
         run: ./gradlew assemble

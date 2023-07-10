@@ -20,8 +20,8 @@ enum class MyVerticalArrangement(val value: Arrangement.Vertical, val typeName: 
         "Arrangement.aligned(Alignment.Top)"
     ),
     AlignedBottom(
-        Arrangement.aligned(Alignment.Top),
-        "Arrangement.aligned(Alignment.Top)"
+        Arrangement.aligned(Alignment.Bottom),
+        "Arrangement.aligned(Alignment.Bottom)"
     ),
     SpacedBy(
         Arrangement.spacedBy(20.dp),
