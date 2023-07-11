@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.AnimationVisibility
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutColumn
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutColumnLazy
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutGridLazyHorizontal
@@ -94,7 +95,6 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                 val fillModifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .background(color = MaterialTheme.colorScheme.secondary)
                 when (CatalogComposeEnum.valueOf(id)) {
 //                    CatalogComposeEnum.Box -> BoxComposeScreen()
                     CatalogComposeEnum.Column -> LayoutColumn(fillModifier)
@@ -117,7 +117,7 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                         fillModifier
                     )
 
-
+                    CatalogComposeEnum.Visibility -> AnimationVisibility(fillModifier)
                 }
             }
         }

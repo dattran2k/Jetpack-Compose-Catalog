@@ -30,3 +30,16 @@ val DarkTheme = MyColorPalette(
     todoItemBackGround = WhiteColorAlpha10
 )
 
+fun getColorByIndex(index: Int): Color {
+    return when (index) {
+        0 -> Color.Red
+        1 -> Color.Blue
+        2 -> Color.Green
+        3 -> Color.Yellow
+        4 -> Color.Magenta
+        5 -> Color.Cyan
+        6 -> Color.Gray
+        // Add more cases as needed
+        else -> Color.Black // Default color if index doesn't match any case
+    }
+}

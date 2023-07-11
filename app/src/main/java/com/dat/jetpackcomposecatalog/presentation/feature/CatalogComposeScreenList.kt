@@ -2,7 +2,8 @@ package com.dat.jetpackcomposecatalog.presentation.feature
 
 enum class CatalogComposeGroup {
     Widgets,
-    Layout
+    Layout,
+    Animation
 }
 
 enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
@@ -16,5 +17,5 @@ enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
     LazyVerticalGrid(CatalogComposeGroup.Layout),
     LazyHorizontalStaggeredGrid(CatalogComposeGroup.Layout),
     LazyHorizontalGrid(CatalogComposeGroup.Layout),
-
+    Visibility(CatalogComposeGroup.Animation),
 }
