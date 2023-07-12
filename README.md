@@ -1,8 +1,10 @@
-- Column
-- Row
-
-- LazyColumn
-- LazyRow
-
-- LazyHorizontalStaggeredGrid
-- LazyVerticalStaggeredGrid
+- Layout
+  - Column
+  - Row
+  - LazyColumn
+  - LazyRow
+  - LazyHorizontalStaggeredGrid
+  - LazyVerticalStaggeredGrid
+- Animation
+  - AnimatedVisibility
+  - AnimateContentSize
