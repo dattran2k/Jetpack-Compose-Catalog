@@ -77,8 +77,12 @@ fun AnimationGroup(
     ) {
         Text(text = anim.name, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(4.dp))
         MyAnim.TypeAnim.values().forEach {  typeAnim ->
+           val listAnim = when (typeAnim) {
+                MyAnim.TypeAnim.Easing -> groupEasing
+                MyAnim.TypeAnim.Spring -> mapSpring
+            }.toList()
             Text(
-                text = groupEasing.toList().joinToString(separator = " - ") { it.first },
+                text = listAnim.joinToString(separator = " - ") { it.first },
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(4.dp)
             )
@@ -87,11 +91,8 @@ fun AnimationGroup(
                     .fillMaxWidth()
                     .height(100.dp)
             ) {
-                when (typeAnim) {
-                    MyAnim.TypeAnim.Easing -> groupEasing
-                    MyAnim.TypeAnim.Spring -> mapSpring
-                }.toList().forEachIndexed { index, pair ->
-                    val getAnimGroup = MyAnim.getAnim(anim, typeAnim, pair.first)
+                listAnim.forEachIndexed { index, pair ->
+                    val getAnimGroup = MyAnim.getAnimEnterExitGroup(anim, typeAnim, pair.first)
                     ContentVisibility(
                         modifier = Modifier
                             .weight(1f)
@@ -108,7 +109,7 @@ fun AnimationGroup(
 }
 
 @Composable
-private fun ContentVisibility(
+private fun  ContentVisibility(
     modifier: Modifier = Modifier,
     isVisible: Boolean,
     enter: Pair<String, EnterTransition>,

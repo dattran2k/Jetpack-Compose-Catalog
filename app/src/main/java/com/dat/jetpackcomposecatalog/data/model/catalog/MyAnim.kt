@@ -73,7 +73,7 @@ object MyAnim {
             TypeAnim.Spring -> getSpring(key)
         }
     }
-    fun getAnim(anim: MyAnimTransition, type: TypeAnim, key: String): MyAnimEnterExitGroup {
+    fun getAnimEnterExitGroup(anim: MyAnimTransition, type: TypeAnim, key: String): MyAnimEnterExitGroup {
         return when (anim) {
             MyAnimTransition.SlideVertically -> MyAnimEnterExitGroup(
                 "slideInVertically" to slideInVertically(

@@ -3,7 +3,6 @@
 package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.AnimationContent
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.AnimationContentSize
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.AnimationVisibility
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutColumn
@@ -118,8 +118,9 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                         fillModifier
                     )
 
-                    CatalogComposeEnum.Visibility -> AnimationVisibility(fillModifier)
-                    CatalogComposeEnum.ContentSize -> AnimationContentSize(fillModifier)
+                    CatalogComposeEnum.ContentVisibility -> AnimationVisibility(fillModifier)
+                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSize(fillModifier)
+                    CatalogComposeEnum.AnimatedContent -> AnimationContent(fillModifier)
                 }
             }
         }
