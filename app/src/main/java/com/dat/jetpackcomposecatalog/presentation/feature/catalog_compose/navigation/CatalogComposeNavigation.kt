@@ -27,17 +27,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.AnimationContent
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.AnimationContentSize
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.AnimationVisibility
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutColumn
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutColumnLazy
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutGridLazyHorizontal
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutGridLazyHorizontalStaggered
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutGridLazyVertical
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutGridLazyVerticalStaggered
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutLazyRow
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.LayoutRow
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContent
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentSize
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationVisibility
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutColumn
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutColumnLazy
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutGridLazyHorizontal
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutGridLazyHorizontalStaggered
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutGridLazyVertical
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutGridLazyVerticalStaggered
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutLazyRow
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutRow
 import com.dat.jetpackcomposecatalog.presentation.navigation.Screen
 
 const val CATALOG_ROUTE_NAME = "CatalogCompose"
@@ -106,21 +106,18 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                         fillModifier
                     )
 
-                    CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVertical(
-                        fillModifier
-                    )
-
+                    CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVertical(fillModifier)
                     CatalogComposeEnum.LazyHorizontalStaggeredGrid -> LayoutGridLazyHorizontalStaggered(
                         fillModifier
                     )
 
-                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(
+                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(fillModifier)
+                    CatalogComposeEnum.ContentVisibility -> AnimationVisibility.Screen(fillModifier)
+                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSize.Screen(
                         fillModifier
                     )
 
-                    CatalogComposeEnum.ContentVisibility -> AnimationVisibility(fillModifier)
-                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSize(fillModifier)
-                    CatalogComposeEnum.AnimatedContent -> AnimationContent(fillModifier)
+                    CatalogComposeEnum.AnimatedContent -> AnimationContent.Screen(fillModifier)
                 }
             }
         }

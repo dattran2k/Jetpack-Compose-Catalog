@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class, ExperimentalCoroutinesApi::class)
 
-package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose
+package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.GridCells

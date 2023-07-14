@@ -1,24 +1,29 @@
-package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
 
+package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout
+
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dat.jetpackcomposecatalog.data.model.catalog.MyGridCells
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalArrangement
-import com.dat.jetpackcomposecatalog.data.model.catalog.MyVerticalArrangement
+import com.dat.jetpackcomposecatalog.data.model.catalog.MyStaggeredGridCells
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.widget.EmptyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
@@ -26,21 +31,23 @@ import com.dat.jetpackcomposecatalog.presentation.widget.ValueSlider
 import kotlin.random.Random
 
 @Composable
-fun LayoutGridLazyVertical(
+fun LayoutGridLazyVerticalStaggered(
     modifier: Modifier = Modifier,
     viewModel: CatalogViewModel = hiltViewModel()
 ) {
+
     val itemCount by viewModel.itemCountState.collectAsState()
-    val verticalArrangement by viewModel.verticalArrangementState.collectAsState()
     val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
+    val staggeredGridCellsData by viewModel.staggeredGridCells.collectAsState()
 
-    val gridCellsData by viewModel.gridCells.collectAsState()
-
-    LazyVerticalGrid(
+    var verticalItemSpacing by remember {
+        mutableStateOf(0)
+    }
+    LazyVerticalStaggeredGrid(
         modifier = modifier,
-        columns = gridCellsData.gridCells,
-        verticalArrangement = verticalArrangement.value,
-        horizontalArrangement = horizontalArrangement.value
+        columns = staggeredGridCellsData.staggeredGridCells,
+        verticalItemSpacing = verticalItemSpacing.dp,
+        horizontalArrangement = horizontalArrangement.value,
     ) {
         items(itemCount, key = { it }) {
             val size = Random.nextInt(50, 400).dp
@@ -62,6 +69,16 @@ fun LayoutGridLazyVertical(
         to = 100,
         onValueChange = viewModel::onUpdateItemCount
     )
+    ValueSlider(
+        title = "verticalItemSpacing",
+        value = verticalItemSpacing,
+        isProperties = true,
+        from = 0,
+        to = 100,
+        onValueChange = {
+            verticalItemSpacing = it
+        }
+    )
     SettingComponent(
         name = "horizontalArrangement",
         settingSelected = horizontalArrangement,
@@ -69,53 +86,45 @@ fun LayoutGridLazyVertical(
         mapName = { it.typeName },
         onSettingSelected = viewModel::onHorizontalArrangementSelected
     )
-    SettingComponent(
-        name = "verticalArrangement",
-        settingSelected = verticalArrangement,
-        listSetting = MyVerticalArrangement.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onVerticalArrangementSelected
-    )
-
     // TODO improve this
     SettingComponent(
         name = "columns",
-        settingSelected = gridCellsData.myGridCells,
-        listSetting = MyGridCells.values().toList(),
+        settingSelected = staggeredGridCellsData.myStaggeredGridCells,
+        listSetting = MyStaggeredGridCells.values().toList(),
         mapName = { it.typeName },
-        onSettingSelected = viewModel::onSelectGridCells
+        onSettingSelected = viewModel::onSelectStaggeredGridCells
     )
 
-    if (gridCellsData.gridCells is GridCells.Adaptive)
+    if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Adaptive)
         ValueSlider(
             title = "Adaptive",
-            value = gridCellsData.value,
+            value = staggeredGridCellsData.value,
             isProperties = true,
             from = 40,
             to = 400,
-            onValueChange = viewModel::updateAdaptive
+            onValueChange = viewModel::updateStaggeredAdaptive
         )
-    if (gridCellsData.gridCells is GridCells.Fixed)
+    if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Fixed)
         ValueSlider(
             title = "Fix",
-            value = gridCellsData.value,
+            value = staggeredGridCellsData.value,
             isProperties = true,
             from = 1,
             to = 10,
-            onValueChange = viewModel::updateFixed
+            onValueChange = viewModel::updateStaggeredFixed
         )
 }
 
 @Preview
 @Composable
-fun GridLazyVerticalComposeScreenPreview() {
+fun GridLazyVerticalStaggeredComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
         Column(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
         ) {
-            LayoutGridLazyVertical()
+            LayoutGridLazyVerticalStaggered()
         }
     }
 }

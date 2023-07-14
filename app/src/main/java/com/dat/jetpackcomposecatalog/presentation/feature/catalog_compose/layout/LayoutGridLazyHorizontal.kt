@@ -1,4 +1,4 @@
-package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose
+package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalAnimationApi::class)
 
-package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose
+package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -69,7 +68,7 @@ fun AnimationTest(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun Preview() {
-    JetpackComposeCatalogTheme() {
+    JetpackComposeCatalogTheme {
         AnimationTest(Modifier.statusBarsPadding())
     }
 }

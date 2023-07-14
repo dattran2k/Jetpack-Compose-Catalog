@@ -1,35 +1,37 @@
-package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose
+package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalAlignment
-import com.dat.jetpackcomposecatalog.data.model.catalog.MyVerticalArrangement
+import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalArrangement
+import com.dat.jetpackcomposecatalog.data.model.catalog.MyVerticalAlignment
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.widget.EmptyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
 
-@Composable
-fun LayoutColumn(
-    modifier: Modifier = Modifier,
-    catalogViewModel: CatalogViewModel = hiltViewModel()
-) {
-    val verticalArrangement by catalogViewModel.verticalArrangementState.collectAsStateWithLifecycle()
-    val horizontalAlignment by catalogViewModel.horizontalAlignmentState.collectAsStateWithLifecycle()
 
-    Column(
+@Composable
+fun LayoutRow(
+    modifier: Modifier = Modifier,
+    viewModel: CatalogViewModel = hiltViewModel()
+) {
+    val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
+    val verticalAlignment by viewModel.verticalAlignmentState.collectAsState()
+    Row(
         modifier = modifier,
-        verticalArrangement = verticalArrangement.value,
-        horizontalAlignment = horizontalAlignment.value
+        verticalAlignment = verticalAlignment.value,
+        horizontalArrangement = horizontalArrangement.value
     ) {
         EmptyBox()
         EmptyBox()
@@ -38,24 +40,25 @@ fun LayoutColumn(
 
     // config
     SettingComponent(
-        name = "verticalArrangement",
-        settingSelected = verticalArrangement,
-        listSetting = MyVerticalArrangement.values().toList(),
+        name = "verticalAlignment",
+        settingSelected = verticalAlignment,
+        listSetting = MyVerticalAlignment.values().toList(),
         mapName = { it.typeName },
-        onSettingSelected = catalogViewModel::onVerticalArrangementSelected
+        onSettingSelected = viewModel::onVerticalAlignmentSelected
     )
     SettingComponent(
-        name = "horizontalAlignment",
-        settingSelected = horizontalAlignment,
-        listSetting = MyHorizontalAlignment.values().toList(),
+        name = "horizontalArrangement",
+        settingSelected = horizontalArrangement,
+        listSetting = MyHorizontalArrangement.values().toList(),
         mapName = { it.typeName },
-        onSettingSelected = catalogViewModel::onHorizontalAlignmentSelected
+        onSettingSelected = viewModel::onHorizontalArrangementSelected
     )
+
 }
 
 @Preview
 @Composable
-fun ColumnComposeScreenPreview() {
+fun RowComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
         Box(Modifier.fillMaxSize()) {
             Column(
@@ -64,7 +67,7 @@ fun ColumnComposeScreenPreview() {
                     .statusBarsPadding()
                     .verticalScroll(rememberScrollState())
             ) {
-                LayoutColumn()
+                LayoutRow()
             }
         }
     }
