@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -37,11 +36,10 @@ import androidx.compose.ui.unit.dp
 import com.dat.jetpackcomposecatalog.core.common.DELAY
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.MyAnim.easing
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.MyAnim.spring
-import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
 import kotlinx.coroutines.delay
 
-object AnimationVisibility : AnimationScreen() {
+object AnimationVisibility : BaseAnimationScreen() {
     @Composable
     override fun Screen(modifier: Modifier) {
         var isVisible by remember {
@@ -56,7 +54,7 @@ object AnimationVisibility : AnimationScreen() {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
         ) {
-            listAnimationTransition.forEach {
+            MyAnim.Transition.values().forEach {
                 AnimationGroup(it, isVisible)
             }
         }
@@ -77,7 +75,7 @@ object AnimationVisibility : AnimationScreen() {
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(4.dp)
             )
-            listAnimType.forEach { typeAnim ->
+            MyAnim.TypeAnim.values().forEach { typeAnim ->
                 val listAnim = when (typeAnim) {
                     MyAnim.TypeAnim.Easing -> easing
                     MyAnim.TypeAnim.Spring -> spring
@@ -147,9 +145,5 @@ object AnimationVisibility : AnimationScreen() {
 @Preview
 @Composable
 fun AnimationVisibilityPreview() {
-    JetpackComposeCatalogTheme(true) {
-        AnimationVisibility.Screen(
-            Modifier.statusBarsPadding()
-        )
-    }
+    AnimationVisibility.Preview()
 }

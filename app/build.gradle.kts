@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigationcompose)
     implementation(libs.androidx.hilt.work)
     implementation(libs.dagger.hilt.library)
+    implementation("androidx.compose.animation:animation-graphics:1.4.3")
     kapt(libs.dagger.hilt.compiler)
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui.ui)

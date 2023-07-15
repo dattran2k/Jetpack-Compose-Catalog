@@ -19,5 +19,7 @@ enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
     LazyHorizontalGrid(CatalogComposeGroup.Layout),
     ContentVisibility(CatalogComposeGroup.Animation),
     AnimateContentSize(CatalogComposeGroup.Animation),
+    AnimatedValue(CatalogComposeGroup.Animation),
     AnimatedContent(CatalogComposeGroup.Animation),
+
 }

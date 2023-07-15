@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -29,11 +28,10 @@ import androidx.compose.ui.unit.dp
 import com.dat.jetpackcomposecatalog.core.common.DELAY
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.MyAnim.easing
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.MyAnim.spring
-import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
 import kotlinx.coroutines.delay
 
-object AnimationContentSize : AnimationScreen() {
+object AnimationContentSize : BaseAnimationScreen() {
     @Composable
     override fun Screen(modifier: Modifier) {
         var isExpand by remember {
@@ -70,7 +68,7 @@ object AnimationContentSize : AnimationScreen() {
                         ContentSize(
                             Modifier,
                             isVisible = isVisible,
-                            animationSpec = pair.first to MyAnim.getAnimationSpec(
+                            animationSpec = pair.first to MyAnim.getFiniteAnimationSpec(
                                 typeAnim,
                                 pair.first
                             ),
@@ -115,9 +113,5 @@ object AnimationContentSize : AnimationScreen() {
 @Preview
 @Composable
 fun AnimationContentSizePreview() {
-    JetpackComposeCatalogTheme {
-        AnimationContentSize.Screen(
-            Modifier.statusBarsPadding()
-        )
-    }
+    AnimationContentSize.Preview()
 }

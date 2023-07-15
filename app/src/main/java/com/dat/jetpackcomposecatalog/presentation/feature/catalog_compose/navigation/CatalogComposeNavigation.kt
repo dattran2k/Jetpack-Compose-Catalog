@@ -29,6 +29,7 @@ import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContent
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentSize
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationValue
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationVisibility
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutColumn
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutColumnLazy
@@ -118,6 +119,7 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                     )
 
                     CatalogComposeEnum.AnimatedContent -> AnimationContent.Screen(fillModifier)
+                    CatalogComposeEnum.AnimatedValue -> AnimationValue.Screen(fillModifier)
                 }
             }
         }
