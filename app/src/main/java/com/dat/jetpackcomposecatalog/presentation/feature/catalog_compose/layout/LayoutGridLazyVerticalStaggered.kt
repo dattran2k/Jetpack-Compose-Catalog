@@ -33,7 +33,7 @@ import kotlin.random.Random
 @Composable
 fun LayoutGridLazyVerticalStaggered(
     modifier: Modifier = Modifier,
-    viewModel: CatalogViewModel = hiltViewModel()
+    viewModel: LayoutViewModel = hiltViewModel()
 ) {
 
     val itemCount by viewModel.itemCountState.collectAsState()

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.js.translate.context.Namer.kotlin
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -14,6 +12,7 @@ allprojects {
         mavenCentral()
         mavenLocal()
         maven("https://maven.google.com")
+        maven("https://oss.sonatype.org/content/repositories/snapshots/")
     }
 
 

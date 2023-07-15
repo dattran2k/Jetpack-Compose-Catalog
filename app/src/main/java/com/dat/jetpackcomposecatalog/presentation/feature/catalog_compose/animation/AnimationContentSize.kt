@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -26,85 +27,86 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.dat.jetpackcomposecatalog.core.common.DELAY
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.MyAnim.easing
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.MyAnim.spring
+import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim
+import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.easing
+import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.spring
+import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
 import kotlinx.coroutines.delay
 
-object AnimationContentSize : BaseAnimationScreen() {
-    @Composable
-    override fun Screen(modifier: Modifier) {
-        var isExpand by remember {
-            mutableStateOf(true)
-        }
-        LaunchedEffect(isExpand) {
-            delay(DELAY)
-            isExpand = !isExpand
-        }
-        Column(
-            modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-        ) {
-            AnimationGroup(isExpand)
-        }
-    }
 
-    @Composable
-    fun AnimationGroup(
-        isVisible: Boolean,
+@Composable
+fun AnimationContentSizeScreen(modifier: Modifier) {
+    var isExpand by remember {
+        mutableStateOf(true)
+    }
+    LaunchedEffect(isExpand) {
+        delay(DELAY)
+        isExpand = !isExpand
+    }
+    Column(
+        modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min)
-        ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                MyAnim.TypeAnim.values().forEach { typeAnim ->
-                    when (typeAnim) {
-                        MyAnim.TypeAnim.Easing -> easing
-                        MyAnim.TypeAnim.Spring -> spring
-                    }.toList().forEachIndexed { index, pair ->
-                        ContentSize(
-                            Modifier,
-                            isVisible = isVisible,
-                            animationSpec = pair.first to MyAnim.getFiniteAnimationSpec(
-                                typeAnim,
-                                pair.first
-                            ),
-                            color = getColorByIndex(index)
-                        )
-                    }
+        AnimationGroup(isExpand)
+    }
+}
+
+@Composable
+fun AnimationGroup(
+    isVisible: Boolean,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min)
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            MyAnim.TypeAnim.values().forEach { typeAnim ->
+                when (typeAnim) {
+                    MyAnim.TypeAnim.Easing -> easing
+                    MyAnim.TypeAnim.Spring -> spring
+                }.toList().forEachIndexed { index, pair ->
+                    ContentSize(
+                        Modifier,
+                        isVisible = isVisible,
+                        animationSpec = pair.first to MyAnim.getFiniteAnimationSpec(
+                            typeAnim,
+                            pair.first
+                        ),
+                        color = getColorByIndex(index)
+                    )
                 }
             }
         }
     }
+}
 
-    @Composable
-    private fun ContentSize(
-        modifier: Modifier = Modifier,
-        isVisible: Boolean,
-        animationSpec: Pair<String, FiniteAnimationSpec<IntSize>>,
-        color: Color,
+@Composable
+private fun ContentSize(
+    modifier: Modifier = Modifier,
+    isVisible: Boolean,
+    animationSpec: Pair<String, FiniteAnimationSpec<IntSize>>,
+    color: Color,
+) {
+    Box(
+        modifier = modifier
+            .padding(4.dp)
+            .background(color)
+            .animateContentSize(animationSpec.second),
     ) {
         Box(
-            modifier = modifier
-                .padding(4.dp)
-                .background(color)
-                .animateContentSize(animationSpec.second),
+            modifier = Modifier
+                .height(50.dp)
+                .fillMaxWidth(if (isVisible) 1f else 0.1f)
         ) {
-            Box(
-                modifier = Modifier
-                    .height(50.dp)
-                    .fillMaxWidth(if (isVisible) 1f else 0.1f)
-            ) {
-                Text(
-                    text = animationSpec.first,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 2,
-                    minLines = 2
-                )
-            }
+            Text(
+                text = animationSpec.first,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 2,
+                minLines = 2
+            )
         }
     }
 }
@@ -113,5 +115,7 @@ object AnimationContentSize : BaseAnimationScreen() {
 @Preview
 @Composable
 fun AnimationContentSizePreview() {
-    AnimationContentSize.Preview()
+    JetpackComposeCatalogTheme {
+        AnimationContentSizeScreen(modifier = Modifier.statusBarsPadding())
+    }
 }

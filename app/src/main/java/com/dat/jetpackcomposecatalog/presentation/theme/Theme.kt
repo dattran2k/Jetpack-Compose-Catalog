@@ -9,6 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 
 val LocalCustomColorTheme = staticCompositionLocalOf { LightTheme }
+val LocalIsDarkMode = staticCompositionLocalOf { false }
 val DarkColorPalette = darkColorScheme(primary = PrimaryColor)
 val LightColorPalette = lightColorScheme(primary = PrimaryColor)
 
@@ -27,7 +28,10 @@ fun JetpackComposeCatalogTheme(
     } else {
         LightTheme
     }
-    CompositionLocalProvider(LocalCustomColorTheme provides colorsCustom) {
+    CompositionLocalProvider(
+        LocalCustomColorTheme provides colorsCustom,
+        LocalIsDarkMode provides darkTheme
+    ) {
         MaterialTheme(
             colorScheme = colors,
             typography = Typography,

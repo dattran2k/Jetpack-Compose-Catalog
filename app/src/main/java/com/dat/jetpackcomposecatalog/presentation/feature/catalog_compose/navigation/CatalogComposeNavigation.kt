@@ -27,10 +27,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContent
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentSize
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationValue
-import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationVisibility
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentScreen
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentSizeScreen
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationValueScreen
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationVisibilityScreen
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutColumn
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutColumnLazy
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutGridLazyHorizontal
@@ -113,13 +113,10 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                     )
 
                     CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(fillModifier)
-                    CatalogComposeEnum.ContentVisibility -> AnimationVisibility.Screen(fillModifier)
-                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSize.Screen(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.AnimatedContent -> AnimationContent.Screen(fillModifier)
-                    CatalogComposeEnum.AnimatedValue -> AnimationValue.Screen(fillModifier)
+                    CatalogComposeEnum.ContentVisibility -> AnimationVisibilityScreen(fillModifier)
+                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(fillModifier)
+                    CatalogComposeEnum.AnimatedContent -> AnimationContentScreen(fillModifier)
+                    CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(fillModifier)
                 }
             }
         }

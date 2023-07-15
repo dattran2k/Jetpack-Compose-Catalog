@@ -29,7 +29,6 @@ val DarkTheme = MyColorPalette(
     textTitle = WhiteColor,
     todoItemBackGround = WhiteColorAlpha10
 )
-
 fun getColorByIndex(index: Int): Color {
     return when (index) {
         0 -> Color.Red

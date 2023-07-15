@@ -33,7 +33,6 @@ enum class TopLevelDestination(
     Catalog(
         selectedIcon = DrawableResourceIcon(MyIcons.MenuBook),
         unselectedIcon = DrawableResourceIcon(MyIcons.MenuBookBorder),
-
     ),
     Menu(
         selectedIcon = DrawableResourceIcon(MyIcons.Info),

@@ -40,7 +40,7 @@ private const val PER_GROUP_COUNT = 10
 @Composable
 fun LayoutLazyRow(
     modifier: Modifier = Modifier,
-    viewModel: CatalogViewModel = hiltViewModel()
+    viewModel: LayoutViewModel = hiltViewModel()
 ) {
     val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
     val verticalAlignment by viewModel.verticalAlignmentState.collectAsState()

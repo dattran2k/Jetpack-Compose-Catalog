@@ -28,7 +28,7 @@ import kotlin.random.Random
 @Composable
 fun LayoutGridLazyHorizontal(
     modifier: Modifier = Modifier,
-    viewModel: CatalogViewModel = hiltViewModel()
+    viewModel: LayoutViewModel = hiltViewModel()
 ) {
     val itemCount by viewModel.itemCountState.collectAsState()
     val verticalArrangement by viewModel.verticalArrangementState.collectAsState()

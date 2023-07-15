@@ -24,7 +24,7 @@ import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
 @Composable
 fun LayoutRow(
     modifier: Modifier = Modifier,
-    viewModel: CatalogViewModel = hiltViewModel()
+    viewModel: LayoutViewModel = hiltViewModel()
 ) {
     val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
     val verticalAlignment by viewModel.verticalAlignmentState.collectAsState()

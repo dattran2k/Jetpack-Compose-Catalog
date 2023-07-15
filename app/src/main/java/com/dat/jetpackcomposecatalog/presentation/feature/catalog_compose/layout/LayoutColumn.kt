@@ -18,13 +18,14 @@ import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogThe
 import com.dat.jetpackcomposecatalog.presentation.widget.EmptyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
 
+
 @Composable
 fun LayoutColumn(
     modifier: Modifier = Modifier,
-    catalogViewModel: CatalogViewModel = hiltViewModel()
+    layoutViewModel: LayoutViewModel = hiltViewModel()
 ) {
-    val verticalArrangement by catalogViewModel.verticalArrangementState.collectAsStateWithLifecycle()
-    val horizontalAlignment by catalogViewModel.horizontalAlignmentState.collectAsStateWithLifecycle()
+    val verticalArrangement by layoutViewModel.verticalArrangementState.collectAsStateWithLifecycle()
+    val horizontalAlignment by layoutViewModel.horizontalAlignmentState.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier,
@@ -42,14 +43,14 @@ fun LayoutColumn(
         settingSelected = verticalArrangement,
         listSetting = MyVerticalArrangement.values().toList(),
         mapName = { it.typeName },
-        onSettingSelected = catalogViewModel::onVerticalArrangementSelected
+        onSettingSelected = layoutViewModel::onVerticalArrangementSelected
     )
     SettingComponent(
         name = "horizontalAlignment",
         settingSelected = horizontalAlignment,
         listSetting = MyHorizontalAlignment.values().toList(),
         mapName = { it.typeName },
-        onSettingSelected = catalogViewModel::onHorizontalAlignmentSelected
+        onSettingSelected = layoutViewModel::onHorizontalAlignmentSelected
     )
 }
 

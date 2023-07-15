@@ -96,6 +96,7 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.accompanist.coil)
+    implementation(libs.lottile)
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 }
 // Allow references to generated code

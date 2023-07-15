@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose
+package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

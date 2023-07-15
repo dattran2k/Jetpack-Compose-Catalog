@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalAnimationApi::class)
 
-package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation
+package com.dat.jetpackcomposecatalog.data.model.catalog
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -27,28 +27,8 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.dat.jetpackcomposecatalog.core.common.DURATION
-import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
-
-
-abstract class BaseAnimationScreen {
-
-    @Composable
-    abstract fun Screen(modifier: Modifier)
-
-    @Preview
-    @Composable
-    fun Preview() {
-        JetpackComposeCatalogTheme {
-            Screen(modifier = Modifier.statusBarsPadding())
-        }
-    }
-}
 
 object MyAnim {
     class EnterExitTransition(

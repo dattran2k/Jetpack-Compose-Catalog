@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 
-class CatalogViewModel : ViewModel() {
+class LayoutViewModel : ViewModel() {
 
     var verticalAlignmentState = MutableStateFlow(MyVerticalAlignment.Top)
     var verticalArrangementState = MutableStateFlow(MyVerticalArrangement.Top)
