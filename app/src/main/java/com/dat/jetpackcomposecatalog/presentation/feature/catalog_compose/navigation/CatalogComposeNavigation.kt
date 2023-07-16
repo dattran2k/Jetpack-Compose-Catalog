@@ -27,6 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationBouncingBall
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentScreen
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentSizeScreen
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationValueScreen
@@ -60,7 +61,7 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
             navArgument(CATALOG_ARG_ID) {
                 type = NavType.StringType
             },
-        )
+        ),
     ) {
         val id = it.arguments?.getString(CATALOG_ARG_ID) ?: ""
         Scaffold(
@@ -112,11 +113,23 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                         fillModifier
                     )
 
-                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(fillModifier)
-                    CatalogComposeEnum.ContentVisibility -> AnimationVisibilityScreen(fillModifier)
-                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(fillModifier)
+                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(
+                        fillModifier
+                    )
+
+                    CatalogComposeEnum.ContentVisibility -> AnimationVisibilityScreen(
+                        fillModifier
+                    )
+
+                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(
+                        fillModifier
+                    )
+
                     CatalogComposeEnum.AnimatedContent -> AnimationContentScreen(fillModifier)
                     CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(fillModifier)
+                    CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationBouncingBall(
+                        fillModifier
+                    )
                 }
             }
         }

@@ -102,9 +102,9 @@ fun LoaderGithub(modifier: Modifier = Modifier) {
     val composition by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(
             if (LocalIsDarkMode.current)
-                R.raw.git_hub_dark
+                R.raw.anim_github_dark
             else
-                R.raw.git_hub_light
+                R.raw.anim_github_light
         )
     )
     val progress by animateLottieCompositionAsState(

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalArrangement
@@ -33,9 +34,9 @@ fun LayoutRow(
         verticalAlignment = verticalAlignment.value,
         horizontalArrangement = horizontalArrangement.value
     ) {
-        EmptyBox()
-        EmptyBox()
-        EmptyBox()
+        EmptyBox(color = Color.Red)
+        EmptyBox(color = Color.Red)
+        EmptyBox(color = Color.Yellow)
     }
 
     // config

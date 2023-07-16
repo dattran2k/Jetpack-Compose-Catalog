@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,9 +33,9 @@ fun LayoutColumn(
         verticalArrangement = verticalArrangement.value,
         horizontalAlignment = horizontalAlignment.value
     ) {
-        EmptyBox()
-        EmptyBox()
-        EmptyBox()
+        EmptyBox(color = Color.Red)
+        EmptyBox(color = Color.Blue)
+        EmptyBox(color = Color.Yellow)
     }
 
     // config

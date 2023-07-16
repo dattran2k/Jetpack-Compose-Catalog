@@ -21,5 +21,6 @@ enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
     AnimateContentSize(CatalogComposeGroup.Animation),
     AnimatedValue(CatalogComposeGroup.Animation),
     AnimatedContent(CatalogComposeGroup.Animation),
+    AnimationOffsetBouncingBall(CatalogComposeGroup.Animation),
 
 }

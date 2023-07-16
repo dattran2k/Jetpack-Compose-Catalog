@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,10 +53,12 @@ fun AnimationValueScreen(modifier: Modifier) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
+        Text(text = "InfiniteTransition", style = MaterialTheme.typography.headlineSmall)
+        Divider(Modifier.padding(vertical = 8.dp))
         Text(text = "AnimateFloat", style = MaterialTheme.typography.bodyLarge)
-        AnimateFloat()
+        InfiniteAnimateFloat()
         Text(text = "AnimateValue", style = MaterialTheme.typography.bodyLarge)
-        AnimateValue()
+        InfiniteAnimateValue()
         Text(text = "AnimateColor", style = MaterialTheme.typography.bodyLarge)
         AnimateColor()
     }
@@ -66,7 +69,7 @@ fun AnimationValueScreen(modifier: Modifier) {
 // =============================================================================================
 
 @Composable
-fun AnimateFloat() {
+fun InfiniteAnimateFloat() {
     val infiniteTransitionTransition = rememberInfiniteTransition()
     val translation by infiniteTransitionTransition.animateFloat(
         initialValue = -50f,
@@ -93,15 +96,8 @@ fun AnimateFloat() {
         targetValue = 360f,
         animationSpec = getInfiniteRepeatableSpec()
     )
-    val infiniteTransitionRotation2 = rememberInfiniteTransition()
-    val rotation2 by infiniteTransitionRotation.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = getInfiniteRepeatableSpec()
-    )
     Column {
         AnimateRotation(rotation)
-        AnimateRotation(rotation2)
         AnimateScale(scale)
         AnimateAlpha(alpha)
         AnimateTranslation(translation)
@@ -201,12 +197,12 @@ fun AnimateTranslation(translation: Float) {
 // =============================================================================================
 
 @Composable
-fun AnimateValue() {
-    AnimateBoolean()
+fun InfiniteAnimateValue() {
+    InfiniteAnimateBoolean()
 }
 
 @Composable
-fun AnimateBoolean() {
+fun InfiniteAnimateBoolean() {
     val infiniteTransition = rememberInfiniteTransition()
     val value by infiniteTransition.animateValue(
         initialValue = true,
@@ -271,14 +267,6 @@ private fun <T> getInfiniteRepeatableSpec(): InfiniteRepeatableSpec<T> =
         repeatMode = RepeatMode.Reverse
     )
 
-private fun <T> getInfiniteRepeatableSpec2(): InfiniteRepeatableSpec<T> =
-    infiniteRepeatable<T>(
-        animation = tween(
-            durationMillis = 3000,
-            easing = LinearEasing
-        ),
-        repeatMode = RepeatMode.Reverse
-    )
 
 @Composable
 fun ContentContainer(

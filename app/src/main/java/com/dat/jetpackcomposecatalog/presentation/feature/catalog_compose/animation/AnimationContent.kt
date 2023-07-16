@@ -8,15 +8,16 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,78 +26,115 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.dat.jetpackcomposecatalog.data.model.NumberShow
+import androidx.compose.ui.unit.sp
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import kotlinx.coroutines.delay
 
+const val DELAY = 300
+
+data class Digit(val singleDigit: Char, val fullNumber: Int, val place: Int) {
+    override fun equals(other: Any?): Boolean {
+        return when (other) {
+            is Digit -> singleDigit == other.singleDigit
+            else -> super.equals(other)
+        }
+    }
+
+    override fun hashCode(): Int {
+        var result = singleDigit.hashCode()
+        result = 31 * result + fullNumber
+        result = 31 * result + place
+        return result
+    }
+
+    operator fun compareTo(other: Digit): Int {
+        return fullNumber.compareTo(other.fullNumber)
+    }
+}
+
+
 @Composable
 fun AnimationContentScreen(modifier: Modifier) {
-    Column(modifier = modifier) {
-        Row {
-            CountIncrease()
-        }
+    Column(
+        modifier = modifier.fillMaxSize(),
+        Arrangement.SpaceEvenly,
+        Alignment.CenterHorizontally
+    ) {
+        CountIncrease()
+        CountDecrease()
     }
 }
 
 @Composable
-fun CountIncrease(modifier: Modifier = Modifier) {
-    var count by remember { mutableStateOf(NumberShow(0, 9, 5)) }
+fun CountIncrease() {
+    var count by remember { mutableStateOf(0) }
     LaunchedEffect(count) {
-        delay(200)
-        count = count.plus()
+        delay(DELAY.toLong())
+        count++
     }
-    Row(modifier) {
-        // https://developer.android.com/jetpack/compose/animation/composables-modifiers#animatedcontent
-        AnimatedContentNumberCount(count.first)
-        AnimatedContentNumberCount(count.second)
-        AnimatedContentNumberCount(count.third)
-    }
+    AnimatedContentNumberCount(count)
 }
 
+@Composable
+fun CountDecrease() {
+    var count by remember { mutableStateOf(0) }
+    LaunchedEffect(count) {
+        delay(DELAY.toLong())
+        count--
+    }
+    AnimatedContentNumberCount(count)
+
+}
+
+// https://developer.android.com/jetpack/compose/animation/composables-modifiers#animatedcontent
 @Composable
 private fun AnimatedContentNumberCount(count: Int) {
-    Card(modifier = Modifier.padding(2.dp)) {
-        AnimatedContent(targetState = count,
-            transitionSpec = {
-                // Compare the incoming number with the previous number.
-                if (targetState > initialState || targetState == 0) {
-                    // If the target number is larger, it slides up and fades in
-                    // while the initial (smaller) number slides up and fades out.
-                    ContentTransform(
-                        slideInVertically { height -> 2 * height } + fadeIn(),
-                        slideOutVertically { height -> -height } + fadeOut()
+    Row {
+        count.toString().reversed()
+            .mapIndexed { index, char -> Digit(char, count, index) }
+            .reversed()
+            .forEach { digit ->
+                AnimatedContent(
+                    targetState = digit,
+                    transitionSpec = {
+                        // Compare the incoming number with the previous number.
+                        (if (targetState > initialState) {
+                            // If the target number is larger, it slides up and fades in
+                            // while the initial (smaller) number slides up and fades out.
+                            ContentTransform(
+                                slideInVertically(tween(DELAY)) { height -> height } + fadeIn(),
+                                slideOutVertically(tween(DELAY)) { height -> -height } + fadeOut()
+                            )
+                        } else if (targetState < initialState) {
+                            // If the target number is smaller, it slides down and fades in
+                            // while the initial number slides down and fades out.
+                            ContentTransform(
+                                slideInVertically(tween(DELAY)) { height -> -height } + fadeIn(),
+                                slideOutVertically(tween(DELAY)) { height -> height } + fadeOut()
+                            )
+                        } else {
+                            ContentTransform(
+                                EnterTransition.None,
+                                ExitTransition.None
+                            )
+                        }).using(
+                            // Disable clipping since the faded slide-in/out should
+                            // be displayed out of bounds.
+                            SizeTransform(clip = false)
+                        )
+                    }
+                ) { targetCount ->
+                    Text(
+                        text = "${targetCount.singleDigit}",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = 90.sp
+                        )
                     )
-                } else if (targetState < initialState) {
-                    // If the target number is smaller, it slides down and fades in
-                    // while the initial number slides down and fades out.
-                    ContentTransform(
-                        slideInVertically { height -> -height } + fadeIn(),
-                        slideOutVertically { height -> height } + fadeOut()
-                    )
-
-                } else {
-                    ContentTransform(
-                        EnterTransition.None,
-                        ExitTransition.None
-                    )
-                }.using(
-                    // Disable clipping since the faded slide-in/out should
-                    // be displayed out of bounds.
-                    SizeTransform(clip = false)
-                )
+                }
             }
-        ) { targetCount ->
-
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text = "$targetCount",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-
     }
 }
 
