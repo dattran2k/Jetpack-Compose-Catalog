@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalArrangement
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyVerticalAlignment
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
+import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
 import com.dat.jetpackcomposecatalog.presentation.widget.EmptyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
 
@@ -34,9 +35,9 @@ fun LayoutRow(
         verticalAlignment = verticalAlignment.value,
         horizontalArrangement = horizontalArrangement.value
     ) {
-        EmptyBox(color = Color.Red)
-        EmptyBox(color = Color.Red)
-        EmptyBox(color = Color.Yellow)
+        EmptyBox(color = getColorByIndex(0))
+        EmptyBox(color = getColorByIndex(1))
+        EmptyBox(color = getColorByIndex(2))
     }
 
     // config

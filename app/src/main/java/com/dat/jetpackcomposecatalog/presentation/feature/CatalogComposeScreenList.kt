@@ -17,10 +17,13 @@ enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
     LazyVerticalGrid(CatalogComposeGroup.Layout),
     LazyHorizontalStaggeredGrid(CatalogComposeGroup.Layout),
     LazyHorizontalGrid(CatalogComposeGroup.Layout),
+
+    AnimationShowCase(CatalogComposeGroup.Animation),
     ContentVisibility(CatalogComposeGroup.Animation),
     AnimateContentSize(CatalogComposeGroup.Animation),
     AnimatedValue(CatalogComposeGroup.Animation),
     AnimatedContent(CatalogComposeGroup.Animation),
     AnimationOffsetBouncingBall(CatalogComposeGroup.Animation),
+
 
 }

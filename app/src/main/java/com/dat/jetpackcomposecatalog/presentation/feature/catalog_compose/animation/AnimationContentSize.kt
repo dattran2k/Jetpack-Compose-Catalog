@@ -6,13 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,11 +29,12 @@ import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.easing
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.spring
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
+import com.dat.jetpackcomposecatalog.presentation.widget.HeadTitleBloc
 import kotlinx.coroutines.delay
 
 
 @Composable
-fun AnimationContentSizeScreen(modifier: Modifier) {
+fun AnimationContentSizeScreen(modifier: Modifier = Modifier) {
     var isExpand by remember {
         mutableStateOf(true)
     }
@@ -44,11 +42,8 @@ fun AnimationContentSizeScreen(modifier: Modifier) {
         delay(DELAY)
         isExpand = !isExpand
     }
-    Column(
-        modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-    ) {
+    Column(modifier) {
+        HeadTitleBloc("animateContentSize")
         AnimationGroup(isExpand)
     }
 }

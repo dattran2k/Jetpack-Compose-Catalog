@@ -10,7 +10,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,11 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,13 +33,13 @@ import androidx.compose.ui.unit.dp
 import com.dat.jetpackcomposecatalog.core.common.DELAY
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.easing
-import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.spring
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
+import com.dat.jetpackcomposecatalog.presentation.theme.TextTitleBloc
+import com.dat.jetpackcomposecatalog.presentation.widget.HeadTitleBloc
 import kotlinx.coroutines.delay
 
 @Composable
-fun AnimationVisibilityScreen(modifier: Modifier) {
+fun AnimationVisibilityScreen(modifier: Modifier = Modifier) {
     var isVisible by remember {
         mutableStateOf(true)
     }
@@ -51,11 +47,8 @@ fun AnimationVisibilityScreen(modifier: Modifier) {
         delay(DELAY)
         isVisible = !isVisible
     }
-    Column(
-        modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-    ) {
+    Column(modifier) {
+        HeadTitleBloc("AnimatedVisibility")
         MyAnim.Transition.values().forEach {
             AnimationGroup(it, isVisible)
         }
@@ -70,41 +63,31 @@ fun AnimationGroup(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(IntrinsicSize.Min)
     ) {
         Text(
             text = anim.name,
-            style = MaterialTheme.typography.titleSmall,
+            style = TextTitleBloc,
             modifier = Modifier.padding(4.dp)
         )
-        MyAnim.TypeAnim.values().forEach { typeAnim ->
-            val listAnim = when (typeAnim) {
-                MyAnim.TypeAnim.Easing -> easing
-                MyAnim.TypeAnim.Spring -> spring
-            }.toList()
-            Text(
-                text = listAnim.joinToString(separator = " - ") { it.first },
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(4.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)
+        ) {
+            val getAnimGroup = MyAnim.getAnimEnterExitGroup(
+                anim,
+                MyAnim.TypeAnim.Easing,
+                easing.toList().first().first
             )
-            Row(
+            ContentVisibility(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            ) {
-                listAnim.forEachIndexed { index, pair ->
-                    val getAnimGroup = MyAnim.getAnimEnterExitGroup(anim, typeAnim, pair.first)
-                    ContentVisibility(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxHeight(),
-                        isVisible = isVisible,
-                        enter = getAnimGroup.enter.second,
-                        exit = getAnimGroup.exit.second,
-                        color = getColorByIndex(index)
-                    )
-                }
-            }
+                    .weight(1f)
+                    .fillMaxHeight(),
+                isVisible = isVisible,
+                enter = getAnimGroup.enter.second,
+                exit = getAnimGroup.exit.second,
+                color = Color.Red
+            )
         }
     }
 }

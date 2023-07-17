@@ -2,9 +2,15 @@
 
 package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation
 
+import android.util.Log
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
@@ -36,18 +42,38 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.widget.MySwitchButtonCompose
+import com.dat.jetpackcomposecatalog.presentation.widget.ValueSlider
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 
+var count = 0
 
 @Composable
 fun AnimationBouncingBall(modifier: Modifier = Modifier) {
-    val ballSizeDp = 96.dp
-    val ballSizePx = with(LocalDensity.current) { ballSizeDp.toPx() }
+    val density = LocalDensity.current
+    var ballSizePx by remember {
+        mutableStateOf(400f)
+    }
+    var targetBallSizePx by remember {
+        mutableStateOf(400f)
+    }
+    LaunchedEffect(key1 = targetBallSizePx) {
+        animate(
+            initialValue = ballSizePx,
+            targetValue = targetBallSizePx,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessMedium
+            )
+        ) { value, _ ->
+            ballSizePx = value
+        }
+    }
+    count++
+    Log.e("TAG", "AnimationBouncingBall: $count $ballSizePx")
     var isAutoBouncing by remember {
         mutableStateOf(false)
     }
@@ -70,7 +96,7 @@ fun AnimationBouncingBall(modifier: Modifier = Modifier) {
     if (isAutoBouncing)
         LaunchedEffect(key1 = isStart) {
             delay(2000)
-            val y = if (isStart) ballSizePx else parentSize.height - ballSizePx
+            val y = if (isStart) 0f else parentSize.height - ballSizePx
             coOrdinate = Offset(parentSize.width / 2 - ballSizePx / 2, y)
             isStart = !isStart
         }
@@ -78,10 +104,7 @@ fun AnimationBouncingBall(modifier: Modifier = Modifier) {
         Box(modifier = Modifier
             .fillMaxSize()
             .onGloballyPositioned {
-                //here u can access the parent layout coordinate size
-                val x = it.parentLayoutCoordinates?.size?.toSize() ?: Size.Zero
-                println("parentSize = $x")
-                parentSize = x
+                parentSize = it.parentLayoutCoordinates?.size?.toSize() ?: Size.Zero
             }
         ) {
 
@@ -92,7 +115,7 @@ fun AnimationBouncingBall(modifier: Modifier = Modifier) {
                         coOrdinateAnimated.value.y.roundToInt()
                     )
                 }
-                .size(ballSizeDp)
+                .size(with(density) { ballSizePx.toDp() })
                 .background(Color.Green, shape = CircleShape)
                 .pointerInput("drag") {
                     detectDragGestures { change, dragAmount ->
@@ -115,10 +138,20 @@ fun AnimationBouncingBall(modifier: Modifier = Modifier) {
         }
     }
     MySwitchButtonCompose(
-        title = "Auto Bouncing ",
+        title = "Auto jump :",
         isSelected = isAutoBouncing,
         onSelectedCallback = {
             isAutoBouncing = it
+        }
+    )
+    // config
+    ValueSlider(
+        title = "Ball size",
+        value = targetBallSizePx.toInt(),
+        from = 100,
+        to = 1000,
+        onValueChange = {
+            targetBallSizePx = it.toFloat()
         }
     )
 }

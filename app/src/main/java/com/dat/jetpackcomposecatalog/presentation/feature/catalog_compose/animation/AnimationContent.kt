@@ -16,7 +16,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
+import com.dat.jetpackcomposecatalog.presentation.widget.HeadTitleBloc
 import kotlinx.coroutines.delay
 
 const val DELAY = 300
@@ -57,14 +58,20 @@ data class Digit(val singleDigit: Char, val fullNumber: Int, val place: Int) {
 
 
 @Composable
-fun AnimationContentScreen(modifier: Modifier) {
+fun AnimationContentScreen(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.fillMaxSize(),
-        Arrangement.SpaceEvenly,
-        Alignment.CenterHorizontally
+        modifier = modifier,
     ) {
-        CountIncrease()
-        CountDecrease()
+        HeadTitleBloc("AnimatedContent")
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CountIncrease()
+            CountDecrease()
+        }
+
     }
 }
 
@@ -130,7 +137,7 @@ private fun AnimatedContentNumberCount(count: Int) {
                     Text(
                         text = "${targetCount.singleDigit}",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            fontSize = 90.sp
+                            fontSize = 40.sp
                         )
                     )
                 }

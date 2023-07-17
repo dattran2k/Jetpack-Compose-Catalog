@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalAlignment
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyVerticalArrangement
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
+import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
 import com.dat.jetpackcomposecatalog.presentation.widget.EmptyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
 
@@ -33,9 +34,9 @@ fun LayoutColumn(
         verticalArrangement = verticalArrangement.value,
         horizontalAlignment = horizontalAlignment.value
     ) {
-        EmptyBox(color = Color.Red)
-        EmptyBox(color = Color.Blue)
-        EmptyBox(color = Color.Yellow)
+        EmptyBox(color = getColorByIndex(0))
+        EmptyBox(color = getColorByIndex(1))
+        EmptyBox(color = getColorByIndex(2))
     }
 
     // config

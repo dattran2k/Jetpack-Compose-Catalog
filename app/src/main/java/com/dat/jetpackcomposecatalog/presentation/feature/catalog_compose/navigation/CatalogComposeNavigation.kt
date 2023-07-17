@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
@@ -30,6 +32,7 @@ import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationBouncingBall
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentScreen
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationContentSizeScreen
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationShowCase
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationValueScreen
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation.AnimationVisibilityScreen
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.layout.LayoutColumn
@@ -122,14 +125,16 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                     )
 
                     CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(
-                        fillModifier
+                        fillModifier.verticalScroll(rememberScrollState())
                     )
 
                     CatalogComposeEnum.AnimatedContent -> AnimationContentScreen(fillModifier)
-                    CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(fillModifier)
-                    CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationBouncingBall(
-                        fillModifier
+                    CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(
+                        fillModifier.verticalScroll(rememberScrollState())
                     )
+
+                    CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationBouncingBall(fillModifier)
+                    CatalogComposeEnum.AnimationShowCase -> AnimationShowCase(fillModifier)
                 }
             }
         }

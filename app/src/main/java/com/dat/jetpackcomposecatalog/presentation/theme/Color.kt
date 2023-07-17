@@ -33,12 +33,10 @@ fun getColorByIndex(index: Int): Color {
     return when (index) {
         0 -> Color.Red
         1 -> Color.Blue
-        2 -> Color.Green
-        3 -> Color.Yellow
+        2 -> Color.Yellow
+        3 -> Color.Cyan
         4 -> Color.Magenta
-        5 -> Color.Cyan
-        6 -> Color.Gray
-        // Add more cases as needed
+        5 -> Color.DarkGray
         else -> Color.Black // Default color if index doesn't match any case
     }
 }

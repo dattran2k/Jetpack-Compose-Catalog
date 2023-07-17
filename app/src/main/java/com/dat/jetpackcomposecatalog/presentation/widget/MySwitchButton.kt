@@ -102,9 +102,7 @@ fun CustomSwitch(
         MutableInteractionSource()
     }
     // for moving the thumb
-    val alignment by animateAlignmentAsState(if (isSelected) 1f else -1f)
-
-
+    val alignment by animateAlignmentAsState(if (isSelected) Alignment.CenterStart else Alignment.CenterEnd)
 
     Spacer(modifier = Modifier.width(16.dp))
     Box(
@@ -152,15 +150,7 @@ fun CustomSwitch(
 
 }
 
-@Composable
-private fun animateAlignmentAsState(
-    targetBiasValue: Float
-): State<BiasAlignment> {
-    val bias by animateFloatAsState(targetBiasValue)
-    return remember {
-        derivedStateOf { BiasAlignment(horizontalBias = bias, verticalBias = 0f) }
-    }
-}
+
 
 @Preview
 @Composable
