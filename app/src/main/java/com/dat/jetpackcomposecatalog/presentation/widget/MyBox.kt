@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun EmptyBox(
+fun MyBox(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.secondary,
     content: @Composable () -> Unit = {}

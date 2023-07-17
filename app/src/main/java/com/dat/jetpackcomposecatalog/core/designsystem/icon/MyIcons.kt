@@ -9,6 +9,7 @@ object MyIcons {
     val MenuBookBorder = R.drawable.ic_menu_book_border
     val Info = R.drawable.ic_info
     val InfoBorder = R.drawable.ic_info_border
+    val Animation = R.drawable.ic_animation
 }
 
 sealed class Icon {

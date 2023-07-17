@@ -31,7 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presentation.widget.HeadTitleBloc
+import com.dat.jetpackcomposecatalog.presentation.widget.TextHeadBloc
 import kotlinx.coroutines.delay
 
 const val DELAY = 300
@@ -59,12 +59,12 @@ data class Digit(val singleDigit: Char, val fullNumber: Int, val place: Int) {
 
 @Composable
 fun AnimationContentScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-    ) {
-        HeadTitleBloc("AnimatedContent")
+    Column(modifier = modifier) {
+        TextHeadBloc("AnimatedContent")
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {

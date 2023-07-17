@@ -26,7 +26,7 @@ import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalArrangement
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyStaggeredGridCells
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
-import com.dat.jetpackcomposecatalog.presentation.widget.EmptyBox
+import com.dat.jetpackcomposecatalog.presentation.widget.MyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
 import com.dat.jetpackcomposecatalog.presentation.widget.ValueSlider
 import kotlin.random.Random
@@ -53,7 +53,7 @@ fun LayoutGridLazyVerticalStaggered(
         items(itemCount, key = { it }) {
             val size = Random.nextInt(50, 400).dp
             val color = getColorByIndex(it % 6)
-            EmptyBox(modifier = Modifier.size(size), color) {
+            MyBox(modifier = Modifier.size(size), color) {
                 Text(
                     text = "index $it, size $size",
                     style = MaterialTheme.typography.bodyMedium,

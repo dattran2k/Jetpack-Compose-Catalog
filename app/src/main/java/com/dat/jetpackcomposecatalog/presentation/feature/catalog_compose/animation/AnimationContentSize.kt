@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +30,7 @@ import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.easing
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.spring
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
-import com.dat.jetpackcomposecatalog.presentation.widget.HeadTitleBloc
+import com.dat.jetpackcomposecatalog.presentation.widget.TextHeadBloc
 import kotlinx.coroutines.delay
 
 
@@ -43,7 +44,7 @@ fun AnimationContentSizeScreen(modifier: Modifier = Modifier) {
         isExpand = !isExpand
     }
     Column(modifier) {
-        HeadTitleBloc("animateContentSize")
+        TextHeadBloc("animateContentSize")
         AnimationGroup(isExpand)
     }
 }
@@ -88,17 +89,20 @@ private fun ContentSize(
     Box(
         modifier = modifier
             .padding(4.dp)
-            .background(color)
+            .background(color, shape = MaterialTheme.shapes.large)
             .animateContentSize(animationSpec.second),
     ) {
         Box(
             modifier = Modifier
                 .height(50.dp)
-                .fillMaxWidth(if (isVisible) 1f else 0.1f)
+                .fillMaxWidth(if (isVisible) 1f else 0.1f),
+            contentAlignment = Alignment.Center
         ) {
             Text(
                 text = animationSpec.first,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = Color.Black
+                ),
                 maxLines = 2,
                 minLines = 2
             )

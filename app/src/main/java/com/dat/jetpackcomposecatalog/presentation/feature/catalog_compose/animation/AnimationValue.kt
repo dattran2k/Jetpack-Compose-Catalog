@@ -3,6 +3,7 @@
 package com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.animation
 
 import androidx.compose.animation.animateColor
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.InfiniteRepeatableSpec
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -12,7 +13,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,9 +22,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -36,13 +37,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
-import com.dat.jetpackcomposecatalog.presentation.theme.TextTitleBloc
-import com.dat.jetpackcomposecatalog.presentation.widget.HeadTitleBloc
+import com.dat.jetpackcomposecatalog.presentation.widget.MyBox
+import com.dat.jetpackcomposecatalog.presentation.widget.TextHeadBloc
+import com.dat.jetpackcomposecatalog.presentation.widget.TextTitleBloc
 import com.dat.jetpackcomposecatalog.presentation.widget.animateAlignmentAsState
 
 
@@ -56,43 +60,33 @@ fun AnimationValueScreen(modifier: Modifier = Modifier) {
     }
 }
 
-// =============================================================================================
-@Composable
-fun InfiniteTransition() {
-    Column {
-        HeadTitleBloc("InfiniteTransition")
-        Text(text = "AnimateFloat", style = TextTitleBloc)
-        InfiniteTransitionFloat()
-        Text(text = "AnimateColor", style = TextTitleBloc)
-        AnimateColor()
-    }
-}
-
 
 @Composable
 fun ManualTransition() {
     var state by remember {
         mutableStateOf(false)
     }
-    Column {
-        HeadTitleBloc("ManualTransition")
-        Text(text = "AnimateFloat", style = TextTitleBloc)
-        ClickCard(
-            modifier = Modifier
-                .padding(vertical = 16.dp)
-                .clickable {
-                    state = !state
-                },
-            title = "Click me to animate below"
-        )
+    Column(modifier = Modifier.fillMaxWidth()) {
+        TextHeadBloc("ManualTransition")
+        TextTitleBloc("AnimateFloat")
+        Box(modifier = Modifier.fillMaxWidth(1f), contentAlignment = Alignment.Center) {
+            ClickCard(
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .clickable {
+                        state = !state
+                    },
+                title = "Click me to animate below"
+            )
+        }
         ManualTransitionFloat(state)
-        Text(text = "animateAlignment", style = TextTitleBloc)
-        ManualTransitionValue()
+        ManualTransitionAlignment()
+        ManualTransitionColor()
     }
 }
 
 @Composable
-fun ManualTransitionValue() {
+fun ManualTransitionAlignment() {
     var state by remember {
         mutableStateOf(0)
     }
@@ -110,27 +104,28 @@ fun ManualTransitionValue() {
         }
     )
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        TextTitleBloc(title = "animateAlignment")
         ClickCard(
             modifier = Modifier
                 .padding(vertical = 16.dp)
                 .clickable {
                     state++
                 },
-            title = "Click me to  animate alignment"
+            title = "Click me to animate alignment"
         )
         Box(
             Modifier
                 .fillMaxWidth(0.7f)
                 .aspectRatio(1f)
                 .padding(4.dp)
-                .border(1.dp, Color.Gray)
+                .border(1.dp, Color.Gray, shape = MaterialTheme.shapes.large)
         ) {
-            Box(
+            MyBox(
                 modifier = Modifier
                     .fillMaxWidth(0.3f)
                     .aspectRatio(1f)
-                    .align(alignment)
-                    .background(Color.Red)
+                    .align(alignment),
+                color = Color.Red
             )
         }
     }
@@ -159,6 +154,57 @@ fun ManualTransitionFloat(state: Boolean) {
         AnimateScale(scale)
         AnimateAlpha(alpha)
         AnimateTranslation(translation)
+    }
+}
+
+@Composable
+fun ManualTransitionColor() {
+    var state by remember {
+        mutableStateOf(true)
+    }
+    val colorContainer by animateColorAsState(
+        targetValue = if (state)
+            MaterialTheme.colorScheme.primary
+        else
+            Color.Black,
+        animationSpec = getTween()
+    )
+    val colorText by animateColorAsState(
+        targetValue = if (state)
+            MaterialTheme.colorScheme.onPrimary
+        else
+            Color.Red,
+        animationSpec = getTween()
+    )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextTitleBloc(title = "AnimateColor")
+        ClickCard(
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+                .clickable {
+                    state = !state
+                },
+            title = "Click me to animate color",
+            containerColor = colorContainer,
+            textColor = colorText
+        )
+    }
+}
+
+@Composable
+fun InfiniteTransition() {
+    Column {
+        TextHeadBloc("InfiniteTransition")
+        TextTitleBloc("AnimateFloat")
+        InfiniteTransitionFloat()
+        TextTitleBloc("AnimateColor")
+        InfiniteAnimateColor(
+            MaterialTheme.colorScheme.primary,
+            Color.Black
+        )
     }
 }
 
@@ -198,32 +244,36 @@ fun InfiniteTransitionFloat() {
     }
 }
 
+// ============================================================================================
 @Composable
 fun AnimateRotation(rotation: Float) {
     Column {
         ContentContainer(title = "rotationZ = ${rotation.toInt()} ") {
-            Box(modifier = Modifier
-                .size(40.dp)
-                .graphicsLayer {
-                    rotationZ = rotation
-                }
-                .background(Color.Red))
+            MyBox(
+                modifier = Modifier
+                    .graphicsLayer {
+                        rotationZ = rotation
+                    },
+                color = Color.Red
+            )
         }
         ContentContainer(title = "rotationX = ${rotation.toInt()} ") {
-            Box(modifier = Modifier
-                .size(40.dp)
-                .graphicsLayer {
-                    rotationX = rotation
-                }
-                .background(Color.Blue))
+            MyBox(
+                modifier = Modifier
+                    .graphicsLayer {
+                        rotationX = rotation
+                    },
+                color = Color.Blue
+            )
         }
         ContentContainer(title = "rotationY = ${rotation.toInt()} ") {
-            Box(modifier = Modifier
-                .size(40.dp)
-                .graphicsLayer {
-                    rotationY = rotation
-                }
-                .background(Color.Yellow))
+            MyBox(
+                modifier = Modifier
+                    .graphicsLayer {
+                        rotationY = rotation
+                    },
+                color = Color.Yellow
+            )
         }
     }
 
@@ -232,23 +282,19 @@ fun AnimateRotation(rotation: Float) {
 @Composable
 fun AnimateScale(scale: Float) {
     ContentContainer(title = "scaleX  = ${scale.toInt()}") {
-        Box(modifier = Modifier
-            .size(40.dp)
-            .graphicsLayer {
-                scaleX = scale
-            }
-            .background(Color.Red))
+        MyBox(
+            modifier = Modifier.scale(scaleX = scale, scaleY = 1f),
+            color = Color.Red
+        )
     }
 }
 
 @Composable
 fun AnimateAlpha(value: Float) {
     ContentContainer(title = "Alpha  = ${value.toInt()}") {
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .graphicsLayer(alpha = value)
-                .background(Color.Blue)
+        MyBox(
+            modifier = Modifier.alpha(value),
+            color = Color.Blue
         )
     }
 }
@@ -257,67 +303,40 @@ fun AnimateAlpha(value: Float) {
 fun AnimateTranslation(translation: Float) {
     Column {
         ContentContainer(title = "translationX  = ${translation.toInt()}") {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .graphicsLayer(translationX = translation)
-                    .background(Color.Yellow)
-            )
+            MyBox(modifier = Modifier.graphicsLayer(translationX = translation))
         }
         ContentContainer(title = "translationY  = ${translation.toInt()}") {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .graphicsLayer(translationY = translation)
-                    .background(Color.Red)
-            )
+            MyBox(modifier = Modifier.graphicsLayer(translationY = translation))
         }
         ContentContainer(title = "translationX translationY = ${translation.toInt()}") {
-            Box(
+            MyBox(
                 modifier = Modifier
-                    .size(40.dp)
                     .graphicsLayer(
                         translationY = translation,
                         translationX = translation
-                    )
-                    .background(Color.Blue)
+                    ),
+                color = Color.Red
             )
         }
     }
 
 }
 // =============================================================================================
-// =============================================================================================
-// =============================================================================================
 
 
 @Composable
-fun AnimateColor() {
+fun InfiniteAnimateColor(initialColor: Color, targetColor: Color) {
     val infiniteTransition = rememberInfiniteTransition()
     val value by infiniteTransition.animateColor(
-        initialValue = Color.Black,
-        targetValue = Color.White,
+        initialValue = initialColor,
+        targetValue = targetColor,
         animationSpec = getInfiniteRepeatableSpec()
     )
-    ContentContainer(title = "color  = $value") {
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .background(value)
-        )
+    ContentContainer(title = "color  = ${value.value}") {
+        MyBox(color = value)
     }
 }
 // =============================================================================================
-
-@Composable
-private fun <T> getInfiniteRepeatableSpec(): InfiniteRepeatableSpec<T> =
-    infiniteRepeatable<T>(
-        animation = tween(
-            durationMillis = 3000,
-            easing = LinearEasing
-        ),
-        repeatMode = RepeatMode.Reverse
-    )
 
 
 @Composable
@@ -334,25 +353,48 @@ fun ContentContainer(
 }
 
 @Composable
-private fun ClickCard(modifier: Modifier = Modifier, title: String) {
+private fun ClickCard(
+    modifier: Modifier = Modifier,
+    title: String,
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    textColor: Color = MaterialTheme.colorScheme.onPrimary
+) {
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = Color.Green,
+            containerColor = containerColor,
         )
     ) {
         Text(
             modifier = Modifier.padding(8.dp),
             text = title,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyLarge.copy(
+                color = textColor
+            ),
         )
     }
 }
+
+@Composable
+private fun <T> getInfiniteRepeatableSpec(): InfiniteRepeatableSpec<T> =
+    infiniteRepeatable(
+        animation = getTween(),
+        repeatMode = RepeatMode.Reverse
+    )
+
+fun <T> getTween() = tween<T>(
+    durationMillis = 3000,
+    easing = LinearEasing
+)
 
 @Preview
 @Composable
 fun AnimationValuePreview() {
     JetpackComposeCatalogTheme {
-        AnimationValueScreen(modifier = Modifier.statusBarsPadding())
+        AnimationValueScreen(
+            modifier = Modifier
+                .statusBarsPadding()
+                .verticalScroll(rememberScrollState())
+        )
     }
 }

@@ -9,7 +9,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -17,7 +16,7 @@ import com.dat.jetpackcomposecatalog.data.model.catalog.MyHorizontalAlignment
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyVerticalArrangement
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
 import com.dat.jetpackcomposecatalog.presentation.theme.getColorByIndex
-import com.dat.jetpackcomposecatalog.presentation.widget.EmptyBox
+import com.dat.jetpackcomposecatalog.presentation.widget.MyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.SettingComponent
 
 
@@ -34,9 +33,9 @@ fun LayoutColumn(
         verticalArrangement = verticalArrangement.value,
         horizontalAlignment = horizontalAlignment.value
     ) {
-        EmptyBox(color = getColorByIndex(0))
-        EmptyBox(color = getColorByIndex(1))
-        EmptyBox(color = getColorByIndex(2))
+        MyBox(color = getColorByIndex(0))
+        MyBox(color = getColorByIndex(1))
+        MyBox(color = getColorByIndex(2))
     }
 
     // config

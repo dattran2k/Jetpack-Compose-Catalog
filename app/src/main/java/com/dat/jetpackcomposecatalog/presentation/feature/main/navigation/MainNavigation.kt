@@ -12,7 +12,7 @@ import com.dat.jetpackcomposecatalog.presentation.navigation.Screen
 
 
 fun NavController.navigateMain(navOptions: NavOptions? = null) {
-    this.navigate(Screen.MenuScreen.route,navOptions)
+    this.navigate(Screen.MainScreen.route, navOptions)
 }
 
 fun NavGraphBuilder.mainScreen(navigateCatalogDetail: (CatalogComposeEnum) -> Unit) {

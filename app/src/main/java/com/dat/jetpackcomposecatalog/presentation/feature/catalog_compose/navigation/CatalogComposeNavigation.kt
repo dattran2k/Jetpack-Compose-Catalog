@@ -18,12 +18,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
@@ -49,12 +51,31 @@ const val CATALOG_ROUTE_NAME = "CatalogCompose"
 const val CATALOG_ARG_ID = "CATALOG_ARG_ID"
 
 
-fun NavController.navigateCatalogScreen(catalogComposeEnum: CatalogComposeEnum) {
-    this.navigate("$CATALOG_ROUTE_NAME/${catalogComposeEnum.name}")
+fun NavController.navigateCatalogScreen(
+    catalogComposeEnum: CatalogComposeEnum,
+    navOptions: NavOptions? = null
+) {
+    this.navigate("$CATALOG_ROUTE_NAME/${catalogComposeEnum.name}", navOptions)
 }
 
+fun NavController.navigateAnimationShowCase(
+    navOptions: NavOptions? = null
+) {
+    this.navigate(Screen.AnimationShowCase.route, navOptions)
+}
 
-fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
+fun NavGraphBuilder.animationShowCaseHome() {
+    composable(
+        route = Screen.AnimationShowCase.route,
+        deepLinks = listOf(
+            navDeepLink { uriPattern = Screen.AnimationShowCase.deepLink },
+        ),
+    ) {
+        AnimationShowCase()
+    }
+}
+
+fun NavGraphBuilder.catalogScreen(navigateBack: (() -> Unit)? = null) {
     composable(
         route = Screen.CatalogScreen.route,
         deepLinks = listOf(
@@ -69,28 +90,9 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
         val id = it.arguments?.getString(CATALOG_ARG_ID) ?: ""
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = id,
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                MaterialTheme.colorScheme.primary,
-                                fontWeight = FontWeight.Bold
-                            )
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = navigateBack) {
-                            Icon(
-                                imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    },
-                    modifier = Modifier
-                        .shadow(10.dp)
-                )
+                navigateBack?.let {
+                    TopAppBar(id, navigateBack)
+                }
             },
         ) { paddingValues ->
             Column(
@@ -116,27 +118,58 @@ fun NavGraphBuilder.catalogScreen(navigateBack: () -> Unit) {
                         fillModifier
                     )
 
-                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.ContentVisibility -> AnimationVisibilityScreen(
-                        fillModifier
-                    )
-
+                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(fillModifier)
+                    CatalogComposeEnum.ContentVisibility -> AnimationVisibilityScreen(fillModifier)
                     CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(
-                        fillModifier.verticalScroll(rememberScrollState())
+                        fillModifier.verticalScroll(
+                            rememberScrollState()
+                        )
                     )
 
                     CatalogComposeEnum.AnimatedContent -> AnimationContentScreen(fillModifier)
                     CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(
-                        fillModifier.verticalScroll(rememberScrollState())
+                        fillModifier.verticalScroll(
+                            rememberScrollState()
+                        )
                     )
 
-                    CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationBouncingBall(fillModifier)
+                    CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationBouncingBall(
+                        fillModifier
+                    )
+
                     CatalogComposeEnum.AnimationShowCase -> AnimationShowCase(fillModifier)
                 }
             }
         }
     }
+}
+
+@Composable
+private fun TopAppBar(
+    title: String,
+    navigateBack: (() -> Unit)?
+) {
+    TopAppBar(
+        modifier = Modifier.shadow(10.dp),
+        title = {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        },
+        navigationIcon = {
+            navigateBack?.let {
+                IconButton(onClick = navigateBack) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+        },
+    )
 }

@@ -70,7 +70,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = Screen.MainScreen.route
                     ) {
                         mainScreen(navController::navigateCatalogScreen)
-                        catalogScreen(navController::popBackStack)
+                        catalogScreen(navigateBack = navController::popBackStack)
                     }
                 }
             }

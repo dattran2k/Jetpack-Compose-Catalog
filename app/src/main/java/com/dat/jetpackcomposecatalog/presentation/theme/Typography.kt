@@ -2,8 +2,6 @@ package com.dat.jetpackcomposecatalog.presentation.theme
 
 
 import androidx.compose.material3.Typography
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -23,10 +21,4 @@ val Typography = Typography(
 //        fontSize = 18.sp
 //    ),
 )
-val TextTitleBloc = Typography.titleMedium.copy(
-    textDecoration = TextDecoration.Underline,
-    fontWeight = FontWeight.Bold
-)
-val TextHeadBloc = Typography.headlineSmall.copy(
-    fontWeight = FontWeight.Bold
-)
+

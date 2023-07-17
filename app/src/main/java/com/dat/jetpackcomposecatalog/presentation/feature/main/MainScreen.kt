@@ -22,18 +22,18 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.dat.jetpackcomposecatalog.core.designsystem.icon.Icon
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.navigation.animationShowCaseHome
+import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.navigation.navigateAnimationShowCase
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_overview.navigation.catalogOverviewScreen
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_overview.navigation.navigateCatalogOverview
-import com.dat.jetpackcomposecatalog.presentation.feature.menu.navigation.navigateUser
+import com.dat.jetpackcomposecatalog.presentation.feature.menu.navigation.navigateInfo
 import com.dat.jetpackcomposecatalog.presentation.feature.menu.navigation.userScreen
-import com.dat.jetpackcomposecatalog.presentation.navigation.Screen
 
 /**
  * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
  * route.
  */
 val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
-
 
 @Composable
 fun MainScreen(navigateCatalogDetail: (CatalogComposeEnum) -> Unit) {
@@ -42,17 +42,20 @@ fun MainScreen(navigateCatalogDetail: (CatalogComposeEnum) -> Unit) {
         bottomBar = {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
-            MainBottomBar(topLevelDestinations, currentDestination) {
-                navController.navigateToTopLevelDestination(it)
-            }
+            MainBottomBar(
+                topLevelDestinations,
+                currentDestination,
+                navController::navigateToTopLevelDestination
+            )
         }
     ) { innerPadding ->
         NavHost(
             navController,
-            startDestination = Screen.CatalogOverviewScreen.route,
+            startDestination = TopLevelDestination.CatalogOverview.route,
             Modifier.padding(innerPadding)
         ) {
             catalogOverviewScreen(navigateCatalogDetail)
+            animationShowCaseHome()
             userScreen()
         }
     }
@@ -105,19 +108,20 @@ fun NavHostController.navigateToTopLevelDestination(topLevelDestination: TopLeve
             saveState = true
         }
         // Avoid multiple copies of the same destination when
-        // reselecting the same item
+        // reSelecting the same item
         launchSingleTop = true
-        // Restore state when reselecting a previously selected item
+        // Restore state when reSelecting a previously selected item
         restoreState = true
     }
 
-    when (topLevelDestination) {
-        TopLevelDestination.Catalog -> navigateCatalogOverview(topLevelNavOptions)
-        TopLevelDestination.Menu -> navigateUser(topLevelNavOptions)
+    when (topLevelDestination.route) {
+        TopLevelDestination.CatalogOverview.route -> navigateCatalogOverview(topLevelNavOptions)
+        TopLevelDestination.Info.route -> navigateInfo(topLevelNavOptions)
+        TopLevelDestination.AnimationShowCase.route -> navigateAnimationShowCase(topLevelNavOptions)
     }
 }
 
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
     this?.hierarchy?.any {
-        it.route?.contains(destination.name, true) ?: false
+        it.route?.contains(destination.route, true) ?: false
     } ?: false
