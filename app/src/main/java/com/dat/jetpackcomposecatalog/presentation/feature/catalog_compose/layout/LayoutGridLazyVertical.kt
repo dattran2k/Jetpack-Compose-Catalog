@@ -46,7 +46,7 @@ fun LayoutGridLazyVertical(
         items(itemCount, key = { it }) {
             val size = Random.nextInt(50, 400).dp
             val color = getColorByIndex(it % 6)
-            MyBox(modifier = Modifier.size(size), color) {
+            MyBox(modifier = Modifier.size(size), useItemImage = false, color = color) {
                 Text(
                     text = "index $it, size $size",
                     style = MaterialTheme.typography.bodyMedium,

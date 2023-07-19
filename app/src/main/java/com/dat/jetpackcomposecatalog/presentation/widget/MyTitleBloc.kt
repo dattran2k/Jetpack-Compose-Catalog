@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TextTitleBloc(title: String, modifier: Modifier = Modifier) {
-
     Column(
         Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -33,13 +32,11 @@ fun TextTitleBloc(title: String, modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic,
                 textDecoration = TextDecoration.Underline,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.secondary
             ),
             textAlign = TextAlign.Center
         )
     }
-
-
 }
 
 @Composable
@@ -57,4 +54,19 @@ fun TextHeadBloc(title: String) {
             )
         )
     }
+}
+
+@Composable
+fun TextTitle2Bloc(title: String, modifier: Modifier = Modifier) {
+    Text(
+        modifier = modifier,
+        text = title,
+        style = MaterialTheme.typography.titleSmall.copy(
+            fontWeight = FontWeight.Medium,
+            fontStyle = FontStyle.Italic,
+            textDecoration = TextDecoration.Underline,
+            color = MaterialTheme.colorScheme.secondary
+        ),
+    )
+
 }

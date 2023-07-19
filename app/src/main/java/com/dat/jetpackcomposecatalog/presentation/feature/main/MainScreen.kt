@@ -4,13 +4,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -20,7 +18,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.dat.jetpackcomposecatalog.core.designsystem.icon.Icon
 import com.dat.jetpackcomposecatalog.presentation.feature.CatalogComposeEnum
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.navigation.animationShowCaseHome
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_compose.navigation.navigateAnimationShowCase
@@ -28,6 +25,7 @@ import com.dat.jetpackcomposecatalog.presentation.feature.catalog_overview.navig
 import com.dat.jetpackcomposecatalog.presentation.feature.catalog_overview.navigation.navigateCatalogOverview
 import com.dat.jetpackcomposecatalog.presentation.feature.menu.navigation.navigateInfo
 import com.dat.jetpackcomposecatalog.presentation.feature.menu.navigation.userScreen
+import com.dat.jetpackcomposecatalog.presentation.widget.IconLoader
 
 /**
  * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
@@ -83,17 +81,7 @@ private fun MainBottomBar(
                     } else {
                         destination.unselectedIcon
                     }
-                    when (icon) {
-                        is Icon.DrawableResourceIcon -> Icon(
-                            painter = painterResource(id = icon.id),
-                            contentDescription = null,
-                        )
-
-                        is Icon.ImageVectorIcon -> Icon(
-                            imageVector = icon.imageVector,
-                            contentDescription = null,
-                        )
-                    }
+                    IconLoader(icon = icon)
                 })
         }
     }

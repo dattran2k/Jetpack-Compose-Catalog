@@ -4,8 +4,8 @@ package com.dat.jetpackcomposecatalog.core.common
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 
-const val DELAY: Long = 5000
-const val DURATION: Int = (DELAY * 4 / 5L).toInt()
+const val DELAY: Long = 3000
+const val DURATION: Int = (DELAY * 2 / 3L).toInt()
 
 object TestTag {
     const val CIRCULAR_PROGRESS_INDICATOR_TAG = "CIRCULAR_PROGRESS_INDICATOR_TAG"

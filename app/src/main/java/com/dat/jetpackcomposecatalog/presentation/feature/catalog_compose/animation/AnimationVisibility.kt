@@ -6,7 +6,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -14,8 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,6 +30,7 @@ import com.dat.jetpackcomposecatalog.core.common.DELAY
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim
 import com.dat.jetpackcomposecatalog.data.model.catalog.MyAnim.easing
 import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
+import com.dat.jetpackcomposecatalog.presentation.widget.MyBox
 import com.dat.jetpackcomposecatalog.presentation.widget.TextHeadBloc
 import com.dat.jetpackcomposecatalog.presentation.widget.TextTitleBloc
 import kotlinx.coroutines.delay
@@ -69,12 +69,11 @@ fun AnimationGroup(
         )
         ContentVisibility(
             modifier = Modifier
-                .height(60.dp)
+                .height(100.dp)
                 .aspectRatio(1f),
             isVisible = isVisible,
             enter = getAnimGroup.enter.second,
             exit = getAnimGroup.exit.second,
-            color = Color.Red
         )
     }
 }
@@ -84,8 +83,7 @@ private fun ContentVisibility(
     modifier: Modifier = Modifier,
     isVisible: Boolean,
     enter: EnterTransition,
-    exit: ExitTransition,
-    color: Color,
+    exit: ExitTransition
 ) {
     Box(
         modifier = modifier.padding(4.dp),
@@ -95,19 +93,7 @@ private fun ContentVisibility(
             enter = enter,
             exit = exit
         ) {
-            Card(
-                modifier = modifier,
-                border = null,
-                colors = CardDefaults.cardColors(
-                    containerColor = color
-                )
-            ) {
-                Box(
-                    modifier = Modifier
-                        .background(color)
-                        .padding(4.dp)
-                )
-            }
+            MyBox(color = Color.Transparent)
         }
     }
 }
@@ -117,6 +103,10 @@ private fun ContentVisibility(
 @Composable
 fun AnimationVisibilityPreview() {
     JetpackComposeCatalogTheme {
-        AnimationVisibilityScreen(Modifier.statusBarsPadding())
+        AnimationVisibilityScreen(
+            Modifier
+                .statusBarsPadding()
+                .verticalScroll(rememberScrollState())
+        )
     }
 }
