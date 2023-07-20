@@ -8,4 +8,9 @@ pluginManagement {
 }
 
 rootProject.name = "JetpackCompose Catalog"
-include(":app",)
+include(":app")
+include(":benchmark")
+include(":core")
+include(":core:datastore")
+include(":core:data")
+include(":core:model")

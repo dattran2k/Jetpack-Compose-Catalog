@@ -1,3 +1,8 @@
+buildscript {
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
+    }
+}
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -21,6 +26,9 @@ allprojects {
         configureAndroidProject()
     }
     pluginManager.withPlugin("com.android.library") {
+        configureAndroidProject()
+    }
+    pluginManager.withPlugin("com.android.test") {
         configureAndroidProject()
     }
 }

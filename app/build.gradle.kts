@@ -7,8 +7,8 @@ plugins {
     alias(libs.plugins.cacheFixPlugin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.dagger.hilt.library)
-    kotlin("kapt")
     alias(libs.plugins.protobuf)
+    kotlin("kapt")
 }
 
 android {
@@ -31,6 +31,11 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles("proguard-rules.pro")
+        }
+        create("benchmark") {
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
         }
     }
     buildFeatures {
@@ -55,7 +60,8 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core:data"))
+    implementation(project(":core:model"))
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
@@ -64,9 +70,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.work.runtime)
-    //data store
-    implementation(libs.androidx.datastore)
-    implementation(libs.protobuf.kotlin.lite)
     // hilt
     implementation(libs.androidx.hilt.navigationcompose)
     implementation(libs.androidx.hilt.work)
@@ -82,11 +85,10 @@ dependencies {
 
     // testing
     testImplementation(platform(libs.compose.bom))
-    testImplementation("org.mockito:mockito-core:3.12.4")
-    testImplementation(libs.compose.ui.test)
+    testImplementation(libs.androidx.test.ui)
     androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.compose.ui.test)
-    debugImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.androidx.test.ui)
+    implementation(libs.androidx.test.manifest)
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.coroutines.android)
@@ -98,26 +100,4 @@ dependencies {
     implementation(libs.accompanist.coil)
     implementation(libs.lottile)
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
-}
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
-}
-// Setup protobuf configuration, generating lite Java and Kotlin classes
-protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.get().toString()
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                register("java") {
-                    option("lite")
-                }
-                register("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
 }

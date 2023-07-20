@@ -9,7 +9,7 @@ package com.dat.jetpackcomposecatalog.presentation.feature.main.home
 //import androidx.compose.ui.test.junit4.createComposeRule
 //import androidx.compose.ui.test.onNodeWithTag
 //import androidx.compose.ui.test.performScrollToIndex
-//import com.dat.jetpackcomposecatalog.core.common.TestTag
+//import com.dat.jetpackcomposecatalog.core.TestTag
 //import com.dat.jetpackcomposecatalog.presentation.feature.home.HomeScreen
 //import com.dat.jetpackcomposecatalog.presentation.feature.home.HomeUIState
 //import com.dat.jetpackcomposecatalog.presentation.theme.JetpackComposeCatalogTheme
