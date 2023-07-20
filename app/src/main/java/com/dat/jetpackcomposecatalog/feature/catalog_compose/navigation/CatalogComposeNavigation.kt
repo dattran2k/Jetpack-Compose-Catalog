@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 
 package com.dat.jetpackcomposecatalog.feature.catalog_compose.navigation
 
@@ -30,12 +30,13 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimationBouncingBall
-import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimationContentScreen
+import com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum
+import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimamatedVisibilityScreen
+import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimatedContentScreen
 import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimationContentSizeScreen
+import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimationOffsetBouncingBall
 import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimationShowCase
 import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimationValueScreen
-import com.dat.jetpackcomposecatalog.feature.catalog_compose.animation.AnimationVisibilityScreen
 import com.dat.jetpackcomposecatalog.feature.catalog_compose.layout.LayoutColumn
 import com.dat.jetpackcomposecatalog.feature.catalog_compose.layout.LayoutColumnLazy
 import com.dat.jetpackcomposecatalog.feature.catalog_compose.layout.LayoutGridLazyHorizontal
@@ -51,7 +52,7 @@ const val CATALOG_ARG_ID = "CATALOG_ARG_ID"
 
 
 fun NavController.navigateCatalogScreen(
-    catalogComposeEnum: com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum,
+    catalogComposeEnum: CatalogComposeEnum,
     navOptions: NavOptions? = null
 ) {
     this.navigate("$CATALOG_ROUTE_NAME/${catalogComposeEnum.name}", navOptions)
@@ -102,65 +103,61 @@ fun NavGraphBuilder.catalogScreen(navigateBack: (() -> Unit)? = null) {
                 val fillModifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                when (com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.valueOf(id)) {
+                when (CatalogComposeEnum.valueOf(id)) {
 //                    CatalogComposeEnum.Box -> BoxComposeScreen()
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.Column -> LayoutColumn(
+                    CatalogComposeEnum.Column -> LayoutColumn(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.LazyColumn -> LayoutColumnLazy(
+                    CatalogComposeEnum.LazyColumn -> LayoutColumnLazy(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.Row -> LayoutRow(
+                    CatalogComposeEnum.Row -> LayoutRow(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.LazyRow -> LayoutLazyRow(
+                    CatalogComposeEnum.LazyRow -> LayoutLazyRow(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.LazyVerticalStaggeredGrid -> LayoutGridLazyVerticalStaggered(
+                    CatalogComposeEnum.LazyVerticalStaggeredGrid -> LayoutGridLazyVerticalStaggered(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVertical(
+                    CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVertical(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.LazyHorizontalStaggeredGrid -> LayoutGridLazyHorizontalStaggered(
+                    CatalogComposeEnum.LazyHorizontalStaggeredGrid -> LayoutGridLazyHorizontalStaggered(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(
+                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.ContentVisibility -> AnimationVisibilityScreen(
+                    CatalogComposeEnum.ContentVisibility -> AnimamatedVisibilityScreen(
+                        fillModifier.verticalScroll(rememberScrollState())
+                    )
+
+                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(
+                        fillModifier.verticalScroll(rememberScrollState())
+                    )
+
+                    CatalogComposeEnum.AnimatedContent -> AnimatedContentScreen(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(
-                        fillModifier.verticalScroll(
-                            rememberScrollState()
-                        )
+                    CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(
+                        fillModifier.verticalScroll(rememberScrollState())
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.AnimatedContent -> AnimationContentScreen(
+                    CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationOffsetBouncingBall(
                         fillModifier
                     )
 
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(
-                        fillModifier.verticalScroll(
-                            rememberScrollState()
-                        )
-                    )
-
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationBouncingBall(
-                        fillModifier
-                    )
-
-                    com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.AnimationShowCase -> AnimationShowCase(
+                    CatalogComposeEnum.AnimationShowCase -> AnimationShowCase(
                         fillModifier
                     )
                 }

@@ -22,6 +22,7 @@ import com.dat.jetpackcomposecatalog.feature.catalog_compose.navigation.animatio
 import com.dat.jetpackcomposecatalog.feature.catalog_compose.navigation.navigateAnimationShowCase
 import com.dat.jetpackcomposecatalog.feature.catalog_overview.navigation.catalogOverviewScreen
 import com.dat.jetpackcomposecatalog.feature.catalog_overview.navigation.navigateCatalogOverview
+import com.dat.jetpackcomposecatalog.feature.main.navigation.TopLevelDestination
 import com.dat.jetpackcomposecatalog.feature.menu.navigation.navigateInfo
 import com.dat.jetpackcomposecatalog.feature.menu.navigation.userScreen
 import com.dat.jetpackcomposecatalog.widget.IconLoader

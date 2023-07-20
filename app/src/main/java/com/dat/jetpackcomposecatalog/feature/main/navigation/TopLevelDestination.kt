@@ -1,5 +1,5 @@
 
-package com.dat.jetpackcomposecatalog.feature.main
+package com.dat.jetpackcomposecatalog.feature.main.navigation
 
 import com.dat.jetpackcomposecatalog.common.Icon
 import com.dat.jetpackcomposecatalog.common.Icon.DrawableResourceIcon

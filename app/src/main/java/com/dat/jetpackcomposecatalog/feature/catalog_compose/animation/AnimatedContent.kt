@@ -58,7 +58,7 @@ data class Digit(val singleDigit: Char, val fullNumber: Int, val place: Int) {
 
 
 @Composable
-fun AnimationContentScreen(modifier: Modifier = Modifier) {
+fun AnimatedContentScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         TextHeadBloc("AnimatedContent")
         Row(
@@ -149,6 +149,6 @@ private fun AnimatedContentNumberCount(count: Int) {
 @Composable
 fun PreviewAnimationContent() {
     JetpackComposeCatalogTheme {
-        AnimationContentScreen(modifier = Modifier.statusBarsPadding())
+        AnimatedContentScreen(modifier = Modifier.statusBarsPadding())
     }
 }

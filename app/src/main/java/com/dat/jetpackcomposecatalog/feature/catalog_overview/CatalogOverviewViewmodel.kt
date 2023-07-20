@@ -2,11 +2,12 @@ package com.dat.jetpackcomposecatalog.feature.catalog_overview
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class CatalogOverviewViewModel : ViewModel() {
-    private val listGroup = com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum.values()
+    private val listGroup = CatalogComposeEnum.values()
         .groupBy { it.group }
         .map { (group, itemList) ->
             CatalogOverViewGroup(group, itemList)

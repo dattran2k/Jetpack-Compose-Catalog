@@ -5,7 +5,6 @@ import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -44,35 +43,20 @@ fun AnimationContentSizeScreen(modifier: Modifier = Modifier) {
     }
     Column(modifier) {
         TextHeadBloc("animateContentSize")
-        AnimationGroup(isExpand)
-    }
-}
-
-@Composable
-fun AnimationGroup(
-    isVisible: Boolean,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min)
-    ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            MyAnim.TypeAnim.values().forEach { typeAnim ->
-                when (typeAnim) {
-                    MyAnim.TypeAnim.Easing -> easing
-                    MyAnim.TypeAnim.Spring -> spring
-                }.toList().forEachIndexed { index, pair ->
-                    ContentSize(
-                        Modifier,
-                        isVisible = isVisible,
-                        animationSpec = pair.first to MyAnim.getFiniteAnimationSpec(
-                            typeAnim,
-                            pair.first
-                        ),
-                        color = getColorByIndex(index)
-                    )
-                }
+        MyAnim.TypeAnim.values().forEach { typeAnim ->
+            when (typeAnim) {
+                MyAnim.TypeAnim.Easing -> easing
+                MyAnim.TypeAnim.Spring -> spring
+            }.toList().forEachIndexed { index, pair ->
+                ContentSize(
+                    Modifier,
+                    isVisible = isExpand,
+                    animationSpec = pair.first to MyAnim.getFiniteAnimationSpec(
+                        typeAnim,
+                        pair.first
+                    ),
+                    color = getColorByIndex(index)
+                )
             }
         }
     }
@@ -103,7 +87,7 @@ private fun ContentSize(
                     color = Color.Black
                 ),
                 maxLines = 2,
-                minLines = 2
+                minLines = 2,
             )
         }
     }

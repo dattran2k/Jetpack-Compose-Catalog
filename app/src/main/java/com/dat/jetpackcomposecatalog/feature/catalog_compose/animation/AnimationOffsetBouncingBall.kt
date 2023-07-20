@@ -48,7 +48,7 @@ import kotlin.math.roundToInt
 var count = 0
 
 @Composable
-fun AnimationBouncingBall(modifier: Modifier = Modifier) {
+fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
     val density = LocalDensity.current
     var ballSizePx by remember {
         mutableStateOf(400f)
@@ -161,7 +161,7 @@ fun PreviewAnimationBouncingBall() {
                 .fillMaxSize()
                 .statusBarsPadding()
         ) {
-            AnimationBouncingBall(
+            AnimationOffsetBouncingBall(
                 Modifier
                     .fillMaxWidth()
                     .weight(1f)

@@ -29,10 +29,10 @@ fun AnimationShowCase(modifier: Modifier = Modifier) {
             AnimationContentSizeScreen()
         }
         item {
-            AnimationContentScreen(Modifier.height(200.dp))
+            AnimatedContentScreen(Modifier.height(200.dp))
         }
         item {
-            AnimationVisibilityScreen()
+            AnimamatedVisibilityScreen()
         }
     }
 }

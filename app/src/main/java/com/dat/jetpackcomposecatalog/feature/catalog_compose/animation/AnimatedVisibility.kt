@@ -35,7 +35,7 @@ import com.dat.jetpackcomposecatalog.widget.TextTitleBloc
 import kotlinx.coroutines.delay
 
 @Composable
-fun AnimationVisibilityScreen(modifier: Modifier = Modifier) {
+fun AnimamatedVisibilityScreen(modifier: Modifier = Modifier) {
     var isVisible by remember {
         mutableStateOf(true)
     }
@@ -102,7 +102,7 @@ private fun ContentVisibility(
 @Composable
 fun AnimationVisibilityPreview() {
     JetpackComposeCatalogTheme {
-        AnimationVisibilityScreen(
+        AnimamatedVisibilityScreen(
             Modifier
                 .statusBarsPadding()
                 .verticalScroll(rememberScrollState())
