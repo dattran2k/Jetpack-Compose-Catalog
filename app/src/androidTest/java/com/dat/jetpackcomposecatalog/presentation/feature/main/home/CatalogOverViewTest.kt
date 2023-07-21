@@ -5,10 +5,10 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.dat.jetpackcomposecatalog.feature.CatalogComposeEnum
-import com.dat.jetpackcomposecatalog.feature.catalog_overview.CatalogOverViewGroup
-import com.dat.jetpackcomposecatalog.feature.catalog_overview.CatalogOverviewScreen
-import com.dat.jetpackcomposecatalog.theme.JetpackComposeCatalogTheme
+import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.ui.feature.CatalogComposeEnum
+import com.dat.ui.feature.catalog_overview.CatalogOverViewGroup
+import com.dat.ui.feature.catalog_overview.CatalogOverviewScreen
 import org.junit.Rule
 import org.junit.Test
 

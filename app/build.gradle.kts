@@ -32,11 +32,6 @@ android {
             isShrinkResources = true
             proguardFiles("proguard-rules.pro")
         }
-        create("benchmark") {
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks += listOf("release")
-            isDebuggable = false
-        }
     }
     buildFeatures {
         buildConfig = true
@@ -62,41 +57,43 @@ android {
 dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:model"))
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(project(":core:designsystem"))
+    implementation(project(":ui"))
+
     implementation(libs.androidx.activity.activity)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material.material)
+    implementation(libs.androidx.compose.material.material3)
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.compose.ui.tooling)
+
     // hilt
     implementation(libs.androidx.hilt.navigationcompose)
     implementation(libs.androidx.hilt.work)
     implementation(libs.dagger.hilt.library)
-    implementation("androidx.compose.animation:animation-graphics:1.4.3")
     kapt(libs.dagger.hilt.compiler)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui.ui)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material.material)
-    implementation(libs.compose.material.material3)
-    implementation(libs.compose.ui.tooling)
 
     // testing
-    testImplementation(platform(libs.compose.bom))
+    testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.androidx.test.ui)
-    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.test.ui)
     implementation(libs.androidx.test.manifest)
     // Coroutines
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.coroutines.android)
-    // Coroutine Lifecycle Scopes
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
     // Coil
-    implementation(libs.coil.compose)
     implementation(libs.accompanist.coil)
     implementation(libs.lottile)
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")

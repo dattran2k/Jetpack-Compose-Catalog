@@ -18,6 +18,3 @@
     java.lang.Object readResolve();
 }
 
--keepclassmembers class * extends androidx.datastore.preferences.protobuf.GeneratedMessageLite {
-    <fields>;
-}

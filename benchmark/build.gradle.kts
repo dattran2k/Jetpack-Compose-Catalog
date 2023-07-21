@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.compose.bom))
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.benchmark.macro)
     implementation(libs.androidx.test.uiautomator)
     implementation(libs.androidx.test.espresso.core)

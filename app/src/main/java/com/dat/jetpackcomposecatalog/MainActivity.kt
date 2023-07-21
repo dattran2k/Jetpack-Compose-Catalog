@@ -21,11 +21,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.dat.jetpackcomposecatalog.feature.catalog_compose.navigation.catalogScreen
-import com.dat.jetpackcomposecatalog.feature.catalog_compose.navigation.navigateCatalogScreen
-import com.dat.jetpackcomposecatalog.feature.main.navigation.mainScreen
-import com.dat.jetpackcomposecatalog.navigation.Screen
-import com.dat.jetpackcomposecatalog.theme.JetpackComposeCatalogTheme
+import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.ui.feature.catalog_compose.navigation.catalogScreen
+import com.dat.ui.feature.catalog_compose.navigation.navigateCatalogScreen
+import com.dat.ui.feature.main.navigation.mainScreen
+import com.dat.ui.navigation.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
