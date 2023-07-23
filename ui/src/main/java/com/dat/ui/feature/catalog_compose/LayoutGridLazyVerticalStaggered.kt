@@ -44,89 +44,89 @@ fun LayoutGridLazyVerticalStaggered(
     var verticalItemSpacing by remember {
         mutableStateOf(0)
     }
-    LazyVerticalStaggeredGrid(
-        modifier = modifier,
-        columns = staggeredGridCellsData.staggeredGridCells,
-        verticalItemSpacing = verticalItemSpacing.dp,
-        horizontalArrangement = horizontalArrangement.value,
-    ) {
-        items(itemCount, key = { it }) {
-            val size = Random.nextInt(50, 400).dp
-            val color = getColorByIndex(it % 6)
-            MyBox(modifier = Modifier.size(size), useItemImage = false, color = color) {
-                Text(
-                    text = "index $it, size $size",
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center
-                )
+    Column(modifier = modifier) {
+        LazyVerticalStaggeredGrid(
+            modifier = Modifier.weight(1f),
+            columns = staggeredGridCellsData.staggeredGridCells,
+            verticalItemSpacing = verticalItemSpacing.dp,
+            horizontalArrangement = horizontalArrangement.value,
+        ) {
+            items(itemCount, key = { it }) {
+                val size = Random.nextInt(50, 400).dp
+                val color = getColorByIndex(it % 6)
+                MyBox(modifier = Modifier.size(size), useItemImage = false, color = color) {
+                    Text(
+                        text = "index $it, size $size",
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
+
+        // config
+        ValueSlider(
+            title = "Item count :",
+            value = itemCount,
+            from = 2,
+            to = 100,
+            onValueChange = viewModel::onUpdateItemCount
+        )
+        ValueSlider(
+            title = "verticalItemSpacing",
+            value = verticalItemSpacing,
+            isProperties = true,
+            from = 0,
+            to = 100,
+            onValueChange = {
+                verticalItemSpacing = it
+            }
+        )
+        SettingComponent(
+            name = "horizontalArrangement",
+            settingSelected = horizontalArrangement,
+            listSetting = MyHorizontalArrangement.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onHorizontalArrangementSelected
+        )
+        // TODO improve this
+        SettingComponent(
+            name = "columns",
+            settingSelected = staggeredGridCellsData.myStaggeredGridCells,
+            listSetting = MyStaggeredGridCells.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onSelectStaggeredGridCells
+        )
+
+        if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Adaptive)
+            ValueSlider(
+                title = "Adaptive",
+                value = staggeredGridCellsData.value,
+                isProperties = true,
+                from = 40,
+                to = 400,
+                onValueChange = viewModel::updateStaggeredAdaptive
+            )
+        if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Fixed)
+            ValueSlider(
+                title = "Fix",
+                value = staggeredGridCellsData.value,
+                isProperties = true,
+                from = 1,
+                to = 10,
+                onValueChange = viewModel::updateStaggeredFixed
+            )
     }
-
-    // config
-    ValueSlider(
-        title = "Item count :",
-        value = itemCount,
-        from = 2,
-        to = 100,
-        onValueChange = viewModel::onUpdateItemCount
-    )
-    ValueSlider(
-        title = "verticalItemSpacing",
-        value = verticalItemSpacing,
-        isProperties = true,
-        from = 0,
-        to = 100,
-        onValueChange = {
-            verticalItemSpacing = it
-        }
-    )
-    SettingComponent(
-        name = "horizontalArrangement",
-        settingSelected = horizontalArrangement,
-        listSetting = MyHorizontalArrangement.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onHorizontalArrangementSelected
-    )
-    // TODO improve this
-    SettingComponent(
-        name = "columns",
-        settingSelected = staggeredGridCellsData.myStaggeredGridCells,
-        listSetting = MyStaggeredGridCells.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onSelectStaggeredGridCells
-    )
-
-    if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Adaptive)
-        ValueSlider(
-            title = "Adaptive",
-            value = staggeredGridCellsData.value,
-            isProperties = true,
-            from = 40,
-            to = 400,
-            onValueChange = viewModel::updateStaggeredAdaptive
-        )
-    if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Fixed)
-        ValueSlider(
-            title = "Fix",
-            value = staggeredGridCellsData.value,
-            isProperties = true,
-            from = 1,
-            to = 10,
-            onValueChange = viewModel::updateStaggeredFixed
-        )
 }
 
 @Preview
 @Composable
 fun GridLazyVerticalStaggeredComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
-        Column(
+        LayoutGridLazyVerticalStaggered(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-        ) {
-            LayoutGridLazyVerticalStaggered()
-        }
+        )
     }
 }

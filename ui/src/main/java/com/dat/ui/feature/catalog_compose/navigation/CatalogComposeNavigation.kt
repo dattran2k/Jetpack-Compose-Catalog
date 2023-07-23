@@ -3,9 +3,6 @@
 package com.dat.ui.feature.catalog_compose.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -95,73 +93,10 @@ fun NavGraphBuilder.catalogScreen(navigateBack: (() -> Unit)? = null) {
                 }
             },
         ) { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize()
-            ) {
-                val fillModifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                when (CatalogComposeEnum.valueOf(id)) {
-//                    CatalogComposeEnum.Box -> BoxComposeScreen()
-                    CatalogComposeEnum.Column -> LayoutColumn(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.LazyColumn -> LayoutColumnLazy(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.Row -> LayoutRow(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.LazyRow -> LayoutLazyRow(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.LazyVerticalStaggeredGrid -> LayoutGridLazyVerticalStaggered(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVertical(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.LazyHorizontalStaggeredGrid -> LayoutGridLazyHorizontalStaggered(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.ContentVisibility -> AnimamatedVisibilityScreen(
-                        fillModifier.verticalScroll(rememberScrollState())
-                    )
-
-                    CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(
-                        fillModifier.verticalScroll(rememberScrollState())
-                    )
-
-                    CatalogComposeEnum.AnimatedContent -> AnimatedContentScreen(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(
-                        fillModifier.verticalScroll(rememberScrollState())
-                    )
-
-                    CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationOffsetBouncingBall(
-                        fillModifier
-                    )
-
-                    CatalogComposeEnum.AnimationShowCase -> AnimationShowCase(
-                        fillModifier
-                    )
-                }
-            }
+            CatalogComposeHost(
+                modifier = Modifier.padding(paddingValues),
+                id = CatalogComposeEnum.valueOf(id)
+            )
         }
     }
 }
@@ -195,3 +130,28 @@ private fun TopAppBar(
         },
     )
 }
+
+@Composable
+fun CatalogComposeHost(modifier: Modifier, id: CatalogComposeEnum) {
+    val modifierScrollable = Modifier.verticalScroll(rememberScrollState())
+    Surface(modifier = modifier) {
+        when (id) {
+//                    CatalogComposeEnum.Box -> BoxComposeScreen()
+            CatalogComposeEnum.Column -> LayoutColumn()
+            CatalogComposeEnum.LazyColumn -> LayoutColumnLazy()
+            CatalogComposeEnum.Row -> LayoutRow()
+            CatalogComposeEnum.LazyRow -> LayoutLazyRow()
+            CatalogComposeEnum.LazyVerticalStaggeredGrid -> LayoutGridLazyVerticalStaggered()
+            CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVertical()
+            CatalogComposeEnum.LazyHorizontalStaggeredGrid -> LayoutGridLazyHorizontalStaggered()
+            CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal()
+            CatalogComposeEnum.ContentVisibility -> AnimamatedVisibilityScreen(modifierScrollable)
+            CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(modifierScrollable)
+            CatalogComposeEnum.AnimatedContent -> AnimatedContentScreen()
+            CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(modifierScrollable)
+            CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationOffsetBouncingBall()
+            CatalogComposeEnum.AnimationShowCase -> AnimationShowCase()
+        }
+    }
+}
+

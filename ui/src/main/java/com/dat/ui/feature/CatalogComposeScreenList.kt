@@ -1,13 +1,21 @@
 package com.dat.ui.feature
 
 enum class CatalogComposeGroup {
-    Widgets,
     Layout,
-    Animation
+    Animation,
+    Widgets,
+
 }
 
 enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
 //    Box(CatalogComposeGroup.Widgets),
+
+    AnimationShowCase(CatalogComposeGroup.Animation),
+    ContentVisibility(CatalogComposeGroup.Animation),
+    AnimateContentSize(CatalogComposeGroup.Animation),
+    AnimatedValue(CatalogComposeGroup.Animation),
+    AnimatedContent(CatalogComposeGroup.Animation),
+    AnimationOffsetBouncingBall(CatalogComposeGroup.Animation),
 
     Column(CatalogComposeGroup.Layout),
     LazyColumn(CatalogComposeGroup.Layout),
@@ -17,13 +25,6 @@ enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
     LazyVerticalGrid(CatalogComposeGroup.Layout),
     LazyHorizontalStaggeredGrid(CatalogComposeGroup.Layout),
     LazyHorizontalGrid(CatalogComposeGroup.Layout),
-
-    AnimationShowCase(CatalogComposeGroup.Animation),
-    ContentVisibility(CatalogComposeGroup.Animation),
-    AnimateContentSize(CatalogComposeGroup.Animation),
-    AnimatedValue(CatalogComposeGroup.Animation),
-    AnimatedContent(CatalogComposeGroup.Animation),
-    AnimationOffsetBouncingBall(CatalogComposeGroup.Animation),
 
 
 }

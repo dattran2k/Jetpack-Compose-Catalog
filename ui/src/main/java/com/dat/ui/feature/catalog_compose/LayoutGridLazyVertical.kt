@@ -36,88 +36,87 @@ fun LayoutGridLazyVertical(
     val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
 
     val gridCellsData by viewModel.gridCells.collectAsState()
-
-    LazyVerticalGrid(
-        modifier = modifier,
-        columns = gridCellsData.gridCells,
-        verticalArrangement = verticalArrangement.value,
-        horizontalArrangement = horizontalArrangement.value
-    ) {
-        items(itemCount, key = { it }) {
-            val size = Random.nextInt(50, 400).dp
-            val color = getColorByIndex(it % 6)
-            MyBox(modifier = Modifier.size(size), useItemImage = false, color = color) {
-                Text(
-                    text = "index $it, size $size",
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center
-                )
+    Column(modifier = modifier) {
+        LazyVerticalGrid(
+            modifier = Modifier.weight(1f),
+            columns = gridCellsData.gridCells,
+            verticalArrangement = verticalArrangement.value,
+            horizontalArrangement = horizontalArrangement.value
+        ) {
+            items(itemCount, key = { it }) {
+                val size = Random.nextInt(50, 400).dp
+                val color = getColorByIndex(it % 6)
+                MyBox(modifier = Modifier.size(size), useItemImage = false, color = color) {
+                    Text(
+                        text = "index $it, size $size",
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
         }
+
+        // config
+        ValueSlider(
+            title = "Item count :",
+            value = itemCount,
+            from = 2,
+            to = 100,
+            onValueChange = viewModel::onUpdateItemCount
+        )
+        SettingComponent(
+            name = "horizontalArrangement",
+            settingSelected = horizontalArrangement,
+            listSetting = MyHorizontalArrangement.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onHorizontalArrangementSelected
+        )
+        SettingComponent(
+            name = "verticalArrangement",
+            settingSelected = verticalArrangement,
+            listSetting = MyVerticalArrangement.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onVerticalArrangementSelected
+        )
+
+        // TODO improve this
+        SettingComponent(
+            name = "columns",
+            settingSelected = gridCellsData.myGridCells,
+            listSetting = MyGridCells.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onSelectGridCells
+        )
+
+        if (gridCellsData.gridCells is GridCells.Adaptive)
+            ValueSlider(
+                title = "Adaptive",
+                value = gridCellsData.value,
+                isProperties = true,
+                from = 40,
+                to = 400,
+                onValueChange = viewModel::updateAdaptive
+            )
+        if (gridCellsData.gridCells is GridCells.Fixed)
+            ValueSlider(
+                title = "Fix",
+                value = gridCellsData.value,
+                isProperties = true,
+                from = 1,
+                to = 10,
+                onValueChange = viewModel::updateFixed
+            )
     }
-
-    // config
-    ValueSlider(
-        title = "Item count :",
-        value = itemCount,
-        from = 2,
-        to = 100,
-        onValueChange = viewModel::onUpdateItemCount
-    )
-    SettingComponent(
-        name = "horizontalArrangement",
-        settingSelected = horizontalArrangement,
-        listSetting = MyHorizontalArrangement.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onHorizontalArrangementSelected
-    )
-    SettingComponent(
-        name = "verticalArrangement",
-        settingSelected = verticalArrangement,
-        listSetting = MyVerticalArrangement.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onVerticalArrangementSelected
-    )
-
-    // TODO improve this
-    SettingComponent(
-        name = "columns",
-        settingSelected = gridCellsData.myGridCells,
-        listSetting = MyGridCells.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onSelectGridCells
-    )
-
-    if (gridCellsData.gridCells is GridCells.Adaptive)
-        ValueSlider(
-            title = "Adaptive",
-            value = gridCellsData.value,
-            isProperties = true,
-            from = 40,
-            to = 400,
-            onValueChange = viewModel::updateAdaptive
-        )
-    if (gridCellsData.gridCells is GridCells.Fixed)
-        ValueSlider(
-            title = "Fix",
-            value = gridCellsData.value,
-            isProperties = true,
-            from = 1,
-            to = 10,
-            onValueChange = viewModel::updateFixed
-        )
 }
 
 @Preview
 @Composable
 fun GridLazyVerticalComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
-        Column(
+        LayoutGridLazyVertical(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-        ) {
-            LayoutGridLazyVertical()
-        }
+        )
     }
 }

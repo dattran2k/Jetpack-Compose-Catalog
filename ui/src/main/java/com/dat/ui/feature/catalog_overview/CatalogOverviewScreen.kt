@@ -39,7 +39,7 @@ import com.dat.core.designsystem.R as designsystemR
 data class CatalogOverViewGroup(
     val catalogComposeGroup: CatalogComposeGroup,
     val listItem: List<CatalogComposeEnum>,
-    var isExpand: Boolean = false,
+    var isExpand: Boolean = true,
 )
 
 @Composable

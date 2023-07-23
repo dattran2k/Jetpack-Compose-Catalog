@@ -32,30 +32,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.dat.designsystem.component.TextHeadBloc
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.ui.common.ui_model.Digit
 import kotlinx.coroutines.delay
 
 const val DELAY = 300
-
-data class Digit(val singleDigit: Char, val fullNumber: Int, val place: Int) {
-    override fun equals(other: Any?): Boolean {
-        return when (other) {
-            is Digit -> singleDigit == other.singleDigit
-            else -> super.equals(other)
-        }
-    }
-
-    override fun hashCode(): Int {
-        var result = singleDigit.hashCode()
-        result = 31 * result + fullNumber
-        result = 31 * result + place
-        return result
-    }
-
-    operator fun compareTo(other: Digit): Int {
-        return fullNumber.compareTo(other.fullNumber)
-    }
-}
-
 
 @Composable
 fun AnimatedContentScreen(modifier: Modifier = Modifier) {
@@ -71,7 +51,6 @@ fun AnimatedContentScreen(modifier: Modifier = Modifier) {
             CountIncrease()
             CountDecrease()
         }
-
     }
 }
 

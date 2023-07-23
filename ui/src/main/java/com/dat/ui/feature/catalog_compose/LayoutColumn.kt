@@ -1,6 +1,5 @@
 package com.dat.ui.feature.catalog_compose
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -27,47 +26,45 @@ fun LayoutColumn(
 ) {
     val verticalArrangement by layoutViewModel.verticalArrangementState.collectAsStateWithLifecycle()
     val horizontalAlignment by layoutViewModel.horizontalAlignmentState.collectAsStateWithLifecycle()
-
-    Column(
-        modifier = modifier,
-        verticalArrangement = verticalArrangement.value,
-        horizontalAlignment = horizontalAlignment.value
-    ) {
-        MyBox(color = getColorByIndex(0))
-        MyBox(color = getColorByIndex(1))
-        MyBox(color = getColorByIndex(2))
+    Column(modifier = modifier) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = verticalArrangement.value,
+            horizontalAlignment = horizontalAlignment.value
+        ) {
+            MyBox(color = getColorByIndex(0))
+            MyBox(color = getColorByIndex(1))
+            MyBox(color = getColorByIndex(2))
+        }
+        // config
+        SettingComponent(
+            name = "verticalArrangement",
+            settingSelected = verticalArrangement,
+            listSetting = MyVerticalArrangement.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = layoutViewModel::onVerticalArrangementSelected
+        )
+        SettingComponent(
+            name = "horizontalAlignment",
+            settingSelected = horizontalAlignment,
+            listSetting = MyHorizontalAlignment.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = layoutViewModel::onHorizontalAlignmentSelected
+        )
     }
 
-    // config
-    SettingComponent(
-        name = "verticalArrangement",
-        settingSelected = verticalArrangement,
-        listSetting = MyVerticalArrangement.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = layoutViewModel::onVerticalArrangementSelected
-    )
-    SettingComponent(
-        name = "horizontalAlignment",
-        settingSelected = horizontalAlignment,
-        listSetting = MyHorizontalAlignment.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = layoutViewModel::onHorizontalAlignmentSelected
-    )
 }
 
 @Preview
 @Composable
 fun ColumnComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
-        Box(Modifier.fillMaxSize()) {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .statusBarsPadding()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                LayoutColumn()
-            }
-        }
+        LayoutColumn(
+            Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+        )
     }
 }

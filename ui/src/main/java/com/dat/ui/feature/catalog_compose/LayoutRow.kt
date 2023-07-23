@@ -1,12 +1,10 @@
 package com.dat.ui.feature.catalog_compose
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,51 +21,50 @@ import com.dat.ui.common.ui_model.MyVerticalAlignment
 
 @Composable
 fun LayoutRow(
-    modifier: Modifier = Modifier, viewModel: LayoutViewModel = hiltViewModel()
+    modifier: Modifier = Modifier,
+    viewModel: LayoutViewModel = hiltViewModel()
 ) {
     val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
     val verticalAlignment by viewModel.verticalAlignmentState.collectAsState()
-    Row(
-        modifier = modifier,
-        verticalAlignment = verticalAlignment.value,
-        horizontalArrangement = horizontalArrangement.value
-    ) {
-        MyBox(color = getColorByIndex(0))
-        MyBox(color = getColorByIndex(1))
-        MyBox(color = getColorByIndex(2))
+    Column(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+            verticalAlignment = verticalAlignment.value,
+            horizontalArrangement = horizontalArrangement.value
+        ) {
+            MyBox(color = getColorByIndex(0))
+            MyBox(color = getColorByIndex(1))
+            MyBox(color = getColorByIndex(2))
+        }
+        // config
+        SettingComponent(
+            name = "verticalAlignment",
+            settingSelected = verticalAlignment,
+            listSetting = MyVerticalAlignment.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onVerticalAlignmentSelected
+        )
+        SettingComponent(
+            name = "horizontalArrangement",
+            settingSelected = horizontalArrangement,
+            listSetting = MyHorizontalArrangement.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onHorizontalArrangementSelected
+        )
+
     }
-
-    // config
-    SettingComponent(
-        name = "verticalAlignment",
-        settingSelected = verticalAlignment,
-        listSetting = MyVerticalAlignment.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onVerticalAlignmentSelected
-    )
-    SettingComponent(
-        name = "horizontalArrangement",
-        settingSelected = horizontalArrangement,
-        listSetting = MyHorizontalArrangement.values().toList(),
-        mapName = { it.typeName },
-        onSettingSelected = viewModel::onHorizontalArrangementSelected
-    )
-
 }
 
 @Preview
 @Composable
 fun RowComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
-        Box(Modifier.fillMaxSize()) {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .statusBarsPadding()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                LayoutRow()
-            }
-        }
+        LayoutRow(
+            Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+        )
     }
 }

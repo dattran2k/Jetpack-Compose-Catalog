@@ -2,7 +2,6 @@
 
 package com.dat.ui.feature.catalog_compose
 
-import android.util.Log
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.animateOffsetAsState
@@ -12,7 +11,6 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -45,7 +43,6 @@ import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 
-var count = 0
 
 @Composable
 fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
@@ -58,18 +55,13 @@ fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
     }
     LaunchedEffect(key1 = targetBallSizePx) {
         animate(
-            initialValue = ballSizePx,
-            targetValue = targetBallSizePx,
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMedium
+            initialValue = ballSizePx, targetValue = targetBallSizePx, animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessMedium
             )
         ) { value, _ ->
             ballSizePx = value
         }
     }
-    count++
-    Log.e("TAG", "AnimationBouncingBall: $count $ballSizePx")
     var isAutoBouncing by remember {
         mutableStateOf(false)
     }
@@ -83,27 +75,22 @@ fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
         mutableStateOf(Offset(0f, 0f))
     }
     val coOrdinateAnimated = animateOffsetAsState(
-        coOrdinate,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioHighBouncy,
-            stiffness = Spring.StiffnessVeryLow
+        coOrdinate, animationSpec = spring(
+            dampingRatio = Spring.DampingRatioHighBouncy, stiffness = Spring.StiffnessVeryLow
         )
     )
-    if (isAutoBouncing)
-        LaunchedEffect(key1 = isStart) {
-            delay(2000)
-            val y = if (isStart) 0f else parentSize.height - ballSizePx
-            coOrdinate = Offset(parentSize.width / 2 - ballSizePx / 2, y)
-            isStart = !isStart
-        }
-    Box(modifier = modifier) {
+    if (isAutoBouncing) LaunchedEffect(key1 = isStart) {
+        delay(2000)
+        val y = if (isStart) 0f else parentSize.height - ballSizePx
+        coOrdinate = Offset(parentSize.width / 2 - ballSizePx / 2, y)
+        isStart = !isStart
+    }
+    Column(modifier = modifier) {
         Box(modifier = Modifier
-            .fillMaxSize()
+            .weight(1f)
             .onGloballyPositioned {
                 parentSize = it.parentLayoutCoordinates?.size?.toSize() ?: Size.Zero
-            }
-        ) {
-
+            }) {
             Box(modifier = Modifier
                 .offset {
                     IntOffset(
@@ -118,55 +105,43 @@ fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
                         change.consume()
                         coOrdinate += dragAmount
                     }
-                },
-                contentAlignment = Alignment.Center
+                }, contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = coOrdinate.toString(),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.Black,
-                        color = Color.Black
+                        fontWeight = FontWeight.Black, color = Color.Black
                     )
                 )
             }
 
         }
+        MySwitchButtonCompose(title = "Auto jump :",
+            isSelected = isAutoBouncing,
+            onSelectedCallback = {
+                isAutoBouncing = it
+            })
+        // config
+        ValueSlider(title = "Ball size",
+            value = targetBallSizePx.toInt(),
+            from = 100,
+            to = 1000,
+            onValueChange = {
+                targetBallSizePx = it.toFloat()
+            })
     }
-    MySwitchButtonCompose(
-        title = "Auto jump :",
-        isSelected = isAutoBouncing,
-        onSelectedCallback = {
-            isAutoBouncing = it
-        }
-    )
-    // config
-    ValueSlider(
-        title = "Ball size",
-        value = targetBallSizePx.toInt(),
-        from = 100,
-        to = 1000,
-        onValueChange = {
-            targetBallSizePx = it.toFloat()
-        }
-    )
+
 }
 
 @Preview
 @Composable
 fun PreviewAnimationBouncingBall() {
     JetpackComposeCatalogTheme {
-        Column(
+        AnimationOffsetBouncingBall(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-        ) {
-            AnimationOffsetBouncingBall(
-                Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            )
-        }
-
+        )
     }
 }
