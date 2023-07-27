@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,13 +43,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dat.designsystem.MyIcons
 import com.dat.designsystem.component.MyBox
@@ -80,11 +77,11 @@ fun AnimationValueScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ManualTransition() {
+fun ManualTransition(modifier: Modifier = Modifier) {
     var state by remember {
         mutableStateOf(false)
     }
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         TextHeadBloc("ManualTransition")
         TextTitleBloc("AnimateFloat")
         Box(
@@ -109,8 +106,8 @@ fun ManualTransition() {
 }
 
 @Composable
-fun InfiniteTransition() {
-    Column {
+fun InfiniteTransition(modifier: Modifier = Modifier) {
+    Column(modifier) {
         TextHeadBloc("InfiniteTransition")
         TextTitleBloc("AnimateFloat")
         InfiniteTransitionFloat()
@@ -175,16 +172,20 @@ fun ManualTransitionAlignment() {
 @Composable
 fun ManualTransitionFloat(state: Boolean) {
     val rotation by animateFloatAsState(
-        targetValue = if (state) 290f else 0f, animationSpec = tween()
+        targetValue = if (state) 290f else 0f, animationSpec = tween(),
+        label = "rotation"
     )
     val scale by animateFloatAsState(
-        targetValue = if (state) 2f else 1f, animationSpec = tween()
+        targetValue = if (state) 2f else 1f, animationSpec = tween(),
+        label = "scale"
     )
     val alpha by animateFloatAsState(
-        targetValue = if (state) 0f else 1f, animationSpec = tween()
+        targetValue = if (state) 0f else 1f, animationSpec = tween(),
+        label = "alpha"
     )
     val translation by animateFloatAsState(
-        targetValue = if (state) -50f else 0f, animationSpec = tween()
+        targetValue = if (state) -50f else 0f, animationSpec = tween(),
+        label = "translation"
     )
     Column {
         AnimateRotation(rotation)
@@ -228,7 +229,7 @@ fun UltimateCombineItem(
     state: Boolean,
     coordinateItem: CoordinateItem,
     index: Int,
-    updateState: () -> Unit
+    updateState: () -> Unit,
 ) {
     val density = LocalDensity.current
     val x = with(density) { CoordinateItem.size.toPx() } * coordinateItem.transitionX
@@ -239,20 +240,33 @@ fun UltimateCombineItem(
             .graphicsLayer(
                 rotationZ = animateFloatAsState(
                     targetValue = if (state) coordinateItem.rotateZ else 0f,
-                    tween(500)
+                    tween(500),
+                    label = "UltimateCombineItem rotationZ"
                 ).value,
-                translationY = animateFloatAsState(targetValue = if (state) y else index * 5f).value,
-                translationX = animateFloatAsState(targetValue = if (state) x else index * 2f).value,
-                scaleX = animateFloatAsState(targetValue = if (state) coordinateItem.scale else 2f).value,
-                scaleY = animateFloatAsState(targetValue = if (state) coordinateItem.scale else 2f).value,
+                translationY = animateFloatAsState(
+                    targetValue = if (state) y else index * 5f,
+                    label = "UltimateCombineItem translationY"
+                ).value,
+                translationX = animateFloatAsState(
+                    targetValue = if (state) x else index * 2f,
+                    label = "UltimateCombineItem translationX"
+                ).value,
+                scaleX = animateFloatAsState(
+                    targetValue = if (state) coordinateItem.scale else 2f,
+                    label = "UltimateCombineItem scaleX"
+                ).value,
+                scaleY = animateFloatAsState(
+                    targetValue = if (state) coordinateItem.scale else 2f,
+                    label = "UltimateCombineItem scaleY"
+                ).value,
             )
-            .shadow(
-                elevation = if (state) 20.dp else Dp.Unspecified,
-                shape = CircleShape,
-                ambientColor = Color.Red,
-                spotColor = Color.Red,
-                clip = true
-            )
+//            .shadow(
+//                elevation = if (state) 4.dp else Dp.Unspecified,
+//                shape = CircleShape,
+//                ambientColor = Color.Red,
+//                spotColor = Color.Red,
+//                clip = true
+//            )
             .clickable(onClick = updateState),
         painter = painterResource(MyIcons.ImDefault),
         contentDescription = "MyAvatar"
@@ -269,14 +283,16 @@ fun ManualTransitionColor() {
             MaterialTheme.colorScheme.primary
         else
             Color.Green,
-        animationSpec = tween(500)
+        animationSpec = tween(500),
+        label = "animate colorContainer"
     )
     val colorText by animateColorAsState(
         targetValue = if (state)
             MaterialTheme.colorScheme.onPrimary
         else
             Color.DarkGray,
-        animationSpec = tween(500)
+        animationSpec = tween(500),
+        label = "animate colorText"
     )
     Column(
         modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
@@ -297,22 +313,26 @@ fun ManualTransitionColor() {
 
 @Composable
 fun InfiniteTransitionFloat() {
-    val infiniteTransitionTransition = rememberInfiniteTransition()
+    val infiniteTransitionTransition = rememberInfiniteTransition(label = "infiniteTransitionTransition")
     val translation by infiniteTransitionTransition.animateFloat(
-        initialValue = -50f, targetValue = 100f, animationSpec = getInfiniteRepeatableSpec()
+        initialValue = -50f, targetValue = 100f, animationSpec = getInfiniteRepeatableSpec(),
+        label = "translation"
     )
-    val infiniteTransitionAlpha = rememberInfiniteTransition()
+    val infiniteTransitionAlpha = rememberInfiniteTransition(label = "infiniteTransitionAlpha")
     val alpha by infiniteTransitionAlpha.animateFloat(
-        initialValue = 0f, targetValue = 1f, animationSpec = getInfiniteRepeatableSpec()
+        initialValue = 0f, targetValue = 1f, animationSpec = getInfiniteRepeatableSpec(),
+        label = "alpha"
     )
 
-    val infiniteTransitionScale = rememberInfiniteTransition()
+    val infiniteTransitionScale = rememberInfiniteTransition(label = "infiniteTransitionScale")
     val scale by infiniteTransitionScale.animateFloat(
-        initialValue = 1f, targetValue = 3f, animationSpec = getInfiniteRepeatableSpec()
+        initialValue = 1f, targetValue = 3f, animationSpec = getInfiniteRepeatableSpec(),
+        label = "scale"
     )
-    val infiniteTransitionRotation = rememberInfiniteTransition()
+    val infiniteTransitionRotation = rememberInfiniteTransition(label = "infiniteTransitionRotation")
     val rotation by infiniteTransitionRotation.animateFloat(
-        initialValue = 0f, targetValue = 360f, animationSpec = getInfiniteRepeatableSpec()
+        initialValue = 0f, targetValue = 360f, animationSpec = getInfiniteRepeatableSpec(),
+        label = "rotation"
     )
     var state by remember {
         mutableStateOf(false)
@@ -391,11 +411,12 @@ fun AnimateTranslation(translation: Float) {
 
 @Composable
 fun InfiniteTransitionColor(initialColor: Color, targetColor: Color) {
-    val infiniteTransition = rememberInfiniteTransition()
+    val infiniteTransition = rememberInfiniteTransition(label = "infiniteTransition color")
     val value by infiniteTransition.animateColor(
         initialValue = initialColor,
         targetValue = targetColor,
-        animationSpec = getInfiniteRepeatableSpec()
+        animationSpec = getInfiniteRepeatableSpec(),
+        label = "animateColor"
     )
     ContentContainer(title = "color  = ${value.value}") {
         MyBox(color = value, useItemImage = false)
@@ -426,7 +447,7 @@ private fun ClickAbleCard(
     modifier: Modifier = Modifier,
     title: String,
     containerColor: Color = MaterialTheme.colorScheme.primary,
-    textColor: Color = MaterialTheme.colorScheme.onPrimary
+    textColor: Color = MaterialTheme.colorScheme.onPrimary,
 ) {
     Card(
         modifier = modifier,
@@ -444,8 +465,6 @@ private fun ClickAbleCard(
     }
 }
 
-
-
 @Preview
 @Composable
 fun AnimationValuePreview() {
@@ -454,6 +473,25 @@ fun AnimationValuePreview() {
             modifier = Modifier
                 .statusBarsPadding()
                 .verticalScroll(rememberScrollState())
+        )
+    }
+}
+@Preview
+@Composable
+fun ManualTransitionPreview() {
+    JetpackComposeCatalogTheme {
+        ManualTransition(
+            modifier = Modifier.statusBarsPadding()
+        )
+    }
+}
+
+@Preview(device = "spec:width=1080px,height=12000px,dpi=440")
+@Composable
+fun InfiniteTransitionPreview() {
+    JetpackComposeCatalogTheme {
+        InfiniteTransition(
+            modifier = Modifier.statusBarsPadding()
         )
     }
 }
