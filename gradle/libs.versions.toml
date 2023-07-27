@@ -12,16 +12,21 @@ androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.2"
 agp = "8.1.0"
 accompanist = "0.15.0"
+
+cachefix = "2.7.1"
 chucker = "3.5.2"
 coil = "2.3.0"
 compose-bom = "2023.06.01"
-coroutines = "1.7.2"
+coroutines = "1.7.3"
 composecompiler = "1.4.8"
+
 dagger_hilt = "2.47"
 kotlin = "1.8.22"
+ksp = "1.8.22-1.0.11"
 lottie = "6.1.0"
 protobuf = "3.23.0"
 protobufPlugin = "0.9.3"
+reorderable = "0.9.6"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -30,10 +35,10 @@ android-dagger-hilt-library = { id = "com.google.dagger.hilt.android", version.r
 android-dagger-hilt = { id = "dagger.hilt.android.plugin", version.ref = "dagger_hilt" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
-cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "2.7.1" }
+cacheFixPlugin = { id = "org.gradle.android.cache-fix", version.ref = "cachefix" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-ksp = "com.google.devtools.ksp:1.8.22-1.0.11"
+ksp = {id = "com.google.devtools.ksp" , version.ref = "ksp"}
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 
 [libraries]
@@ -83,3 +88,4 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 
 lottile = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+reorderable = { module = "org.burnoutcrew.composereorderable:reorderable", version.ref = "reorderable" }

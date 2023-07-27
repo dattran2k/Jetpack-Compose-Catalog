@@ -1,6 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -42,7 +39,7 @@ dependencies {
 
     implementation(libs.accompanist.coil)
     implementation(libs.lottile)
-    implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
+    implementation(libs.reorderable)
     // hilt
     implementation(libs.androidx.hilt.navigationcompose)
     implementation(libs.androidx.hilt.work)

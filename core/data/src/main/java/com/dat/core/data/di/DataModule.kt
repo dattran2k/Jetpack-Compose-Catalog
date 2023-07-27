@@ -7,10 +7,6 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-/**
- * Here are the dependencies which will be injected by hilt
- *
- */
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataModule {
