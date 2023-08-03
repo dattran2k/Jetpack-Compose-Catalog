@@ -137,7 +137,10 @@ fun DescribeCatalog(
             style = MaterialTheme.typography.titleMedium
         )
         when (catalogGroup.catalogComposeGroup) {
-            CatalogComposeGroup.Widgets -> {
+//            CatalogComposeGroup.Widgets -> {
+//
+//            }
+            CatalogComposeGroup.Modifier -> {
 
             }
 
@@ -159,6 +162,8 @@ fun DescribeCatalog(
                     designsystemR.raw.anim_animation_switch
                 )
             }
+
+
         }
     }
 }

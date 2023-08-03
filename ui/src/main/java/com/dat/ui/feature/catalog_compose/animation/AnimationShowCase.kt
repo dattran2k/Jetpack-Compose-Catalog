@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
 
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.animation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -16,7 +16,12 @@ import androidx.compose.ui.unit.dp
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 
 @Composable
-fun AnimationShowCase(modifier: Modifier = Modifier) {
+fun AnimationShowCaseRoute(modifier: Modifier = Modifier) {
+    AnimationShowCaseScreen(modifier)
+}
+
+@Composable
+fun AnimationShowCaseScreen(modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -32,12 +37,12 @@ fun AnimationShowCase(modifier: Modifier = Modifier) {
             AnimatedContentScreen(Modifier.height(200.dp))
         }
         item {
-            AnimamatedVisibilityScreen()
+            AnimatedVisibilityScreen()
         }
     }
 }
 
-@Preview
+@Preview(device = "spec:width=1080px,height=12000px,dpi=440")
 @Composable
 fun AnimationShowCasePreview() {
     JetpackComposeCatalogTheme {
@@ -46,7 +51,7 @@ fun AnimationShowCasePreview() {
                 .fillMaxSize()
                 .statusBarsPadding()
         ) {
-            AnimationShowCase(Modifier)
+            AnimationShowCaseScreen(Modifier)
         }
     }
 }

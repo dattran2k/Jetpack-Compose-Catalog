@@ -1,3 +1,3 @@
-package com.dat.ui.common.ui_model
+package com.dat.core.model.ui
 
 class ShowCode(val name: String, val value: String)

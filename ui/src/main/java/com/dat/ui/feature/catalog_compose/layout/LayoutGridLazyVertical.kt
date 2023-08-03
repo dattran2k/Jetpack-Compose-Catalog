@@ -1,52 +1,52 @@
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.layout
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dat.core.model.ui.MyGridCells
+import com.dat.core.model.ui.MyHorizontalArrangement
+import com.dat.core.model.ui.MyVerticalArrangement
 import com.dat.designsystem.component.MyBox
 import com.dat.designsystem.component.SettingComponent
 import com.dat.designsystem.component.ValueSlider
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.designsystem.theme.getColorByIndex
-import com.dat.ui.common.ui_model.MyStaggeredGridCells
-import com.dat.ui.common.ui_model.MyVerticalArrangement
 import kotlin.random.Random
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun LayoutGridLazyHorizontalStaggered(
+fun LayoutGridLazyVerticalRoute(modifier: Modifier = Modifier) {
+    LayoutGridLazyVerticalScreen(modifier)
+}
+
+@Composable
+fun LayoutGridLazyVerticalScreen(
     modifier: Modifier = Modifier,
     viewModel: LayoutViewModel = hiltViewModel()
 ) {
     val itemCount by viewModel.itemCountState.collectAsState()
     val verticalArrangement by viewModel.verticalArrangementState.collectAsState()
-    val staggeredGridCellsData by viewModel.staggeredGridCells.collectAsState()
-    var horizontalItemSpacing by remember {
-        mutableStateOf(0)
-    }
+    val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
+
+    val gridCellsData by viewModel.gridCells.collectAsState()
     Column(modifier = modifier) {
-        LazyHorizontalStaggeredGrid(
+        LazyVerticalGrid(
             modifier = Modifier.weight(1f),
-            rows = staggeredGridCellsData.staggeredGridCells,
-            horizontalItemSpacing = horizontalItemSpacing.dp,
-            verticalArrangement = verticalArrangement.value
+            columns = gridCellsData.gridCells,
+            verticalArrangement = verticalArrangement.value,
+            horizontalArrangement = horizontalArrangement.value
         ) {
             items(itemCount, key = { it }) {
                 val size = Random.nextInt(50, 400).dp
@@ -60,6 +60,7 @@ fun LayoutGridLazyHorizontalStaggered(
                 }
             }
         }
+
         // config
         ValueSlider(
             title = "Item count :",
@@ -68,15 +69,12 @@ fun LayoutGridLazyHorizontalStaggered(
             to = 100,
             onValueChange = viewModel::onUpdateItemCount
         )
-        ValueSlider(
-            title = "HorizontalItemSpacing",
-            value = horizontalItemSpacing,
-            isProperties = true,
-            from = 0,
-            to = 100,
-            onValueChange = {
-                horizontalItemSpacing = it
-            }
+        SettingComponent(
+            name = "horizontalArrangement",
+            settingSelected = horizontalArrangement,
+            listSetting = MyHorizontalArrangement.values().toList(),
+            mapName = { it.typeName },
+            onSettingSelected = viewModel::onHorizontalArrangementSelected
         )
         SettingComponent(
             name = "verticalArrangement",
@@ -89,39 +87,38 @@ fun LayoutGridLazyHorizontalStaggered(
         // TODO improve this
         SettingComponent(
             name = "columns",
-            settingSelected = staggeredGridCellsData.myStaggeredGridCells,
-            listSetting = MyStaggeredGridCells.values().toList(),
+            settingSelected = gridCellsData.myGridCells,
+            listSetting = MyGridCells.values().toList(),
             mapName = { it.typeName },
-            onSettingSelected = viewModel::onSelectStaggeredGridCells
+            onSettingSelected = viewModel::onSelectGridCells
         )
 
-        if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Adaptive)
+        if (gridCellsData.gridCells is GridCells.Adaptive)
             ValueSlider(
                 title = "Adaptive",
-                value = staggeredGridCellsData.value,
+                value = gridCellsData.value,
                 isProperties = true,
                 from = 40,
                 to = 400,
-                onValueChange = viewModel::updateStaggeredAdaptive
+                onValueChange = viewModel::updateAdaptive
             )
-        if (staggeredGridCellsData.staggeredGridCells is StaggeredGridCells.Fixed)
+        if (gridCellsData.gridCells is GridCells.Fixed)
             ValueSlider(
                 title = "Fix",
-                value = staggeredGridCellsData.value,
+                value = gridCellsData.value,
                 isProperties = true,
                 from = 1,
                 to = 10,
-                onValueChange = viewModel::updateStaggeredFixed
+                onValueChange = viewModel::updateFixed
             )
     }
-
 }
 
 @Preview
 @Composable
-fun GridLazyHorizontalStaggeredComposeScreenPreview() {
+fun GridLazyVerticalComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
-        LayoutGridLazyHorizontalStaggered(
+        LayoutGridLazyVerticalScreen(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()

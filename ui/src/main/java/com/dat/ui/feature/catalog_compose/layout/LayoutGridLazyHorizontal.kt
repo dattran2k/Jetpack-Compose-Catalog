@@ -1,11 +1,11 @@
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.layout
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,18 +16,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dat.core.model.ui.MyGridCells
+import com.dat.core.model.ui.MyHorizontalArrangement
+import com.dat.core.model.ui.MyVerticalArrangement
 import com.dat.designsystem.component.MyBox
 import com.dat.designsystem.component.SettingComponent
 import com.dat.designsystem.component.ValueSlider
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.designsystem.theme.getColorByIndex
-import com.dat.ui.common.ui_model.MyGridCells
-import com.dat.ui.common.ui_model.MyHorizontalArrangement
-import com.dat.ui.common.ui_model.MyVerticalArrangement
 import kotlin.random.Random
 
 @Composable
-fun LayoutGridLazyVertical(
+fun LayoutGridLazyHorizontalRoute(modifier: Modifier = Modifier) {
+    LayoutGridLazyHorizontalScreen(modifier)
+}
+
+@Composable
+fun LayoutGridLazyHorizontalScreen(
     modifier: Modifier = Modifier,
     viewModel: LayoutViewModel = hiltViewModel()
 ) {
@@ -37,9 +42,9 @@ fun LayoutGridLazyVertical(
 
     val gridCellsData by viewModel.gridCells.collectAsState()
     Column(modifier = modifier) {
-        LazyVerticalGrid(
+        LazyHorizontalGrid(
             modifier = Modifier.weight(1f),
-            columns = gridCellsData.gridCells,
+            rows = gridCellsData.gridCells,
             verticalArrangement = verticalArrangement.value,
             horizontalArrangement = horizontalArrangement.value
         ) {
@@ -55,7 +60,6 @@ fun LayoutGridLazyVertical(
                 }
             }
         }
-
         // config
         ValueSlider(
             title = "Item count :",
@@ -107,13 +111,14 @@ fun LayoutGridLazyVertical(
                 onValueChange = viewModel::updateFixed
             )
     }
+
 }
 
 @Preview
 @Composable
-fun GridLazyVerticalComposeScreenPreview() {
+fun GridLazyHorizontalComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
-        LayoutGridLazyVertical(
+        LayoutGridLazyHorizontalScreen(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()

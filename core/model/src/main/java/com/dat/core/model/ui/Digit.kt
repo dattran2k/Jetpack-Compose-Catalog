@@ -1,4 +1,4 @@
-package com.dat.ui.common.ui_model
+package com.dat.core.model.ui
 
 data class Digit(val singleDigit: Char, val fullNumber: Int, val place: Int) {
     override fun equals(other: Any?): Boolean {

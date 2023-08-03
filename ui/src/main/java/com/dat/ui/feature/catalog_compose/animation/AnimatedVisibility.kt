@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalAnimationApi::class)
 
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.animation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
@@ -26,16 +26,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dat.core.model.ui.MyAnim
+import com.dat.core.model.ui.MyAnim.easing
 import com.dat.designsystem.component.MyBox
 import com.dat.designsystem.component.TextHeadBloc
 import com.dat.designsystem.component.TextTitleBloc
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.ui.common.ui_model.MyAnim
-import com.dat.ui.common.ui_model.MyAnim.easing
 import kotlinx.coroutines.delay
 
 @Composable
-fun AnimamatedVisibilityScreen(modifier: Modifier = Modifier) {
+fun AnimatedVisibilityRoute() {
+    AnimatedVisibilityScreen(Modifier.verticalScroll(rememberScrollState()))
+}
+
+@Composable
+fun AnimatedVisibilityScreen(modifier: Modifier = Modifier) {
     var isVisible by remember {
         mutableStateOf(true)
     }
@@ -102,7 +107,7 @@ private fun ContentVisibility(
 @Composable
 fun AnimationVisibilityPreview() {
     JetpackComposeCatalogTheme {
-        AnimamatedVisibilityScreen(
+        AnimatedVisibilityScreen(
             Modifier
                 .statusBarsPadding()
                 .verticalScroll(rememberScrollState())

@@ -1,6 +1,6 @@
-@file:OptIn(ExperimentalAnimationApi::class)
+@file:OptIn(ExperimentalAnimationApi::class, ExperimentalAnimationApi::class)
 
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.animation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
@@ -30,12 +30,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.dat.core.model.ui.Digit
 import com.dat.designsystem.component.TextHeadBloc
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.ui.common.ui_model.Digit
 import kotlinx.coroutines.delay
 
 const val DELAY = 300
+
+@Composable
+fun AnimatedContentRoute(modifier: Modifier = Modifier) {
+    AnimatedContentScreen(modifier)
+}
 
 @Composable
 fun AnimatedContentScreen(modifier: Modifier = Modifier) {
@@ -111,7 +116,8 @@ private fun AnimatedContentNumberCount(count: Int) {
                             // be displayed out of bounds.
                             SizeTransform(clip = false)
                         )
-                    }
+                    },
+                    label = "AnimatedContent"
                 ) { targetCount ->
                     Text(
                         text = "${targetCount.singleDigit}",

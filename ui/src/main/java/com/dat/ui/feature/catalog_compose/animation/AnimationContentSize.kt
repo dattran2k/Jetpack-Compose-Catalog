@@ -1,4 +1,4 @@
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.animation
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FiniteAnimationSpec
@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,14 +25,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.dat.core.model.ui.MyAnim
+import com.dat.core.model.ui.MyAnim.easing
+import com.dat.core.model.ui.MyAnim.spring
 import com.dat.designsystem.component.TextHeadBloc
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.designsystem.theme.getColorByIndex
-import com.dat.ui.common.ui_model.MyAnim
-import com.dat.ui.common.ui_model.MyAnim.easing
-import com.dat.ui.common.ui_model.MyAnim.spring
 import kotlinx.coroutines.delay
 
+@Composable
+fun AnimationContentSizeRoute() {
+    AnimationContentSizeScreen(Modifier.verticalScroll(rememberScrollState()))
+}
 
 @Composable
 fun AnimationContentSizeScreen(modifier: Modifier = Modifier) {

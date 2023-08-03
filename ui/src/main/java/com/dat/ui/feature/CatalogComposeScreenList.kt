@@ -3,13 +3,15 @@ package com.dat.ui.feature
 enum class CatalogComposeGroup {
     Layout,
     Animation,
-    Widgets,
+
+    //    Widgets,
+    Modifier
 
 }
 
 enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
-//    Box(CatalogComposeGroup.Widgets),
-
+    //    Box(CatalogComposeGroup.Widgets),
+    Modifier(CatalogComposeGroup.Modifier),
     AnimationShowCase(CatalogComposeGroup.Animation),
     ContentVisibility(CatalogComposeGroup.Animation),
     AnimateContentSize(CatalogComposeGroup.Animation),

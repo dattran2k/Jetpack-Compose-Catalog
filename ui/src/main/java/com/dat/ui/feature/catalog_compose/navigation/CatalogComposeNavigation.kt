@@ -4,8 +4,6 @@ package com.dat.ui.feature.catalog_compose.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,20 +27,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.dat.ui.feature.CatalogComposeEnum
-import com.dat.ui.feature.catalog_compose.AnimamatedVisibilityScreen
-import com.dat.ui.feature.catalog_compose.AnimatedContentScreen
-import com.dat.ui.feature.catalog_compose.AnimationContentSizeScreen
-import com.dat.ui.feature.catalog_compose.AnimationOffsetBouncingBall
-import com.dat.ui.feature.catalog_compose.AnimationShowCase
-import com.dat.ui.feature.catalog_compose.AnimationValueScreen
-import com.dat.ui.feature.catalog_compose.LayoutColumn
-import com.dat.ui.feature.catalog_compose.LayoutColumnLazy
-import com.dat.ui.feature.catalog_compose.LayoutGridLazyHorizontal
-import com.dat.ui.feature.catalog_compose.LayoutGridLazyHorizontalStaggered
-import com.dat.ui.feature.catalog_compose.LayoutGridLazyVertical
-import com.dat.ui.feature.catalog_compose.LayoutGridLazyVerticalStaggered
-import com.dat.ui.feature.catalog_compose.LayoutLazyRow
-import com.dat.ui.feature.catalog_compose.LayoutRow
+import com.dat.ui.feature.catalog_compose.animation.AnimatedContentRoute
+import com.dat.ui.feature.catalog_compose.animation.AnimatedVisibilityRoute
+import com.dat.ui.feature.catalog_compose.animation.AnimationContentSizeRoute
+import com.dat.ui.feature.catalog_compose.animation.AnimationOffsetBouncingBallRoute
+import com.dat.ui.feature.catalog_compose.animation.AnimationShowCaseRoute
+import com.dat.ui.feature.catalog_compose.animation.AnimationValueRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutColumnLazyRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutColumnRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutGridLazyHorizontalRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutGridLazyHorizontalStaggeredRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutGridLazyVerticalRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutGridLazyVerticalStaggeredRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutRowLazyRoute
+import com.dat.ui.feature.catalog_compose.layout.LayoutRowRoute
+import com.dat.ui.feature.catalog_compose.modifier.ModifierConfigRoute
 import com.dat.ui.navigation.Screen
 
 const val CATALOG_ROUTE_NAME = "CatalogCompose"
@@ -69,7 +68,7 @@ fun NavGraphBuilder.animationShowCaseHome() {
             navDeepLink { uriPattern = Screen.AnimationShowCase.deepLink },
         ),
     ) {
-        AnimationShowCase()
+        AnimationShowCaseRoute()
     }
 }
 
@@ -133,24 +132,25 @@ private fun TopAppBar(
 
 @Composable
 fun CatalogComposeHost(modifier: Modifier, id: CatalogComposeEnum) {
-    val modifierScrollable = Modifier.verticalScroll(rememberScrollState())
+
     Surface(modifier = modifier) {
         when (id) {
 //                    CatalogComposeEnum.Box -> BoxComposeScreen()
-            CatalogComposeEnum.Column -> LayoutColumn()
-            CatalogComposeEnum.LazyColumn -> LayoutColumnLazy()
-            CatalogComposeEnum.Row -> LayoutRow()
-            CatalogComposeEnum.LazyRow -> LayoutLazyRow()
-            CatalogComposeEnum.LazyVerticalStaggeredGrid -> LayoutGridLazyVerticalStaggered()
-            CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVertical()
-            CatalogComposeEnum.LazyHorizontalStaggeredGrid -> LayoutGridLazyHorizontalStaggered()
-            CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontal()
-            CatalogComposeEnum.ContentVisibility -> AnimamatedVisibilityScreen(modifierScrollable)
-            CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeScreen(modifierScrollable)
-            CatalogComposeEnum.AnimatedContent -> AnimatedContentScreen()
-            CatalogComposeEnum.AnimatedValue -> AnimationValueScreen(modifierScrollable)
-            CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationOffsetBouncingBall()
-            CatalogComposeEnum.AnimationShowCase -> AnimationShowCase()
+            CatalogComposeEnum.Column -> LayoutColumnRoute()
+            CatalogComposeEnum.LazyColumn -> LayoutColumnLazyRoute()
+            CatalogComposeEnum.Row -> LayoutRowRoute()
+            CatalogComposeEnum.LazyRow -> LayoutRowLazyRoute()
+            CatalogComposeEnum.LazyVerticalStaggeredGrid -> LayoutGridLazyVerticalStaggeredRoute()
+            CatalogComposeEnum.LazyVerticalGrid -> LayoutGridLazyVerticalRoute()
+            CatalogComposeEnum.LazyHorizontalStaggeredGrid -> LayoutGridLazyHorizontalStaggeredRoute()
+            CatalogComposeEnum.LazyHorizontalGrid -> LayoutGridLazyHorizontalRoute()
+            CatalogComposeEnum.ContentVisibility -> AnimatedVisibilityRoute()
+            CatalogComposeEnum.AnimateContentSize -> AnimationContentSizeRoute()
+            CatalogComposeEnum.AnimatedContent -> AnimatedContentRoute()
+            CatalogComposeEnum.AnimatedValue -> AnimationValueRoute()
+            CatalogComposeEnum.AnimationOffsetBouncingBall -> AnimationOffsetBouncingBallRoute()
+            CatalogComposeEnum.AnimationShowCase -> AnimationShowCaseRoute()
+            CatalogComposeEnum.Modifier -> ModifierConfigRoute()
         }
     }
 }

@@ -1,13 +1,16 @@
-package com.dat.ui.feature.catalog_compose
+@file:OptIn(ExperimentalFoundationApi::class)
+
+package com.dat.ui.feature.catalog_compose.layout
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,37 +24,39 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dat.core.model.ui.MyHorizontalArrangement
+import com.dat.core.model.ui.MyVerticalAlignment
 import com.dat.designsystem.component.MySwitchButtonCompose
 import com.dat.designsystem.component.SettingComponent
 import com.dat.designsystem.component.TextItemLayout
 import com.dat.designsystem.component.ValueSlider
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.ui.common.ui_model.MyHorizontalAlignment
-import com.dat.ui.common.ui_model.MyVerticalArrangement
 
 private const val PER_GROUP_COUNT = 10
 
-@ExperimentalFoundationApi
 @Composable
-fun LayoutColumnLazy(
+fun LayoutRowLazyRoute(modifier: Modifier = Modifier) {
+    LayoutRowLazyScreen(modifier)
+}
+
+
+@Composable
+fun LayoutRowLazyScreen(
     modifier: Modifier = Modifier,
     viewModel: LayoutViewModel = hiltViewModel()
 ) {
-    val verticalArrangement by viewModel.verticalArrangementState.collectAsState()
-    val horizontalAlignment by viewModel.horizontalAlignmentState.collectAsState()
-
+    val horizontalArrangement by viewModel.horizontalArrangementState.collectAsState()
+    val verticalAlignment by viewModel.verticalAlignmentState.collectAsState()
     val itemCount by viewModel.itemCountState.collectAsState()
 
     var stickyHeader by remember {
         mutableStateOf(false)
     }
-    Column(modifier) {
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            verticalArrangement = verticalArrangement.value,
-            horizontalAlignment = horizontalAlignment.value,
+    Column(modifier = modifier) {
+        LazyRow(
+            modifier = Modifier.weight(1f),
+            verticalAlignment = verticalAlignment.value,
+            horizontalArrangement = horizontalArrangement.value,
         ) {
             if (stickyHeader) {
                 val countHeader = itemCount / PER_GROUP_COUNT
@@ -69,15 +74,22 @@ fun LayoutColumnLazy(
                         )
                     }
                     items(PER_GROUP_COUNT) {
-                        TextItemLayout(text = "Item $it, group $group")
+                        TextItemLayout(
+                            modifier = Modifier.fillMaxHeight(0.5f),
+                            text = "Item $it, group $group"
+                        )
                     }
                 }
             } else {
                 items(itemCount, key = { it }) {
-                    TextItemLayout(text = "Item $it")
+                    TextItemLayout(
+                        modifier = Modifier.fillMaxHeight(0.5f),
+                        text = "Item $it"
+                    )
                 }
             }
         }
+
         // config
         ValueSlider(
             title = "Item count :",
@@ -87,25 +99,26 @@ fun LayoutColumnLazy(
             onValueChange = viewModel::onUpdateItemCount
         )
         MySwitchButtonCompose(
-            title = "Sticky Header",
+            title = "Sticky Header : ",
             isSelected = stickyHeader,
             onSelectedCallback = {
                 stickyHeader = it
             }
         )
+
         SettingComponent(
-            name = "verticalArrangement",
-            settingSelected = verticalArrangement,
-            listSetting = MyVerticalArrangement.values().toList(),
+            name = "verticalAlignment",
+            settingSelected = verticalAlignment,
+            listSetting = MyVerticalAlignment.values().toList(),
             mapName = { it.typeName },
-            onSettingSelected = viewModel::onVerticalArrangementSelected
+            onSettingSelected = viewModel::onVerticalAlignmentSelected
         )
         SettingComponent(
-            name = "horizontalAlignment",
-            settingSelected = horizontalAlignment,
-            listSetting = MyHorizontalAlignment.values().toList(),
+            name = "horizontalArrangement",
+            settingSelected = horizontalArrangement,
+            listSetting = MyHorizontalArrangement.values().toList(),
             mapName = { it.typeName },
-            onSettingSelected = viewModel::onHorizontalAlignmentSelected
+            onSettingSelected = viewModel::onHorizontalArrangementSelected
         )
     }
 
@@ -115,10 +128,10 @@ fun LayoutColumnLazy(
 @ExperimentalFoundationApi
 @Preview
 @Composable
-fun LazyColumnComposeScreenPreview() {
+fun LazyRowComposeScreenPreview() {
     JetpackComposeCatalogTheme {
-        LayoutColumnLazy(
-            modifier = Modifier
+        LayoutRowLazyScreen(
+            Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
         )

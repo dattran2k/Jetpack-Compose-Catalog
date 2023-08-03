@@ -1,4 +1,4 @@
-package com.dat.ui.common.ui_model
+package com.dat.core.model.ui
 
 import androidx.compose.ui.Alignment
 

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalAnimationGraphicsApi::class)
 
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.animation
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
@@ -49,6 +49,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dat.core.model.ui.CoordinateItem
 import com.dat.designsystem.MyIcons
 import com.dat.designsystem.component.MyBox
 import com.dat.designsystem.component.TextHeadBloc
@@ -56,7 +57,6 @@ import com.dat.designsystem.component.TextTitle2Bloc
 import com.dat.designsystem.component.TextTitleBloc
 import com.dat.designsystem.component.animateAlignmentAsState
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.ui.common.ui_model.CoordinateItem
 import kotlinx.coroutines.delay
 
 @Composable
@@ -67,6 +67,11 @@ private fun <T> getInfiniteRepeatableSpec(): InfiniteRepeatableSpec<T> = infinit
 fun <T> getTween() = tween<T>(
     durationMillis = 3000, easing = LinearEasing
 )
+
+@Composable
+fun AnimationValueRoute() {
+    AnimationValueScreen(Modifier.verticalScroll(rememberScrollState()))
+}
 
 @Composable
 fun AnimationValueScreen(modifier: Modifier = Modifier) {
@@ -313,7 +318,8 @@ fun ManualTransitionColor() {
 
 @Composable
 fun InfiniteTransitionFloat() {
-    val infiniteTransitionTransition = rememberInfiniteTransition(label = "infiniteTransitionTransition")
+    val infiniteTransitionTransition =
+        rememberInfiniteTransition(label = "infiniteTransitionTransition")
     val translation by infiniteTransitionTransition.animateFloat(
         initialValue = -50f, targetValue = 100f, animationSpec = getInfiniteRepeatableSpec(),
         label = "translation"
@@ -329,7 +335,8 @@ fun InfiniteTransitionFloat() {
         initialValue = 1f, targetValue = 3f, animationSpec = getInfiniteRepeatableSpec(),
         label = "scale"
     )
-    val infiniteTransitionRotation = rememberInfiniteTransition(label = "infiniteTransitionRotation")
+    val infiniteTransitionRotation =
+        rememberInfiniteTransition(label = "infiniteTransitionRotation")
     val rotation by infiniteTransitionRotation.animateFloat(
         initialValue = 0f, targetValue = 360f, animationSpec = getInfiniteRepeatableSpec(),
         label = "rotation"
@@ -476,6 +483,7 @@ fun AnimationValuePreview() {
         )
     }
 }
+
 @Preview
 @Composable
 fun ManualTransitionPreview() {

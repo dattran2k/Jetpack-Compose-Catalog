@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class, ExperimentalCoroutinesApi::class)
 
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.layout
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -8,12 +8,12 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dat.ui.common.ui_model.MyGridCells
-import com.dat.ui.common.ui_model.MyHorizontalAlignment
-import com.dat.ui.common.ui_model.MyHorizontalArrangement
-import com.dat.ui.common.ui_model.MyStaggeredGridCells
-import com.dat.ui.common.ui_model.MyVerticalAlignment
-import com.dat.ui.common.ui_model.MyVerticalArrangement
+import com.dat.core.model.ui.MyGridCells
+import com.dat.core.model.ui.MyHorizontalAlignment
+import com.dat.core.model.ui.MyHorizontalArrangement
+import com.dat.core.model.ui.MyStaggeredGridCells
+import com.dat.core.model.ui.MyVerticalAlignment
+import com.dat.core.model.ui.MyVerticalArrangement
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTextApi::class)
 
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.animation
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animate
@@ -43,9 +43,13 @@ import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 
+@Composable
+fun AnimationOffsetBouncingBallRoute(modifier: Modifier = Modifier) {
+    AnimationOffsetBouncingBallScreen(modifier)
+}
 
 @Composable
-fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
+fun AnimationOffsetBouncingBallScreen(modifier: Modifier = Modifier) {
     val density = LocalDensity.current
     var ballSizePx by remember {
         mutableStateOf(400f)
@@ -77,7 +81,8 @@ fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
     val coOrdinateAnimated = animateOffsetAsState(
         coOrdinate, animationSpec = spring(
             dampingRatio = Spring.DampingRatioHighBouncy, stiffness = Spring.StiffnessVeryLow
-        )
+        ),
+        label = "coOrdinateAnimated"
     )
     if (isAutoBouncing) LaunchedEffect(key1 = isStart) {
         delay(2000)
@@ -138,7 +143,7 @@ fun AnimationOffsetBouncingBall(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewAnimationBouncingBall() {
     JetpackComposeCatalogTheme {
-        AnimationOffsetBouncingBall(
+        AnimationOffsetBouncingBallScreen(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()

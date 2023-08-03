@@ -1,4 +1,4 @@
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.layout
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,16 +11,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dat.core.model.ui.MyHorizontalArrangement
+import com.dat.core.model.ui.MyVerticalAlignment
 import com.dat.designsystem.component.MyBox
 import com.dat.designsystem.component.SettingComponent
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.designsystem.theme.getColorByIndex
-import com.dat.ui.common.ui_model.MyHorizontalArrangement
-import com.dat.ui.common.ui_model.MyVerticalAlignment
-
 
 @Composable
-fun LayoutRow(
+fun LayoutRowRoute(modifier: Modifier = Modifier) {
+    LayoutRowScreen(modifier)
+}
+
+@Composable
+fun LayoutRowScreen(
     modifier: Modifier = Modifier,
     viewModel: LayoutViewModel = hiltViewModel()
 ) {
@@ -61,7 +65,7 @@ fun LayoutRow(
 @Composable
 fun RowComposeScreenPreview() {
     JetpackComposeCatalogTheme(true) {
-        LayoutRow(
+        LayoutRowScreen(
             Modifier
                 .fillMaxSize()
                 .statusBarsPadding()

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalAnimationApi::class)
 
-package com.dat.ui.common.ui_model
+package com.dat.core.model.ui
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition

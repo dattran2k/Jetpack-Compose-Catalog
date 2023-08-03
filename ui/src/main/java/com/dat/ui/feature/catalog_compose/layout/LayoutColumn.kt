@@ -1,4 +1,4 @@
-package com.dat.ui.feature.catalog_compose
+package com.dat.ui.feature.catalog_compose.layout
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,13 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dat.core.model.ui.MyHorizontalAlignment
+import com.dat.core.model.ui.MyVerticalArrangement
 import com.dat.designsystem.component.MyBox
 import com.dat.designsystem.component.SettingComponent
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.designsystem.theme.getColorByIndex
-import com.dat.ui.common.ui_model.MyHorizontalAlignment
-import com.dat.ui.common.ui_model.MyVerticalArrangement
 
+@Composable
+fun LayoutColumnRoute(modifier: Modifier = Modifier) {
+    LayoutColumn(modifier)
+}
 
 @Composable
 fun LayoutColumn(

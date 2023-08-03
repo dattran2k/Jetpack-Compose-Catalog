@@ -13,10 +13,11 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core:model"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui.ui)
     implementation(libs.androidx.compose.material.material3)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.lottile)
+    implementation(libs.reorderable)
 }
