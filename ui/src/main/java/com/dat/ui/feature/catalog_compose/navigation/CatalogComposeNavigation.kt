@@ -1,8 +1,7 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.dat.ui.feature.catalog_compose.navigation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -50,13 +49,13 @@ const val CATALOG_ARG_ID = "CATALOG_ARG_ID"
 
 fun NavController.navigateCatalogScreen(
     catalogComposeEnum: CatalogComposeEnum,
-    navOptions: NavOptions? = null
+    navOptions: NavOptions? = null,
 ) {
     this.navigate("$CATALOG_ROUTE_NAME/${catalogComposeEnum.name}", navOptions)
 }
 
 fun NavController.navigateAnimationShowCase(
-    navOptions: NavOptions? = null
+    navOptions: NavOptions? = null,
 ) {
     this.navigate(Screen.AnimationShowCase.route, navOptions)
 }
@@ -103,7 +102,7 @@ fun NavGraphBuilder.catalogScreen(navigateBack: (() -> Unit)? = null) {
 @Composable
 private fun TopAppBar(
     title: String,
-    navigateBack: (() -> Unit)?
+    navigateBack: (() -> Unit)?,
 ) {
     TopAppBar(
         modifier = Modifier.shadow(10.dp),
@@ -132,7 +131,6 @@ private fun TopAppBar(
 
 @Composable
 fun CatalogComposeHost(modifier: Modifier, id: CatalogComposeEnum) {
-
     Surface(modifier = modifier) {
         when (id) {
 //                    CatalogComposeEnum.Box -> BoxComposeScreen()

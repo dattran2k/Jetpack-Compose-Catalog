@@ -3,7 +3,6 @@ package com.dat.ui.feature
 enum class CatalogComposeGroup {
     Layout,
     Animation,
-
     //    Widgets,
     Modifier
 
@@ -27,6 +26,4 @@ enum class CatalogComposeEnum(val group: CatalogComposeGroup) {
     LazyVerticalGrid(CatalogComposeGroup.Layout),
     LazyHorizontalStaggeredGrid(CatalogComposeGroup.Layout),
     LazyHorizontalGrid(CatalogComposeGroup.Layout),
-
-
 }

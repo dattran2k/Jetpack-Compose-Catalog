@@ -14,7 +14,7 @@ sealed class ModifierConfig(
     val key : UUID = UUID.randomUUID()
 )
 @Stable
-fun Modifier.updateModifier(modifierConfig: ModifierConfig) = this.then(
+fun Modifier.getModifierFromConfig(modifierConfig: ModifierConfig) = this.then(
     when (modifierConfig) {
         is ModPadding -> when (modifierConfig) {
             is ModPadding.All -> Modifier.padding(modifierConfig.size)
@@ -37,6 +37,7 @@ fun Modifier.updateModifier(modifierConfig: ModifierConfig) = this.then(
         }
     }
 )
+operator fun Modifier.plus(modifier: Modifier) : Modifier = this.then(modifier)
 
 sealed class ModPadding(listShowCode: List<ShowCode>) : ModifierConfig("Padding", listShowCode) {
     //  Modifier.padding(all = 0.dp)
