@@ -13,7 +13,7 @@ androidxTestRunner = "1.5.2"
 agp = "8.1.0"
 accompanist = "0.15.0"
 
-cachefix = "2.7.1"
+cachefix = "2.7.3"
 chucker = "3.5.2"
 coil = "2.3.0"
 compose-bom = "2023.06.01"
@@ -22,10 +22,10 @@ composecompiler = "1.4.8"
 
 dagger_hilt = "2.47"
 kotlin = "1.9.0"
-ksp = "1.8.22-1.0.11"
+ksp = "1.9.0-1.0.13"
 lottie = "6.1.0"
 protobuf = "3.23.4"
-protobufPlugin = "0.9.3"
+protobufPlugin = "0.9.4"
 reorderable = "0.9.6"
 
 [plugins]

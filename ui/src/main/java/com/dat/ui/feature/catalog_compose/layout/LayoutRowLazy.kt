@@ -7,7 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyRow
@@ -65,7 +64,7 @@ fun LayoutRowLazyScreen(
                         Text(
                             text = "Group $group",
                             modifier = Modifier
-                                .fillMaxWidth()
+                                .fillMaxHeight()
                                 .background(color = Color.Black)
                                 .padding(8.dp),
                             style = MaterialTheme.typography.bodyMedium.copy(
@@ -73,7 +72,7 @@ fun LayoutRowLazyScreen(
                             )
                         )
                     }
-                    items(PER_GROUP_COUNT) {
+                    items(PER_GROUP_COUNT, key = {it}) {
                         TextItemLayout(
                             modifier = Modifier.fillMaxHeight(0.5f),
                             text = "Item $it, group $group"

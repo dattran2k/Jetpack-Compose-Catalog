@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.reorderable)
     // hilt
     implementation(libs.androidx.hilt.navigationcompose)
-    implementation(libs.androidx.hilt.work)
+//    implementation(libs.androidx.hilt.work)
     implementation(libs.dagger.hilt.library)
     kapt(libs.dagger.hilt.compiler)
 

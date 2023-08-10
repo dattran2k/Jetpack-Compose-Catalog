@@ -1,6 +1,11 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.dat.ui.feature.catalog_compose.modifier
 
+import android.util.Log
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -10,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -36,13 +40,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dat.core.designsystem.R
 import com.dat.core.model.ui.ModPadding
 import com.dat.core.model.ui.ModifierConfig
+import com.dat.designsystem.theme.BlackCodeColor
 import com.dat.designsystem.theme.BlackColor
 import com.dat.designsystem.theme.BlueCodeColor
 import com.dat.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.designsystem.theme.WhiteCodeColor
-import com.dat.designsystem.theme.WhiteColor
 import com.dat.designsystem.theme.WhiteColorAlpha10
 import com.dat.designsystem.theme.YellowCodeColor
+import org.burnoutcrew.reorderable.ItemPosition
 import org.burnoutcrew.reorderable.ReorderableItem
 import org.burnoutcrew.reorderable.detectReorderAfterLongPress
 import org.burnoutcrew.reorderable.rememberReorderableLazyListState
@@ -55,38 +60,44 @@ val editCodeModifier = Modifier
     .padding(horizontal = 8.dp)
 
 @Composable
-fun ModifierConfigRoute() {
-    ModifierConfigScreen()
-}
-
-@Composable
-fun ModifierConfigScreen(configViewModel: ModifierConfigViewModel = hiltViewModel()) {
+fun ModifierConfigRoute(configViewModel: ModifierConfigViewModel = hiltViewModel()) {
+    Log.e("TAG", "ModifierConfigRoute: ")
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Open)
-    val modifier: Modifier by configViewModel.modifier.collectAsStateWithLifecycle()
-
+    val configModifier: Modifier by configViewModel.modifier.collectAsStateWithLifecycle()
+    val listConfig by configViewModel.listConfigModifier.collectAsStateWithLifecycle()
     ModalNavigationDrawer(
         drawerState = drawerState,
-        modifier = Modifier.background(WhiteColorAlpha10),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Black),
         drawerContent = {
-            ModifierConfigDrawer(configViewModel)
+            ModifierConfigDrawer(listConfig, configViewModel::replaceItem) {
+                configViewModel.addModifierConfig(ModPadding.All(size = 1.dp))
+            }
         },
+        gesturesEnabled = true
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black)
-        ) {
-            Box(modifier = modifier.background(Color.Red))
-        }
+        ModifierConfigScreen(configModifier)
     }
 }
 
 @Composable
+fun ModifierConfigScreen(modifier: Modifier = Modifier) {
+    Box(
+        modifier = Modifier
+            .padding(top = 16.dp)
+            .then(modifier)
+            .background(Color.Red)
+    )
+}
+
+@Composable
 private fun ModifierConfigDrawer(
-    configViewModel: ModifierConfigViewModel = hiltViewModel()
+    listConfig: List<ModifierConfig>,
+    replaceItem: (ItemPosition, ItemPosition) -> Unit,
+    addModifierConfig: () -> Unit
 ) {
-    val listConfig by configViewModel.listConfigModifier.collectAsStateWithLifecycle()
-    val lazyState = rememberReorderableLazyListState(onMove = configViewModel::replaceItem)
+    val lazyState = rememberReorderableLazyListState(onMove = replaceItem)
     var propertiesSelected by remember {
         mutableStateOf(-1)
     }
@@ -96,6 +107,7 @@ private fun ModifierConfigDrawer(
             .fillMaxWidth(0.6f)
             .padding(horizontal = 4.dp)
     ) {
+
         Text(
             text = "Modifier",
             modifier = Modifier
@@ -114,22 +126,28 @@ private fun ModifierConfigDrawer(
         )
         LazyColumn(
             state = lazyState.listState,
-            modifier = Modifier.reorderable(lazyState)
+            modifier = Modifier
+                .reorderable(lazyState)
+                .weight(1f)
         ) {
             items(listConfig.size, { listConfig[it].key }) { index ->
                 val modifierConfig = listConfig[index]
-                ReorderableItem(lazyState, key = modifierConfig.key) { isDragging ->
-                    val color =
-                        animateColorAsState(if (isDragging) Color.Red else Color.Transparent)
+                ReorderableItem(
+                    lazyState,
+                    key = modifierConfig.key,
+                ) { isDragging ->
+                    val color = animateColorAsState(if (isDragging) Color.Red else Color.Transparent, label = "")
                     Box(
                         modifier = editCodeModifier
                             .detectReorderAfterLongPress(lazyState)
                             .background(color.value)
                             .padding(vertical = 4.dp)
+                            .animateItemPlacement(tween())
                     ) {
                         ShowCodeCompose(
                             modifierConfig = modifierConfig,
-                            index == propertiesSelected
+                            index == propertiesSelected,
+                            isDragging
                         ) {
                             propertiesSelected = if (propertiesSelected == index) -1 else index
                         }
@@ -137,23 +155,22 @@ private fun ModifierConfigDrawer(
                 }
             }
         }
-
-        Box(modifier = Modifier.weight(1f)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(1f)
+                .clickable(onClick = addModifierConfig)
+                .background(color = WhiteCodeColor)
+                .padding(16.dp),
+        ) {
             Text(
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .fillMaxWidth(1f)
-                    .background(color = WhiteCodeColor)
-                    .padding(4.dp)
-                    .clickable(onClick = {
-                        configViewModel.addModifierConfig(ModPadding.All(size = 1.dp))
-                    }),
+                modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.add_properties),
-                style = MaterialTheme.typography.bodyMedium,
-                color = WhiteColor,
+                style = MaterialTheme.typography.bodyLarge,
+                color = BlackCodeColor,
                 textAlign = TextAlign.Center
             )
         }
+
     }
 }
 
@@ -161,13 +178,15 @@ private fun ModifierConfigDrawer(
 fun ShowCodeCompose(
     modifierConfig: ModifierConfig,
     isSelected: Boolean,
+    isDragging: Boolean,
     selectCallback: () -> Unit,
 ) {
+    val color by animateColorAsState(if (isDragging || isSelected) Color.Red else Color.Transparent, label = "")
     Box(
         modifier = Modifier
-            .padding(vertical = 2.dp)
-            .background(if (isSelected) Color.Red else Color.Transparent)
+            .background(color)
             .clickable(onClick = selectCallback)
+
     ) {
         Text(text = buildAnnotatedString {
             withStyle(style = SpanStyle(color = YellowCodeColor)) {
@@ -196,11 +215,10 @@ fun ShowCodeCompose(
     }
 }
 
-@ExperimentalMaterial3Api
 @Preview
 @Composable
 fun PreviewBaseDetailCompose() {
     JetpackComposeCatalogTheme(content = {
-        ModifierConfigScreen()
+        ModifierConfigRoute()
     })
 }
