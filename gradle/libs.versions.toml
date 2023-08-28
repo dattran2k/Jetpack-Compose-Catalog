@@ -10,7 +10,7 @@ androidxUiAutomator = "2.2.0"
 androidxEspresso = "3.5.1"
 androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.2"
-agp = "8.1.0"
+agp = "8.1.1"
 accompanist = "0.15.0"
 
 cachefix = "2.7.3"
