@@ -34,8 +34,8 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.dat.core.model.DarkThemeConfig
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.designsystem.theme.LocalIsDarkMode
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.LocalIsDarkMode
 import com.dat.ui.common.Utils
 import com.dat.core.designsystem.R as designsystemR
 

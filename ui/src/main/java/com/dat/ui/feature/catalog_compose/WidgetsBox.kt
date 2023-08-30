@@ -6,7 +6,7 @@ package com.dat.ui.feature.catalog_compose
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
 
 @Composable
 fun WidgetsBox() {

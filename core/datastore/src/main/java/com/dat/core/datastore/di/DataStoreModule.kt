@@ -28,7 +28,7 @@ object DataStoreModule {
         DataStoreFactory.create(
             serializer = userPreferencesSerializer,
             scope = ioScope,
-            migrations = listOf(),
+            migrations = listOf()
         ) {
             context.dataStoreFile("user_preferences.pb")
         }

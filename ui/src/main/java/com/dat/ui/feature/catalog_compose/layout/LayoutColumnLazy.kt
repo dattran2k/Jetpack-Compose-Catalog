@@ -25,11 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dat.core.model.ui.MyHorizontalAlignment
 import com.dat.core.model.ui.MyVerticalArrangement
-import com.dat.designsystem.component.MySwitchButtonCompose
-import com.dat.designsystem.component.SettingComponent
-import com.dat.designsystem.component.TextItemLayout
-import com.dat.designsystem.component.ValueSlider
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.component.MySwitchButtonCompose
+import com.dat.core.designsystem.component.SettingComponent
+import com.dat.core.designsystem.component.TextItemLayout
+import com.dat.core.designsystem.component.ValueSlider
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
 
 private const val PER_GROUP_COUNT = 10
 

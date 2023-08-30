@@ -1,8 +1,8 @@
 
 package com.dat.ui.feature.main.navigation
 
-import com.dat.designsystem.Icon
-import com.dat.designsystem.MyIcons
+import com.dat.core.designsystem.Icon
+import com.dat.core.designsystem.MyIcons
 import com.dat.ui.navigation.Screen
 
 

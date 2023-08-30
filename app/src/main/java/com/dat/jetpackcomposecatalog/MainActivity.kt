@@ -21,7 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.ui.feature.catalog_compose.navigation.catalogScreen
 import com.dat.ui.feature.catalog_compose.navigation.navigateCatalogScreen
 import com.dat.ui.feature.main.navigation.mainScreen

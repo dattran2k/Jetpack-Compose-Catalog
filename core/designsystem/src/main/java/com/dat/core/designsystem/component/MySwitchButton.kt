@@ -1,4 +1,4 @@
-package com.dat.designsystem.component
+package com.dat.core.designsystem.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -31,10 +31,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.dat.designsystem.theme.BlackCodeColor
-import com.dat.designsystem.theme.BlueCodeColor
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.designsystem.theme.OrangeCodeColor
+import com.dat.core.designsystem.theme.BlackCodeColor
+import com.dat.core.designsystem.theme.BlueCodeColor
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.OrangeCodeColor
 
 @Composable
 fun MySwitchButtonCompose(

@@ -1,8 +1,7 @@
-package com.dat.designsystem
+package com.dat.core.designsystem
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.dat.core.designsystem.R
 
 object MyIcons {
     val MenuBook = R.drawable.ic_menu_book

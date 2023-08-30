@@ -1,4 +1,4 @@
-package com.dat.designsystem.component
+package com.dat.core.designsystem.component
 
 import androidx.annotation.RawRes
 import androidx.compose.foundation.layout.Box

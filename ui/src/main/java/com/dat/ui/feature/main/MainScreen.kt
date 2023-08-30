@@ -19,7 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.dat.designsystem.component.IconLoader
+import com.dat.core.designsystem.component.IconLoader
 import com.dat.ui.feature.CatalogComposeEnum
 import com.dat.ui.feature.catalog_compose.navigation.animationShowCaseHome
 import com.dat.ui.feature.catalog_compose.navigation.navigateAnimationShowCase

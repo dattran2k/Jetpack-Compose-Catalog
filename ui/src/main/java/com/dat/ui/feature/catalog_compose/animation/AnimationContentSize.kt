@@ -28,9 +28,9 @@ import androidx.compose.ui.unit.dp
 import com.dat.core.model.ui.MyAnim
 import com.dat.core.model.ui.MyAnim.easing
 import com.dat.core.model.ui.MyAnim.spring
-import com.dat.designsystem.component.TextHeadBloc
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.designsystem.theme.getColorByIndex
+import com.dat.core.designsystem.component.TextHeadBloc
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.getColorByIndex
 import kotlinx.coroutines.delay
 
 @Composable

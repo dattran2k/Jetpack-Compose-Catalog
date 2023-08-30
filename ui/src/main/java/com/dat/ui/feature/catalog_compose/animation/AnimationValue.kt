@@ -50,13 +50,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dat.core.model.ui.CoordinateItem
-import com.dat.designsystem.MyIcons
-import com.dat.designsystem.component.MyBox
-import com.dat.designsystem.component.TextHeadBloc
-import com.dat.designsystem.component.TextTitle2Bloc
-import com.dat.designsystem.component.TextTitleBloc
-import com.dat.designsystem.component.animateAlignmentAsState
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.MyIcons
+import com.dat.core.designsystem.component.MyBox
+import com.dat.core.designsystem.component.TextHeadBloc
+import com.dat.core.designsystem.component.TextTitle2Bloc
+import com.dat.core.designsystem.component.TextTitleBloc
+import com.dat.core.designsystem.component.animateAlignmentAsState
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
 import kotlinx.coroutines.delay
 
 @Composable

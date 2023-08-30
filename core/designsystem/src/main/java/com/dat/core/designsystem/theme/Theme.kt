@@ -1,4 +1,4 @@
-package com.dat.designsystem.theme
+package com.dat.core.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

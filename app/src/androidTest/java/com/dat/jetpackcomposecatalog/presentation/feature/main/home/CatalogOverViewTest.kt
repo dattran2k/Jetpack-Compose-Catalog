@@ -5,7 +5,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
 import com.dat.ui.feature.CatalogComposeEnum
 import com.dat.ui.feature.catalog_overview.CatalogOverViewGroup
 import com.dat.ui.feature.catalog_overview.CatalogOverviewScreen

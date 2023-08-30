@@ -1,4 +1,4 @@
-package com.dat.designsystem.component
+package com.dat.core.designsystem.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.dat.designsystem.MyIcons
+import com.dat.core.designsystem.MyIcons
 
 @Composable
 fun MyBox(

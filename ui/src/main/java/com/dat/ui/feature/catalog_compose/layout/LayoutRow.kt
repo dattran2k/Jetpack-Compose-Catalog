@@ -13,10 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dat.core.model.ui.MyHorizontalArrangement
 import com.dat.core.model.ui.MyVerticalAlignment
-import com.dat.designsystem.component.MyBox
-import com.dat.designsystem.component.SettingComponent
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.designsystem.theme.getColorByIndex
+import com.dat.core.designsystem.component.MyBox
+import com.dat.core.designsystem.component.SettingComponent
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.getColorByIndex
 
 @Composable
 fun LayoutRowRoute(modifier: Modifier = Modifier) {

@@ -37,9 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.toSize
-import com.dat.designsystem.component.MySwitchButtonCompose
-import com.dat.designsystem.component.ValueSlider
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.component.MySwitchButtonCompose
+import com.dat.core.designsystem.component.ValueSlider
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 

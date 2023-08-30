@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dat.core.model.ui.MyStaggeredGridCells
 import com.dat.core.model.ui.MyVerticalArrangement
-import com.dat.designsystem.component.MyBox
-import com.dat.designsystem.component.SettingComponent
-import com.dat.designsystem.component.ValueSlider
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.designsystem.theme.getColorByIndex
+import com.dat.core.designsystem.component.MyBox
+import com.dat.core.designsystem.component.SettingComponent
+import com.dat.core.designsystem.component.ValueSlider
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.getColorByIndex
 import kotlin.random.Random
 
 @Composable

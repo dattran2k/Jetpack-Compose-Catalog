@@ -29,9 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dat.designsystem.component.LotteAnimInfinityLoader
-import com.dat.designsystem.theme.JetpackComposeCatalogTheme
-import com.dat.designsystem.theme.LocalIsDarkMode
+import com.dat.core.designsystem.component.LotteAnimInfinityLoader
+import com.dat.core.designsystem.theme.JetpackComposeCatalogTheme
+import com.dat.core.designsystem.theme.LocalIsDarkMode
 import com.dat.ui.feature.CatalogComposeEnum
 import com.dat.ui.feature.CatalogComposeGroup
 import com.dat.core.designsystem.R as designsystemR

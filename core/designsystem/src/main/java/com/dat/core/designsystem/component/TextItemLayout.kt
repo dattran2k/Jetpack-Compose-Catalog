@@ -1,4 +1,4 @@
-package com.dat.designsystem.component
+package com.dat.core.designsystem.component
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
