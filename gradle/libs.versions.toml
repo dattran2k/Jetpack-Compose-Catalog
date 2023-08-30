@@ -11,14 +11,15 @@ androidxEspresso = "3.5.1"
 androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.2"
 agp = "8.1.1"
-accompanist = "0.15.0"
+accompanist = "0.32.0"
+accompanist-coil = "0.15.0"
 
 cachefix = "2.7.3"
 chucker = "3.5.2"
 coil = "2.3.0"
 compose-bom = "2023.08.00"
 coroutines = "1.7.3"
-composecompiler = "1.5.1"
+composecompiler = "1.5.3"
 
 dagger_hilt = "2.47"
 kotlin = "1.9.10"
@@ -44,7 +45,7 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 [libraries]
 accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 accompanist-navigation-material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
-accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanist" }
+accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanist-coil" }
 
 androidx-activity-activity = { module = "androidx.activity:activity", version.ref = "androidxactivity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxactivity" }
