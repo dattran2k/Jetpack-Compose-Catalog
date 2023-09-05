@@ -21,13 +21,11 @@ class CatalogOverviewViewModel : ViewModel() {
     // if anyone have better solution, pls update this
     fun updateExpand(group: CatalogOverViewGroup) {
         viewModelScope.launch {
-            catalogOverViewGroupList.value = catalogOverViewGroupList.value.toMutableList().apply {
+            catalogOverViewGroupList.value.apply {
                 val index = indexOfFirst {
                     it == group
                 }
-                this[index] = this[index].copy(
-                    isExpand = !this[index].isExpand
-                )
+                this[index].isExpand = !this[index].isExpand
             }
         }
     }
