@@ -3,7 +3,7 @@ compileSdk = "34"
 minSdk = "23"
 targetSdk = "34"
 
-androidxlifecycle = "2.6.1"
+androidxlifecycle = "2.6.2"
 androidxactivity = "1.7.2"
 androidxMacroBenchmark = "1.1.1"
 androidxUiAutomator = "2.2.0"
