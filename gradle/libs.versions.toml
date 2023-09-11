@@ -17,7 +17,7 @@ accompanist-coil = "0.15.0"
 cachefix = "2.7.4"
 chucker = "3.5.2"
 coil = "2.3.0"
-compose-bom = "2023.08.00"
+compose-bom = "2023.09.00"
 coroutines = "1.7.3"
 composecompiler = "1.5.3"
 
