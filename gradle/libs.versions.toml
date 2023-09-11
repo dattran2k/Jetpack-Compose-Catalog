@@ -25,7 +25,7 @@ dagger_hilt = "2.47"
 kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
 lottie = "6.1.0"
-protobuf = "3.24.2"
+protobuf = "3.24.3"
 protobufPlugin = "0.9.4"
 reorderable = "0.9.6"
 
