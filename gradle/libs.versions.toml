@@ -5,7 +5,7 @@ targetSdk = "34"
 
 androidxlifecycle = "2.6.2"
 androidxactivity = "1.7.2"
-androidxMacroBenchmark = "1.1.1"
+androidxMacroBenchmark = "1.2.2"
 androidxUiAutomator = "2.2.0"
 androidxEspresso = "3.5.1"
 androidxTestRules = "1.5.0"
