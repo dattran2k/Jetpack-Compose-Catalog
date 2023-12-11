@@ -22,7 +22,7 @@ coroutines = "1.7.3"
 composecompiler = "1.5.3"
 
 dagger_hilt = "2.47"
-kotlin = "1.9.20"
+kotlin = "1.9.21"
 ksp = "1.9.20-1.0.14"
 lottie = "6.1.0"
 protobuf = "3.25.0"
