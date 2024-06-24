@@ -61,7 +61,7 @@ fun AnimatedContentScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun CountIncrease() {
-    var count by remember { mutableStateOf(0) }
+    var count by remember { mutableStateOf(10000000L) }
     LaunchedEffect(count) {
         delay(DELAY.toLong())
         count++
@@ -71,7 +71,7 @@ fun CountIncrease() {
 
 @Composable
 fun CountDecrease() {
-    var count by remember { mutableStateOf(0) }
+    var count by remember { mutableStateOf(10000000L) }
     LaunchedEffect(count) {
         delay(DELAY.toLong())
         count--
@@ -82,7 +82,7 @@ fun CountDecrease() {
 
 // https://developer.android.com/jetpack/compose/animation/composables-modifiers#animatedcontent
 @Composable
-private fun AnimatedContentNumberCount(count: Int) {
+private fun AnimatedContentNumberCount(count: Long) {
     Row {
         count.toString().reversed()
             .mapIndexed { index, char -> Digit(char, count, index) }
